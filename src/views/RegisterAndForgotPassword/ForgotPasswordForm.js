@@ -1,5 +1,5 @@
 import {useForm} from "react-hook-form";
-import UserService from "../service/UserService";
+import UserService from "../../service/UserService";
 
 export default function ForgotPasswordForm() {
 
