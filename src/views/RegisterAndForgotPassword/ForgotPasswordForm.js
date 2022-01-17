@@ -10,8 +10,8 @@ export default function ForgotPasswordForm() {
     //const onSubmit = data => userService.forgotPassword(data);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-4 flex flex-col">
+        <form className="h-full" onSubmit={handleSubmit(onSubmit)}>
+            <div className="h-full space-y-4 flex flex-col">
                 <h1 className="text-4xl font-bold text-white mb-12">Forgot Password</h1>
                 <div>
                     <input
@@ -25,7 +25,7 @@ export default function ForgotPasswordForm() {
                 <div>
                     <input
                         type="submit"
-                        className="w-full p-2 font-semibold cursor-pointer rounded outline-none pointer transform transition-colors duration-500 hover:bg-blue-600 hover:text-white"
+                        className="w-full self-end text-white p-2 bg-theme-green font-semibold cursor-pointer rounded outline-none pointer transform transition-colors duration-500 hover:bg-green-600"
                         required
                     />
                 </div>

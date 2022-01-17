@@ -10,7 +10,7 @@ export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="h-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-4">
                 <h1 className="text-4xl font-bold text-white mb-12">Sign Up</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -18,7 +18,7 @@ export default function RegisterForm() {
                         <input
                             {...register("firstName")}
                             placeholder="First Name"
-                            className="w-full p-2 rounded focus:ring-2 focus:ring-green-900 outline-none"
+                            className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                             required
                         />
                     </div>
@@ -26,7 +26,7 @@ export default function RegisterForm() {
                         <input
                             {...register("lastName")}
                             placeholder="Last Name"
-                            className="w-full p-2 rounded focus:ring-2 focus:ring-green-900 outline-none"
+                            className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                             required
                         />
                     </div>
@@ -36,7 +36,7 @@ export default function RegisterForm() {
                         {...register("email")}
                         placeholder="Email"
                         type="email"
-                        className="w-full p-2 rounded focus:ring-2 focus:ring-green-900 outline-none"
+                        className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                         required
                     />
                 </div>
@@ -45,7 +45,7 @@ export default function RegisterForm() {
                         {...register("password")}
                         placeholder="Password"
                         type={showPassword ? "text" : "password"}
-                        className="w-full p-2 rounded focus:ring-2 focus:ring-green-900 outline-none"
+                        className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                         required
                     />
                     <EyeIcon
@@ -65,7 +65,7 @@ export default function RegisterForm() {
                     <select
                         {...register("gender")}
                         defaultValue={0}
-                        className="w-full p-2 rounded focus:ring-2 focus:ring-green-900 outline-none"
+                        className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                         required
                     >
                         <option value={0}>Female</option>
@@ -76,7 +76,7 @@ export default function RegisterForm() {
                         {...register("birthDate")}
                         placeholder="Birth Date"
                         type="date"
-                        className="w-full p-2 rounded focus:ring-2 focus:ring-green-900 outline-none"
+                        className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                     />
                 </div>
                 <div>
@@ -92,7 +92,7 @@ export default function RegisterForm() {
                 <div>
                     <input
                         type="submit"
-                        className="w-full p-2 font-semibold cursor-pointer rounded outline-none pointer transform transition-colors duration-500 hover:bg-blue-600 hover:text-white"
+                        className="w-full bg-theme-green p-2 font-semibold text-white cursor-pointer rounded outline-none pointer transform transition-colors duration-500 hover:bg-green-600"
                         required
                     />
                 </div>
