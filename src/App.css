@@ -7,10 +7,6 @@ body, #root, #root > div {
     height: 100vh;
     width: 100vw;
     overflow-x: hidden;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-image: url("assets/signin_background.png");
 }
 
 #root > div {

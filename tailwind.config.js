@@ -7,6 +7,7 @@ module.exports = {
             backgroundColor: {
                 "theme-green": "#92A74B",
                 "theme-brown": "#EADFD1",
+                "theme-darkbrown": "#ffc8a2",
             },
             textColor: {
                 "theme-green": "#92A74B",
@@ -14,6 +15,9 @@ module.exports = {
             },
             colors: {
                 "theme-green": "92A74B"
+            },
+            scale: {
+                '105': '1.05',
             }
         },
     },
