@@ -1,16 +1,17 @@
-import {AcademicCapIcon} from "@heroicons/react/solid";
 import {LocationMarkerIcon} from "@heroicons/react/outline";
 import RegisterForm from "./RegisterForm";
 import {useState} from "react";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import LogoWhite from "../../assets/images/logo_white.png";
 import LogoGreen from "../../assets/images/logo_green.png";
+import {useNavigate} from "react-router-dom";
 
 import "./RegisterAndForgotPassword.css";
 
 export default function RegisterAndForgotPassword() {
 
     const [isForgotPassword, setIsForgotPassword] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <div id="registerAndForgotPasswordWrapper" className="w-full md:h-full">
@@ -20,7 +21,7 @@ export default function RegisterAndForgotPassword() {
                     <div className="p-12 hidden lg:block bg-theme-green rounded-l-lg shadow-xl">
                         <div className="h-full w-full py-6 grid grid-rows-2">
                             <div id="Logo" className="flex flex-col">
-                                <img src={LogoWhite} alt="logo" className="w-36 h-36 hidden lg:block m-auto"/>
+                                <img src={LogoWhite} alt="logo" onClick={() => navigate("/")} className="w-36 h-36 hidden lg:block m-auto cursor-pointer"/>
                                 <h1 className="text-4xl font-bold text-white text-center">3in1</h1>
                             </div>
                             <div className="flex">
