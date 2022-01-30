@@ -9,7 +9,7 @@ export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
-        <div className="fixed w-full z-50 bg-transparent bg-opacity-5 bg-green-900">
+        <div className="fixed w-full z-50">
             <div className="flex px-4 md:px-16">
                 <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer" />
                 <div className="my-auto ml-4 select-none hidden sm:block">
@@ -20,19 +20,19 @@ export default function Header() {
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8">
-                    <NavLink to="/sleep" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800" >
+                    <NavLink to="/sleep" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
                         Sleep
                     </NavLink>
-                    <NavLink to="/chat" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800" >
+                    <NavLink to="/chat" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
                         Chat
                     </NavLink>
-                    <NavLink to="/meditation" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800" >
+                    <NavLink to="/meditation" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
                         Meditation
                     </NavLink>
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8 my-auto">
-                    <NavLink to="/login" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 px-3 rounded-lg bg-theme-darkbrown shadow-xl" >
+                    <NavLink to="/login" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 px-4 rounded-lg bg-theme-blue hover:bg-opacity-90 shadow-xl" >
                         Login
                     </NavLink>
                 </div>
