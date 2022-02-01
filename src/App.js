@@ -10,6 +10,7 @@ import Home from "./views/Home/Home";
 import NotFound from "./views/NotFound/NotFound";
 import Login from "./views/Login/Login";
 import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
+import Chat from "./views/Chat/Chat";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
                   <Route exact path="/" element={<Home />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<RegisterAndForgotPassword />} />
+                  <Route path="/chat" element={<Chat />} />
                   <Route path="*" element={<NotFound />} />
               </Routes>
           </BrowserRouter>
