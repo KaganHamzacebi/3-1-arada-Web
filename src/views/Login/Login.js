@@ -3,12 +3,14 @@ import LogoGreen from "../../assets/images/logo_green.png";
 import LogoWhite from "../../assets/images/logo_white.png";
 import {LocationMarkerIcon} from "@heroicons/react/outline";
 import LoginForm from "./LoginForm"
+import "./Login.css";
+
 
 export default function Login() {
     const navigate = useNavigate();
 
     return (
-        <div id="registerAndForgotPasswordWrapper" className="w-full md:h-full">
+        <div id="loginWrapper" className="w-full md:h-full">
             <div className="m-auto">
                 <div className="grid grid-cols-1 p-6 lg:flex lg:p-0">
                     <img src={LogoGreen} alt="logo_mobile" className="w-32 h-32 block lg:hidden m-auto"/>
@@ -43,7 +45,7 @@ export default function Login() {
                         <span className="text-black"> Forgot &nbsp;
                             <span className="font-bold underline cursor-pointer"
                                   onClick={() => {
-                                      navigate("/register?forgot")
+                                      navigate("/register?forgot=true")
                                   }}>
                          password?
                     </span>
