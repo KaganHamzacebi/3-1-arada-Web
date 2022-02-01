@@ -1,10 +1,10 @@
 import {LocationMarkerIcon} from "@heroicons/react/outline";
 import RegisterForm from "./RegisterForm";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import LogoWhite from "../../assets/images/logo_white.png";
 import LogoGreen from "../../assets/images/logo_green.png";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 import "./RegisterAndForgotPassword.css";
 
@@ -12,6 +12,12 @@ export default function RegisterAndForgotPassword() {
 
     const [isForgotPassword, setIsForgotPassword] = useState(false);
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    useEffect(() => {
+        const showForgot = searchParams.get("forgot");
+        setIsForgotPassword(showForgot === "true")
+    }, [])
 
     return (
         <div id="registerAndForgotPasswordWrapper" className="w-full md:h-full">
