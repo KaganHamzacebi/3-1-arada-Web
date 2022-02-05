@@ -9,7 +9,8 @@ module.exports = {
                 "theme-brown": "#EADFD1",
                 "theme-darkbrown": "#C3765A",
                 "theme-darkerbrown": "#4E2F24",
-                "theme-blue": "#C45567"
+                "theme-blue": "#C45567",
+                "theme-gray": "#E6E5E5"
             },
             textColor: {
                 "theme-green": "#92A74B",
@@ -22,6 +23,9 @@ module.exports = {
             },
             scale: {
                 '105': '1.05',
+            },
+            rotate: {
+                '18': '18deg',
             }
         },
     },

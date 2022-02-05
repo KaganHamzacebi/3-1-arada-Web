@@ -4,4 +4,6 @@
     background-size: cover;
     background-image: url("../../assets/register_background.png");
     display: flex;
+    width: 100vw;
+    height: 100vh;
 }

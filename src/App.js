@@ -1,4 +1,3 @@
-import './App.css';
 import {
     BrowserRouter,
     Routes,
@@ -11,6 +10,7 @@ import NotFound from "./views/NotFound/NotFound";
 import Login from "./views/Login/Login";
 import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 import Chat from "./views/Chat/Chat";
+import ChatRoom from "./views/Chat/ChatRoom";
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<RegisterAndForgotPassword />} />
                   <Route path="/chat" element={<Chat />} />
+                  <Route path="/chat/room=:id" element={<ChatRoom />} />
                   <Route path="*" element={<NotFound />} />
               </Routes>
           </BrowserRouter>

@@ -42,7 +42,7 @@ export default function Login() {
                 </div>
                 <div className="text-center mt-2">
                         {/*todo :: burası forgot */}
-                        <span className="text-black"> Forgot &nbsp;
+                        <span className="text-black"> Forgot&nbsp;
                             <span className="font-bold underline cursor-pointer"
                                   onClick={() => {
                                       navigate("/register?forgot=true")
