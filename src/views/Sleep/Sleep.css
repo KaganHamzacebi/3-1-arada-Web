@@ -1,0 +1,4 @@
+#sleepWrapper {
+    background: rgb(146,167,75);
+    background: linear-gradient(90deg, rgba(146,167,75,0.5) 0%, rgba(218,189,157,0.7) 50%, rgba(195,118,90,0.5) 100%);
+}
