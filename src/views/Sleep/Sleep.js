@@ -4,6 +4,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import "./Sleep.css";
 import PolarLine from "./PolarLine";
+import ScopeableLineChart from "./ScopeableLineChart";
+import PolarBarChart from "./PolarBarChart";
 
 class Sleep extends React.Component{
     constructor(props){
@@ -12,9 +14,17 @@ class Sleep extends React.Component{
     render(){
         return (<div id="sleepWrapper">
             <Header/>
-            <LineChart/>
-            <PolarLine/>
-            <Footer/>
+            <div class="grid grid-cols-2 gap-4">
+                <ScopeableLineChart componentId="sleepingTime"/>
+                <ScopeableLineChart componentId="sleepingStart"/>
+                <PolarLine/>
+                <div>CALENDAR WILL APPEAR HERE</div>
+                <PolarBarChart componentId="generalPolarBar"/>
+                <LineChart componentId="sleepQualityByDay"/>
+            </div>
+
+                <Footer/>
+
         </div>);
     }
 }

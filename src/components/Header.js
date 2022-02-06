@@ -12,25 +12,25 @@ export default function Header() {
         <div className="fixed w-full z-50">
             <div className="flex px-4 md:px-16">
                 <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer" />
-                <div className="my-auto ml-4 select-none hidden sm:block">
-                    <TextAnimation componentId="appName" text="3 in 1" fontSize={40}/>
+                <div className="my-auto ml-4 select-none hidden sm:block" onClick={() => navigate("/")}>
+                    <TextAnimation componentId="appName" text="3 in 1" fontSize={40} fontWeight="bold"/>
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8">
                     <NavLink to="/sleep" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
-                        <TextAnimation componentId="sleeptext" text="Sleep" fontSize={25}/>
+                        <TextAnimation componentId="sleeptext" text="Sleep" fontSize={20}/>
                     </NavLink>
                     <NavLink to="/chat" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
-                        <TextAnimation componentId="chattext" text="Chat" fontSize={25}/>
+                        <TextAnimation componentId="chattext" text="Chat" fontSize={20}/>
                     </NavLink>
                     <NavLink to="/meditation" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
-                        <TextAnimation componentId="meditationtext" text="Meditation" fontSize={25}/>
+                        <TextAnimation componentId="meditationtext" text="Meditation" fontSize={20}/>
                     </NavLink>
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8 my-auto">
                     <NavLink to="/login" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 px-4 rounded-lg bg-theme-blue hover:bg-opacity-90 shadow-xl" >
-                        Login
+                        <TextAnimation componentId="logintext" text="Login" fontSize={25}/>
                     </NavLink>
                 </div>
                 <div className="block md:hidden flex my-auto p-1 border-2 rounded-xl cursor-pointer">

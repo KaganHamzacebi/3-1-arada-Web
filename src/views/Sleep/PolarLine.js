@@ -92,7 +92,7 @@ class PolarLine extends React.Component{
     }
 
     render(){
-        return (<div id="polartest" style={{width:"600px", height:"400px"}}>
+        return (<div id="polartest" style={{width:"800px", height:"400px"}}>
 
         </div>);
     }

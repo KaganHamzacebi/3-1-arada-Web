@@ -8,6 +8,7 @@ class LineChart extends Component{
         this.state = {
             chartOption : props.chartOptions
         };
+        this.componentId = props.componentId;
         this.options = {
             seriesLine : {
                 smoothMonotone : 'y',
@@ -15,12 +16,36 @@ class LineChart extends Component{
         },
             grid :{ show: false},
             title: {
-                text: 'ECharts Getting Started Example'
+                text: 'Sleep Quality During Day'
             },
             tooltip: {},
             xAxis: {
 
-                data: ['shirt', 'cardigan', 'chiffon', 'pants', 'heels', 'socks']
+                data: ["01:00",
+                    "02:00",
+                    "03:00",
+                    "04:00",
+                    "05:00",
+                    "06:00",
+                    "07:00",
+                    "08:00",
+                    "09:00",
+                    "10:00",
+                    "11:00",
+                    "12:00",
+                    "13:00",
+                    "14:00",
+                    "15:00",
+                    "16:00",
+                    "17:00",
+                    "18:00",
+                    "19:00",
+                    "20:00",
+                    "21:00",
+                    "22:00",
+                    "23:00",
+                    "24:00",
+                ]
             },
             yAxis: {
                 splitLine:{show : false},
@@ -29,7 +54,30 @@ class LineChart extends Component{
                 {
                     name: 'sales',
                     type: 'line',
-                    data: [5, 20, 36, 10, 10, 20],
+                    data: [15,
+                        23,
+                        16,
+                        86,
+                        11,
+                        123,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        332,
+                        124,
+                        555,
+                        777,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,],
                     smooth:true,
                     symbol : "none",
 
@@ -38,14 +86,14 @@ class LineChart extends Component{
         }
     }
     componentDidMount() {
-        let myChart  = echarts.init(document.getElementById("denemekardes"));
+        let myChart  = echarts.init(document.getElementById(this.componentId));
         myChart.setOption(this.options);
     }
 
     render(){
         return(
 
-            <div id="denemekardes" style={{width:"600px", height:"400px"}}>
+            <div id={this.componentId} style={{width:"800px", height:"400px"}}>
             </div>
 
         )

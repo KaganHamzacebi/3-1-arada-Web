@@ -7,6 +7,7 @@ class TextAnimation extends React.Component{
         this.componentId = props.componentId;
         this.text = props.text;
         this.fontSize = props.fontSize
+        this.fontWeight = props.fontWeight ? props.fontWeight : "normal";
         this.option = {
             graphic: {
                 elements: [
@@ -17,7 +18,7 @@ class TextAnimation extends React.Component{
                         style: {
                             text: this.text,
                             fontSize: this.fontSize,
-                            fontWeight: 'bold',
+                            fontWeight: this.fontWeight,
                             lineDash: [0, 200],
                             lineDashOffset: 0,
                             fill: 'transparent',
@@ -25,7 +26,7 @@ class TextAnimation extends React.Component{
                             lineWidth: 1
                         },
                         keyframeAnimation: {
-                            duration: 1500,
+                            duration: 1000,
                             loop: false,
                             keyframes: [
                                 {
@@ -39,7 +40,7 @@ class TextAnimation extends React.Component{
                                     // Stop for a while.
                                     percent: 0.8,
                                     style: {
-                                        fill: '#C3765A7F'
+                                        fill: 'white'
                                     }
                                 },
                                 {
@@ -61,7 +62,10 @@ class TextAnimation extends React.Component{
         this.option && myChart.setOption(this.option);
     }
     render(){
-        return <div id={this.componentId} style={{width:"130px", height:"80px"}}></div>
+        let width = this.text.length * this.fontSize / 1.7;
+        let height = this.fontSize + 2;
+        let size = {width:width,height:height};
+        return <div id={this.componentId} style={size}></div>
     }
 }
 export default TextAnimation;
