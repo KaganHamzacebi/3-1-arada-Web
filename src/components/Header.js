@@ -2,7 +2,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import Logo from "../assets/images/logo_white.png";
 import {MenuIcon} from "@heroicons/react/solid"
 import {useState} from "react";
-
+import TextAnimation from "../common/TextAnimation";
 export default function Header() {
 
     const navigate = useNavigate();
@@ -13,21 +13,18 @@ export default function Header() {
             <div className="flex px-4 md:px-16">
                 <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer" />
                 <div className="my-auto ml-4 select-none hidden sm:block">
-                    <span className="text-white text-4xl m-auto">3</span>
-                    <span className="text-white ml-2 text-4xl m-auto">i</span>
-                    <span className="text-white ml-2 text-4xl m-auto">n</span>
-                    <span className="text-white ml-2 text-4xl m-auto">1</span>
+                    <TextAnimation componentId="appName" text="3 in 1" fontSize={40}/>
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8">
                     <NavLink to="/sleep" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
-                        Sleep
+                        <TextAnimation componentId="sleeptext" text="Sleep" fontSize={25}/>
                     </NavLink>
                     <NavLink to="/chat" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
-                        Chat
+                        <TextAnimation componentId="chattext" text="Chat" fontSize={25}/>
                     </NavLink>
                     <NavLink to="/meditation" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
-                        Meditation
+                        <TextAnimation componentId="meditationtext" text="Meditation" fontSize={25}/>
                     </NavLink>
                 </div>
                 <div className="flex-grow"></div>
