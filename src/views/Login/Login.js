@@ -4,6 +4,9 @@ import LogoWhite from "../../assets/images/logo_white.png";
 import {LocationMarkerIcon} from "@heroicons/react/outline";
 import LoginForm from "./LoginForm"
 import "./Login.css";
+import Flower from "../../assets/images/3.png";
+import Leaf from "../../assets/images/7.png";
+import Cactus from "../../assets/images/9.png";
 
 
 export default function Login() {
@@ -11,10 +14,13 @@ export default function Login() {
 
     return (
         <div id="loginWrapper" className="w-full md:h-full">
+            <img src={Flower} className="fixed hidden md:block transform scale-50 -right-40 -bottom-56 z-50" />
+            <img src={Leaf} className="fixed hidden scale-75 rotate-18 md:block transform scale-50 -left-30 -bottom-56 z-50" />
+            <img src={Cactus} className="fixed hidden md:block transform scale-50 -left-40 -bottom-56 z-40" />
             <div className="m-auto">
                 <div className="grid grid-cols-1 p-6 lg:flex lg:p-0">
                     <img src={LogoGreen} alt="logo_mobile" className="w-32 h-32 block lg:hidden m-auto"/>
-                    <div className="p-12 hidden lg:block bg-theme-green rounded-l-lg shadow-xl">
+                    <div className="p-12 hidden lg:block bg-theme-login rounded-l-lg shadow-xl">
                         <div className="h-full w-full py-6 grid grid-rows-2">
                             <div id="Logo" className="flex flex-col">
                                 <img src={LogoWhite} alt="logo" onClick={() => navigate("/")}
@@ -36,17 +42,16 @@ export default function Login() {
                             </div>
                         </div>
                     </div>
-                    <div className="p-12 bg-theme-brown rounded-r-lg shadow-xl transform transition-all duration-300">
+                    <div className="p-12 bg-theme-brown rounded-r-lg shadow-xl transform transition-all ">
                         <LoginForm/>
                     </div>
                 </div>
                 <div className="text-center mt-2">
-                        {/*todo :: burası forgot */}
-                        <span className="text-black"> Forgot&nbsp;
-                            <span className="font-bold underline cursor-pointer"
-                                  onClick={() => {
-                                      navigate("/register?forgot=true")
-                                  }}>
+                    <span className="text-black"> Forgot&nbsp;
+                        <span className="font-bold underline cursor-pointer"
+                              onClick={() => {
+                                  navigate("/register?forgot=true")
+                              }}>
                          password?
                     </span>
                 </span>

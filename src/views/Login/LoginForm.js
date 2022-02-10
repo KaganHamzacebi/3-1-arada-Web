@@ -47,7 +47,7 @@ export default function LoginForm() {
                 <div>
                     <input
                         type="submit"
-                        className="w-full bg-theme-green p-2 font-semibold text-white cursor-pointer rounded outline-none pointer transform transition-colors duration-500 hover:bg-green-600"
+                        className="w-full bg-theme-darkbrown p-2 font-semibold text-white cursor-pointer rounded outline-none pointer transform transition-colors duration-500 hover:bg-theme-darkerbrown"
                         required
                     />
                 </div>
