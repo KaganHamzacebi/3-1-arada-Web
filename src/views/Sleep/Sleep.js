@@ -7,25 +7,29 @@ import PolarLine from "./PolarLine";
 import ScopeableLineChart from "./ScopeableLineChart";
 import PolarBarChart from "./PolarBarChart";
 
-class Sleep extends React.Component{
-    constructor(props){
+class Sleep extends React.Component {
+    constructor(props) {
         super(props);
     }
-    render(){
+
+    render() {
         return (<div id="sleepWrapper">
             <Header/>
-            <div class="grid grid-cols-2 gap-4">
-                <ScopeableLineChart componentId="sleepingTime"/>
-                <ScopeableLineChart componentId="sleepingStart"/>
-                <PolarLine/>
-                <div>CALENDAR WILL APPEAR HERE</div>
-                <PolarBarChart componentId="generalPolarBar"/>
-                <LineChart componentId="sleepQualityByDay"/>
+            <div class="pt-48 md:pt-30 ">
+                <div class="grid grid-cols-2 gap-4">
+                    <ScopeableLineChart componentId="sleepingTime"/>
+                    <ScopeableLineChart componentId="sleepingStart"/>
+                    <PolarLine/>
+                    <div>CALENDAR WILL APPEAR HERE</div>
+                    <PolarBarChart componentId="generalPolarBar"/>
+                    <LineChart componentId="sleepQualityByDay"/>
+                </div>
             </div>
 
-                <Footer/>
+            <Footer/>
 
         </div>);
     }
 }
+
 export default Sleep;
