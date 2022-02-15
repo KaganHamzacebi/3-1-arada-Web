@@ -1,5 +1,6 @@
 import React from "react";
 import * as echarts from 'echarts';
+import data from '../../assets/roma.project.json';
 
 class PolarLine extends React.Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class PolarLine extends React.Component {
             visualMap: {
                 target: {
                     inRange: {
-                        color: ['rgb(232,194,171)', '#d8f3a0', 'rgba(214,238,169,0.82)', 'rgba(156,180,106,0.83)', '#f80024', 'rgba(0,97,192,0.4)', 'rgba(0,97,192,0.4)'],
+                        color: ['rgb(230,246,215)', '#d8f3a0', 'rgba(214,238,169,0.82)', 'rgba(156,180,106,0.83)', '#f80024', 'rgba(0,97,192,0.4)', 'rgba(0,97,192,0.4)'],
                     }
                 },
                 color: {
@@ -104,6 +105,8 @@ class PolarLine extends React.Component {
     }
 
     componentDidMount() {
+        /*var obj = JSON.parse(data);
+        echarts.registerTheme('roma', obj);*/
         let chartDom = document.getElementById('polartest');
         let myChart = echarts.init(chartDom, null, {
             width: window.window.outerWidth * 0.45,
