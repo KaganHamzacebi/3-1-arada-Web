@@ -1,6 +1,7 @@
 import React from "react";
 import * as echarts from 'echarts';
-class PolarLine extends React.Component{
+
+class PolarLine extends React.Component {
     constructor(props) {
         super(props);
         // prettier-ignore
@@ -20,12 +21,28 @@ class PolarLine extends React.Component{
             polar: {},
             tooltip: {},
             visualMap: {
-                target:{
-                    inRange:{
-                        color:['#f80024','#7afc00','#00ff75','rgba(231,0,255,0.74)','#f80024','rgba(0,97,192,0.4)','white'],
+                target: {
+                    inRange: {
+                        color: ['rgb(232,194,171)', '#d8f3a0', 'rgba(214,238,169,0.82)', 'rgba(156,180,106,0.83)', '#f80024', 'rgba(0,97,192,0.4)', 'rgba(0,97,192,0.4)'],
                     }
                 },
-                color:{0:'#FF00FE',1:'#FF00FE',2:'#FF00FE',3:'#FF00FE',4:'#FF00FE',5:'#FF00FE',6:'#FF00FE',7:'#FF00FE',8:'#FF00FE',9:'#FF00FE',10:'#FF00FE',11:'#FF00FE',12:'#FF00FE',13:'#FF00FE',14:'#FF00FE'},
+                color: {
+                    0: 'rgba(255,98,0,0.74)',
+                    1: '#FF6200BC',
+                    2: '#FF6200BC',
+                    3: '#FF6200BC',
+                    4: '#FF6200BC',
+                    5: '#FF6200BC',
+                    6: '#FF6200BC',
+                    7: '#FF6200BC',
+                    8: '#FF6200BC',
+                    9: '#FF6200BC',
+                    10: '#FF6200BC',
+                    11: '#FF6200BC',
+                    12: '#FF6200BC',
+                    13: '#FF6200BC',
+                    14: '#FF6200BC'
+                },
                 type: 'continuous',
                 min: 0,
                 max: maxValue,
@@ -40,7 +57,7 @@ class PolarLine extends React.Component{
                 splitLine: {
                     show: true,
                     lineStyle: {
-                        color: '#FF00FE',
+                        color: '#FF6200BC',
                         type: 'dashed'
                     }
                 },
@@ -59,7 +76,7 @@ class PolarLine extends React.Component{
                     type: 'custom',
                     coordinateSystem: 'polar',
                     itemStyle: {
-                        color: '#FF00FE'
+                        color: '#FF6200BC'
                     },
                     renderItem: function (params, api) {
                         var values = [api.value(0), api.value(1)];
@@ -85,20 +102,23 @@ class PolarLine extends React.Component{
             ]
         };
     }
+
     componentDidMount() {
         let chartDom = document.getElementById('polartest');
-        let myChart = echarts.init(chartDom);
+        let myChart = echarts.init(chartDom, null, {
+            width: window.window.outerWidth * 0.45,
+            height: window.window.outerHeight * 0.45,
+        });
         this.option && myChart.setOption(this.option);
     }
 
-    render(){
-        return (<div id="polartest" style={{width:"800px", height:"400px"}}>
+    render() {
+        return (<div id="polartest">
 
         </div>);
     }
 
 
-
-
 }
+
 export default PolarLine;

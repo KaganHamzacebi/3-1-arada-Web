@@ -1,6 +1,7 @@
 import React from "react";
 import * as echarts from 'echarts';
-class ScopeableLineChart extends React.Component{
+
+class ScopeableLineChart extends React.Component {
     constructor(props) {
         super(props);
         this.componentId = props.componentId;
@@ -63,6 +64,9 @@ class ScopeableLineChart extends React.Component{
             return str.replace('2009/', '');
         });
         this.option = {
+            grid: {
+                show: false
+            },
             title: {
                 text: 'Sleep Time',
                 left: 'center'
@@ -71,19 +75,6 @@ class ScopeableLineChart extends React.Component{
                 trigger: 'axis',
                 axisPointer: {
                     animation: true
-                }
-            },
-            legend: {
-                data: ['Sleep Time'],
-                left: 10
-            },
-            toolbox: {
-                feature: {
-                    dataZoom: {
-                        yAxisIndex: 'none'
-                    },
-                    restore: {},
-                    saveAsImage: {}
                 }
             },
             axisPointer: {
@@ -107,7 +98,7 @@ class ScopeableLineChart extends React.Component{
                 {
                     type: 'category',
                     boundaryGap: false,
-                    axisLine: { onZero: true },
+                    axisLine: {show: false},
                     data: timeData
                 }
             ],
@@ -122,7 +113,8 @@ class ScopeableLineChart extends React.Component{
                 {
                     name: 'Sleep Time',
                     type: 'line',
-                    symbolSize: 8,
+                    showSymbol: false,
+                    smooth: true,
                     // prettier-ignore
                     data: [
                         3.5,
@@ -183,14 +175,27 @@ class ScopeableLineChart extends React.Component{
             ]
         };
     }
+
+
     componentDidMount() {
-        let myChart = echarts.init(document.getElementById(this.componentId));
+
+        let myChart = echarts.init(document.getElementById(this.componentId), null, {
+            width: window.window.outerWidth * 0.45,
+            height: window.window.outerHeight * 0.45,
+        });
+
         this.option && myChart.setOption(this.option);
-    }
-    render(){
-        return (<div id={this.componentId}  style={{width:"800px", height:"400px"}}></div>)
+        window.onresize = function () {
+            console.log("RESIZE");
+            myChart.resize();
+        };
     }
 
+    render() {
 
+        return (<div id={this.componentId}>
+        </div>)
+    }
 }
+
 export default ScopeableLineChart;

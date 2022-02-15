@@ -86,14 +86,16 @@ class LineChart extends Component{
         }
     }
     componentDidMount() {
-        let myChart  = echarts.init(document.getElementById(this.componentId));
-        myChart.setOption(this.options);
+        let myChart = echarts.init(document.getElementById(this.componentId), null, {
+            width: window.window.outerWidth * 0.45,
+            height: window.window.outerHeight * 0.45,
+        });        myChart.setOption(this.options);
     }
 
     render(){
         return(
 
-            <div id={this.componentId} style={{width:"800px", height:"400px"}}>
+            <div id={this.componentId}>
             </div>
 
         )
