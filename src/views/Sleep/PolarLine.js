@@ -27,25 +27,8 @@ class PolarLine extends React.Component {
                         color: ['rgb(230,246,215)', '#d8f3a0', 'rgba(214,238,169,0.82)', 'rgba(156,180,106,0.83)', '#f80024', 'rgba(0,97,192,0.4)', 'rgba(0,97,192,0.4)'],
                     }
                 },
-                color: {
-                    0: 'rgba(255,98,0,0.74)',
-                    1: '#FF6200BC',
-                    2: '#FF6200BC',
-                    3: '#FF6200BC',
-                    4: '#FF6200BC',
-                    5: '#FF6200BC',
-                    6: '#FF6200BC',
-                    7: '#FF6200BC',
-                    8: '#FF6200BC',
-                    9: '#FF6200BC',
-                    10: '#FF6200BC',
-                    11: '#FF6200BC',
-                    12: '#FF6200BC',
-                    13: '#FF6200BC',
-                    14: '#FF6200BC'
-                },
                 type: 'continuous',
-                min: 0,
+                min: 1,
                 max: maxValue,
                 top: 'middle',
                 dimension: 2,
@@ -58,7 +41,7 @@ class PolarLine extends React.Component {
                 splitLine: {
                     show: true,
                     lineStyle: {
-                        color: '#FF6200BC',
+                        color: 'rgba(12,45,3,0.74)',
                         type: 'dashed'
                     }
                 },
@@ -73,7 +56,7 @@ class PolarLine extends React.Component {
             },
             series: [
                 {
-                    name: 'Uyku Sertliği',
+                    name: 'Uyku Derinliği',
                     type: 'custom',
                     coordinateSystem: 'polar',
                     itemStyle: {

@@ -19,12 +19,9 @@ function getWeekDays(weekStart) {
 
 function getWeekRange(date) {
     return {
-        from: moment(date)
-            .startOf('week').weekday(1)
-            .toDate(),
+        from: moment(date).toDate(),
         to: moment(date)
-            .endOf('week').add(1)
-            .toDate(),
+            .add(6,'days').toDate()
     };
 }
 
@@ -36,12 +33,11 @@ export default class Example extends React.Component {
 
     handleDayChange = date => {
         this.setState({
-            selectedDays: getWeekDays(getWeekRange(date).from),
+            selectedDays: getWeekDays(date),
         });
     };
 
     handleDayEnter = date => {
-        console.log(getWeekRange(date))
         this.setState({
             hoverRange: getWeekRange(date),
         });

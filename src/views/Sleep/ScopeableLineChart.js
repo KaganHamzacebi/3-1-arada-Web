@@ -84,15 +84,25 @@ class ScopeableLineChart extends React.Component {
                     }
                 ]
             },
-            dataZoom: [
+            dataZoom:
                 {
                     show: true,
                     realtime: true,
                     start: 30,
                     end: 70,
-                    xAxisIndex: [0, 1]
-                }
-            ],
+                    xAxisIndex: [0, 1],
+                    type: 'slider',
+                    backgroundColor: '#E6F6D7FF',
+                    fillerColor: 'rgba(156,180,106,0.18)',
+                },
+            brush: {
+                brushLink: [0, 1],
+                brushStyle: {
+                    borderWidth: 1,
+                    color: 'rgba(218,144,99,0.8)',
+                    borderColor: 'rgb(210,126,52)'
+                },
+            },
 
             xAxis: [
                 {
@@ -103,7 +113,9 @@ class ScopeableLineChart extends React.Component {
                 }
             ],
             yAxis: [
+
                 {
+                    splitLine:{show : false},
                     name: 'Sleep Time',
                     type: 'value',
                     max: 24
