@@ -1,9 +1,12 @@
 import React from "react";
 import * as echarts from 'echarts';
+import Theme from './Theme';
 
 class ScopeableLineChart extends React.Component {
     constructor(props) {
         super(props);
+        this.theme = new Theme().theme;
+
         this.componentId = props.componentId;
         let timeData = [
             '2009/6/12',
@@ -92,8 +95,6 @@ class ScopeableLineChart extends React.Component {
                     end: 70,
                     xAxisIndex: [0, 1],
                     type: 'slider',
-                    backgroundColor: '#E6F6D7FF',
-                    fillerColor: 'rgba(156,180,106,0.18)',
                 },
             brush: {
                 brushLink: [0, 1],
@@ -186,12 +187,12 @@ class ScopeableLineChart extends React.Component {
                 }
             ]
         };
-    }
-
-
+    };
+    
     componentDidMount() {
+        echarts.registerTheme('purple-passion', this.theme);
 
-        let myChart = echarts.init(document.getElementById(this.componentId), null, {
+        let myChart = echarts.init(document.getElementById(this.componentId), 'purple-passion', {
             width: window.window.outerWidth * 0.45,
             height: window.window.outerHeight * 0.45,
         });

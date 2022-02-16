@@ -1,7 +1,6 @@
 import React from "react";
 import LineChart from "./LineChart";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import "./Sleep.css";
 import PolarLine from "./PolarLine";
 import ScopeableLineChart from "./ScopeableLineChart";
@@ -45,7 +44,7 @@ class Sleep extends React.Component {
                     </Col>
                 </Row>
             </div>
-            <Footer/>
+            {/*<Footer/>*/}
         </div>);
     }
 }

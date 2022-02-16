@@ -1,10 +1,13 @@
 import React from "react";
 import * as echarts from 'echarts';
-import data from '../../assets/roma.project.json';
+import Theme from "./Theme";
+
 
 class PolarLine extends React.Component {
     constructor(props) {
         super(props);
+        this.theme = new Theme().theme;
+
         // prettier-ignore
         const hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a', '7a', '8a', '9a', '10a', '11a', '12p', '1p', '2p', '3p', '4p', '5p', '6p', '7p', '8p', '9p', '10p', '11p'];
 // prettier-ignore
@@ -22,11 +25,6 @@ class PolarLine extends React.Component {
             polar: {},
             tooltip: {},
             visualMap: {
-                target: {
-                    inRange: {
-                        color: ['rgb(230,246,215)', '#d8f3a0', 'rgba(214,238,169,0.82)', 'rgba(156,180,106,0.83)', '#f80024', 'rgba(0,97,192,0.4)', 'rgba(0,97,192,0.4)'],
-                    }
-                },
                 type: 'continuous',
                 min: 1,
                 max: maxValue,
@@ -88,10 +86,9 @@ class PolarLine extends React.Component {
     }
 
     componentDidMount() {
-        /*var obj = JSON.parse(data);
-        echarts.registerTheme('roma', obj);*/
+        echarts.registerTheme('purple-passion', this.theme);
         let chartDom = document.getElementById('polartest');
-        let myChart = echarts.init(chartDom, null, {
+        let myChart = echarts.init(chartDom, 'purple-passion', {
             width: window.window.outerWidth * 0.45,
             height: window.window.outerHeight * 0.45,
         });

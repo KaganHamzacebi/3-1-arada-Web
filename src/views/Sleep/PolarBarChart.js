@@ -1,9 +1,12 @@
 import React from "react";
 import * as echarts from "echarts";
+import Theme from "./Theme";
 
 class PolarBarChart extends React.Component{
     constructor(props){
         super(props);
+        this.theme = new Theme().theme;
+
         this.componentId = props.componentId;
         const gaugeData = [
             {
@@ -84,8 +87,11 @@ class PolarBarChart extends React.Component{
         };
     }
     componentDidMount() {
-
-        let myChart = echarts.init(document.getElementById(this.componentId));
+        echarts.registerTheme('purple-passion', this.theme);
+        let myChart = echarts.init(document.getElementById(this.componentId), 'purple-passion',{
+            width: window.window.outerWidth * 0.45,
+            height: window.window.outerHeight * 0.45,
+        });
         this.option && myChart.setOption(this.option);
     }
     render(){

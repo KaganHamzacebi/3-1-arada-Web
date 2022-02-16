@@ -1,10 +1,13 @@
 import * as echarts from 'echarts';
 import {Component} from "react";
+import Theme from "./Theme";
 
 class LineChart extends Component{
     constructor(props){
         debugger;
         super(props);
+        this.theme = new Theme().theme;
+
         this.state = {
             chartOption : props.chartOptions
         };
@@ -86,7 +89,8 @@ class LineChart extends Component{
         }
     }
     componentDidMount() {
-        let myChart = echarts.init(document.getElementById(this.componentId), null, {
+        echarts.registerTheme('purple-passion', this.theme);
+        let myChart = echarts.init(document.getElementById(this.componentId), 'purple-passion', {
             width: window.window.outerWidth * 0.45,
             height: window.window.outerHeight * 0.45,
         });        myChart.setOption(this.options);
