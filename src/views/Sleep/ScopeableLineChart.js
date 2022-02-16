@@ -6,9 +6,8 @@ class ScopeableLineChart extends React.Component {
     constructor(props) {
         super(props);
         this.theme = new Theme().theme;
-
         this.componentId = props.componentId;
-        let timeData = [
+        let timeData = props.timeData ? props.timeData : [
             '2009/6/12',
             '2009/6/13',
             '2009/6/14',
@@ -66,6 +65,61 @@ class ScopeableLineChart extends React.Component {
         timeData = timeData.map(function (str) {
             return str.replace('2009/', '');
         });
+        let valueData  = props.valueData ? props.valueData : [
+            3.5,
+            6.7,
+            3.6,
+            1.3,
+            7.8,
+            9.7,
+            11.3,
+            5.7,
+            5.5,
+            3.5,
+            6.7,
+            3.6,
+            1.3,
+            7.8,
+            9.7,
+            11.3,
+            5.7,
+            5.5,
+            100.9,
+            3.5,
+            6.7,
+            3.6,
+            1.3,
+            7.8,
+            9.7,
+            11.3,
+            5.7,
+            5.5,
+            9.9,
+            3.5,
+            6.7,
+            3.6,
+            1.3,
+            7.8,
+            9.7,
+            11.3,
+            5.7,
+            5.5,
+            9.9,
+            3.5,
+            6.7,
+            3.6,
+            1.3,
+            7.8,
+            9.7,
+            11.3,
+            5.7,
+            5.5,
+            9.9,
+            11.3,
+            19.3,
+            24.0,
+            24.0
+        ]
         this.option = {
             grid: {
                 show: false
@@ -129,61 +183,7 @@ class ScopeableLineChart extends React.Component {
                     showSymbol: false,
                     smooth: true,
                     // prettier-ignore
-                    data: [
-                        3.5,
-                        6.7,
-                        3.6,
-                        1.3,
-                        7.8,
-                        9.7,
-                        11.3,
-                        5.7,
-                        5.5,
-                        3.5,
-                        6.7,
-                        3.6,
-                        1.3,
-                        7.8,
-                        9.7,
-                        11.3,
-                        5.7,
-                        5.5,
-                        9.9,
-                        3.5,
-                        6.7,
-                        3.6,
-                        1.3,
-                        7.8,
-                        9.7,
-                        11.3,
-                        5.7,
-                        5.5,
-                        9.9,
-                        3.5,
-                        6.7,
-                        3.6,
-                        1.3,
-                        7.8,
-                        9.7,
-                        11.3,
-                        5.7,
-                        5.5,
-                        9.9,
-                        3.5,
-                        6.7,
-                        3.6,
-                        1.3,
-                        7.8,
-                        9.7,
-                        11.3,
-                        5.7,
-                        5.5,
-                        9.9,
-                        11.3,
-                        19.3,
-                        24.0,
-                        24.0
-                    ]
+                    data: valueData
                 }
             ]
         };

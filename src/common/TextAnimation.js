@@ -8,6 +8,9 @@ class TextAnimation extends React.Component{
         this.text = props.text;
         this.fontSize = props.fontSize
         this.fontWeight = props.fontWeight ? props.fontWeight : "normal";
+        this.firstColor = props.firstColor ? props.firstColor : '#DABD9DB2';
+        this.secondColor = props.secondColor ? props.secondColor : 'white';
+        this.thirdColor = props.thirdColor ? props.thirdColor : '#92A74B';
         this.option = {
             graphic: {
                 elements: [
@@ -22,7 +25,7 @@ class TextAnimation extends React.Component{
                             lineDash: [0, 200],
                             lineDashOffset: 0,
                             fill: 'transparent',
-                            stroke: '#DABD9DB2',
+                            stroke: this.firstColor,
                             lineWidth: 1
                         },
                         keyframeAnimation: {
@@ -40,13 +43,13 @@ class TextAnimation extends React.Component{
                                     // Stop for a while.
                                     percent: 0.8,
                                     style: {
-                                        fill: 'white'
+                                        fill: this.secondColor,
                                     }
                                 },
                                 {
                                     percent: 0.7,
                                     style: {
-                                        fill: '#92A74B'
+                                        fill: this.thirdColor,
                                     }
                                 }
                             ]

@@ -4,7 +4,7 @@ import Theme from "./Theme";
 
 class LineChart extends Component{
     constructor(props){
-        debugger;
+        
         super(props);
         this.theme = new Theme().theme;
 

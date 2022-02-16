@@ -2,7 +2,6 @@ import React from "react";
 import * as echarts from 'echarts';
 import Theme from "./Theme";
 
-
 class PolarLine extends React.Component {
     constructor(props) {
         super(props);
