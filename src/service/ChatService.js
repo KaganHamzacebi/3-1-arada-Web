@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Service from "./Service";
+import authHeader from "./AuthHeader";
 
 export default class ChatService extends Service {
     constructor() {
@@ -8,7 +9,8 @@ export default class ChatService extends Service {
 
     async startChat(payload) {
         return await axios.post('/startChat', payload, {
-            baseUrl: this.endpointBase
+            baseUrl: this.endpointBase,
+            headers: authHeader()
         });
 
     }
