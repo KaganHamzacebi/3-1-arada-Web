@@ -1,24 +1,16 @@
 import axios from 'axios';
 import Service from "./Service";
+import authHeader from "./AuthHeader";
 
 export default class UserService extends Service {
     constructor() {
         super('/user');
     }
 
-    /*export default function */
-    authHeader() {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user && user.accessToken) {
-            return { Authorization: 'Bearer ' + user.accessToken };
-        } else {
-            return {};
-        }
-    }
-
     async login(payload) {
+        this.endpointBase = "http://localhost:8080";
         //todo:: Burada tokenla napılacak, giris yapildiktan sonra nereye navigate edilecek vs problemleri var
-        return await axios.post('/signin', payload).then((rs) =>{
+        return await axios.post('/signin', payload).then((rs) => {
             if (rs.data.accessToken) {
                 localStorage.setItem("user", JSON.stringify(rs.data));
             }
@@ -32,12 +24,14 @@ export default class UserService extends Service {
 
     async createUser(payload) {
         return await axios.post('/signup', payload, {
-            baseUrl: this.endpointBase
+            baseUrl: this.endpointBase,
+            headers: authHeader()
         });
     }
 
     getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));;
+        return JSON.parse(localStorage.getItem('user'));
+        ;
     }
 
     async forgotPassword(payload) {
