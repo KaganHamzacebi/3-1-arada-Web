@@ -42,7 +42,7 @@ export default function Header(props) {
                 {/* Mobile Header */}
                 <div className={`${isMobileMenuOpen ? "block" : "hidden"}   md:hidden absolute p-4 top-20 left-0 w-full`}>
                     <div className="bg-theme-green rounded-xl flex flex-col p-1 bg-opacity-90">
-                        <NavLink to="/sleep" className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800" >
+                        <NavLink to="/sleep" className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-blue hover:bg-opacity-50 hover:text-green-800" >
                             Sleep
                         </NavLink>
                         <NavLink to="/chat" className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800" >

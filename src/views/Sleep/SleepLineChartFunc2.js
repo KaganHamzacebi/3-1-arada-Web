@@ -11,17 +11,18 @@ export default function SleepLineChartFunc2({options, resizeObserver}) {
     const myChart = useRef(null);
     let chart = null;
 
+
     useEffect(() => {
         echarts.registerTheme('purple-passion', theme);
         chart = echarts.init(myChart.current, 'purple-passion', {
-            width: window.innerWidth * 0.5,
-            height: window.outerHeight * 0.3
+            width:  window.innerWidth*0.45,
+            height: window.innerHeight*0.3
         });
 
         function updateSize() {
             chart.resize({
-                width: window.innerWidth * 0.5,
-                height: window.outerHeight * 0.3
+                width:document.getElementById('chart2').offsetWidth*0.8,
+                height: document.getElementById('chart2').offsetHeight*0.9
             });
         }
 

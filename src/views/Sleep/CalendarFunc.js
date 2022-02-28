@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import DayPicker from "react-day-picker";
-import Helmet from "react-helmet";
 import moment from "moment";
 import "./SelectedWeekExample.css";
 import 'react-day-picker/lib/style.css';
 
-export default function SleepPolarSleepQualityFunc() {
+export default function CalendarFunc() {
 
     const [selectedDays, setSelectedDays] = useState([]);
     const [hoverRange, setHoverRange] = useState(undefined);

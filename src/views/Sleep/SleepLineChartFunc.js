@@ -14,14 +14,14 @@ export default function SleepLineChartFunc({options, resizeObserver}) {
     useEffect(() => {
         echarts.registerTheme('purple-passion', theme);
         chart = echarts.init(myChart.current, 'purple-passion', {
-            width: window.innerWidth * 0.4,
-            height: window.outerHeight * 0.8
+            width:  window.innerWidth*0.4,
+            height: window.innerHeight*0.6
         });
 
         function updateSize() {
             chart.resize({
-                width: window.innerWidth * 0.40,
-                height: window.outerHeight * 0.8
+                width:document.getElementById('chart1').offsetWidth*0.8,
+                height: document.getElementById('chart1').offsetHeight*0.9
             });
         }
 

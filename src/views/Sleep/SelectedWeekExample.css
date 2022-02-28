@@ -1,3 +1,8 @@
+.DayPicker {
+    display: inline-block;
+    font-size: unset;
+}
+
 .SelectedWeekExample .DayPicker-Month {
     border-collapse: separate;
 }

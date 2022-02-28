@@ -18,9 +18,6 @@ class PolarLine extends React.Component {
         }, -Infinity);
 
         this.option = {
-            legend: {
-                data: ['Uyku Sertliği']
-            },
             polar: {},
             tooltip: {},
             visualMap: {
@@ -35,13 +32,6 @@ class PolarLine extends React.Component {
                 type: 'category',
                 data: hours,
                 boundaryGap: false,
-                splitLine: {
-                    show: true,
-                    lineStyle: {
-                        color: 'rgba(12,45,3,0.74)',
-                        type: 'dashed'
-                    }
-                },
                 axisLine: {
                     show: false
                 }
@@ -56,9 +46,6 @@ class PolarLine extends React.Component {
                     name: 'Uyku Derinliği',
                     type: 'custom',
                     coordinateSystem: 'polar',
-                    itemStyle: {
-                        color: '#FF6200BC'
-                    },
                     renderItem: function (params, api) {
                         var values = [api.value(0), api.value(1)];
                         var coord = api.coord(values);
@@ -88,10 +75,14 @@ class PolarLine extends React.Component {
         echarts.registerTheme('purple-passion', this.theme);
         let chartDom = document.getElementById('polartest');
         let myChart = echarts.init(chartDom, 'purple-passion', {
-            width: window.window.outerWidth * 0.45,
-            height: window.window.outerHeight * 0.45,
+            width: (document.getElementById('polartest').width),
+            height: window.window.outerHeight * 0.6,
         });
         this.option && myChart.setOption(this.option);
+
+        window.onresize = function () {
+            myChart.resize();
+        };
     }
 
     render() {
