@@ -12,33 +12,28 @@
     background-color: #EFEFEF !important;
 }
 
-.SelectedWeekExample .DayPicker-Day--selectedRange {
-    background-color: rgba(214, 238, 169, 0.82) !important;
-    border-top-color: #eae9e5;
-    border-bottom-color: #eae9e5;
-    border-left-color: #eae9e5;
-    border-right-color: #eae9e5;
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+    position: relative;
+    background-color: rgba(174, 204, 119, 0.64) !important;
+    color: #F0F8FF;
 }
 
-.SelectedWeekExample .DayPicker-Day--selectedRangeStart {
-    background-color: rgb(174, 204, 119) !important;
-    border-left: 1px solid #eae9e5;
-}
-
-.SelectedWeekExample .DayPicker-Day--selectedRangeEnd {
-    background-color: rgb(174, 204, 119) !important;
-    border-right: 1px solid #eae9e5;
-}
 
 .SelectedWeekExample .DayPicker-Day--selectedRange:not(.DayPicker-Day--outside).DayPicker-Day--selected,
 .SelectedWeekExample .DayPicker-Day--hoverRange:not(.DayPicker-Day--outside).DayPicker-Day--selected {
     border-radius: 12% !important;
     color: black !important;
 }
-.SelectedWeekExample .DayPicker-Day--hoverRange:hover {
+.SelectedWeekExample .DayPicker-Day--hoverRange:hover .DayPicker-{
     border-radius: 0 !important;
 }
 
-.myChart{
-    margin-right: 0;
+/*#root.DayPicker  .DayPicker-Month {*/
+/*    height: inherit !important;*/
+/*    width: 20% !important;*/
+/*}*/
+
+.DayPicker-Day--today {
+    background-color: rgba(228, 60, 89, 0.65);
+    color: white;
 }

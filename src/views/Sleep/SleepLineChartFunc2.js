@@ -4,7 +4,7 @@ import React, {useEffect, useRef, useState} from "react";
 import SleepService from "../../service/SleepService";
 import PropTypes from "prop-types";
 
-export default function SleepLineChartFunc({options, resizeObserver}) {
+export default function SleepLineChartFunc2({options, resizeObserver}) {
     const [theme] = useState(new Theme().theme);
     const sleepService = new SleepService();
     sleepService.getLineChartData();
@@ -14,14 +14,14 @@ export default function SleepLineChartFunc({options, resizeObserver}) {
     useEffect(() => {
         echarts.registerTheme('purple-passion', theme);
         chart = echarts.init(myChart.current, 'purple-passion', {
-            width: window.innerWidth * 0.4,
-            height: window.outerHeight * 0.8
+            width: window.innerWidth * 0.5,
+            height: window.outerHeight * 0.3
         });
 
         function updateSize() {
             chart.resize({
-                width: window.innerWidth * 0.40,
-                height: window.outerHeight * 0.8
+                width: window.innerWidth * 0.5,
+                height: window.outerHeight * 0.3
             });
         }
 
@@ -30,7 +30,7 @@ export default function SleepLineChartFunc({options, resizeObserver}) {
         window.addEventListener('resize', updateSize);
     }, [options, resizeObserver, theme]);
 
-    SleepLineChartFunc.propTypes = {
+    SleepLineChartFunc2.propTypes = {
         options: PropTypes.any,
         resizeObserver: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     };

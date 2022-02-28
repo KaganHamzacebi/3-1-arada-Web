@@ -10,19 +10,24 @@ export default function SleepPolarSleepQualityFunc({options, resizeObserver}) {
     useEffect(() => {
         echarts.registerTheme('purple-passion', theme);
         const chart = echarts.init(myChart.current, 'purple-passion', {
-            width: window.parent.innerWidth,
-            height: window.outerHeight * 0.60
+            width: window.parent.innerWidth*0.2,
+            height: window.parent.innerHeight * 0.2
         });
+
+        function updateSize() {
+            chart.resize({
+                width: window.parent.innerWidth * 0.2,
+                height: window.parent.innerHeight * 0.2
+            });
+        }
 
         chart.setOption(options);
         if (resizeObserver) resizeObserver.observe(myChart.current);
+        window.addEventListener('resize', updateSize);
+
     }, [options, resizeObserver, theme]);
 
     return (<div
         ref={myChart}
-        style={{
-            width: "100%",
-            height: "100%",
-        }}
     ></div>);
 }

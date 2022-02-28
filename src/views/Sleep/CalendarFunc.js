@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import DayPicker from "react-day-picker";
 import Helmet from "react-helmet";
 import moment from "moment";
 import "./SelectedWeekExample.css";
-
+import 'react-day-picker/lib/style.css';
 
 export default function SleepPolarSleepQualityFunc() {
 
     const [selectedDays, setSelectedDays] = useState([]);
     const [hoverRange, setHoverRange] = useState(undefined);
-    const [daysAreSelected, setDaysAreSelected] = useState(selectedDays && selectedDays.length > 0);
-    const [modifiers, setModifiers] = useState({
+    const [daysAreSelected] = useState(selectedDays && selectedDays.length > 0);
+    const [modifiers] = useState({
         today: new Date(),
         hoverRange,
         selectedRange: daysAreSelected && {
@@ -22,7 +22,6 @@ export default function SleepPolarSleepQualityFunc() {
         selectedRangeStart: daysAreSelected && selectedDays[0],
         selectedRangeEnd: daysAreSelected && selectedDays[6],
     });
-
 
     const getWeekDays = (weekStart) => {
         const days = [weekStart];
@@ -47,7 +46,7 @@ export default function SleepPolarSleepQualityFunc() {
         };
     }
 
-    const handleDayChange = (date) =>{
+    const handleDayChange = (date) => {
         setSelectedDays(getWeekDays(getWeekRange(date).from));
     };
 
@@ -71,13 +70,10 @@ export default function SleepPolarSleepQualityFunc() {
             onDayClick={(date) => {
                 handleDayChange(date)
             }}
-
             onDayMouseEnter={handleDayEnter}
             onDayMouseLeave={handleDayLeave}
             onWeekClick={handleWeekClick}
             firstDayOfWeek={0}
         />
-        <Helmet>
-        </Helmet>
     </div>);
 }
