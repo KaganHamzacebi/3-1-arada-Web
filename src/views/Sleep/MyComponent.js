@@ -2,26 +2,31 @@ import React from "react";
 import Header from "../../components/Header";
 import 'react-bootstrap';
 import {Col, Container, Row} from "react-bootstrap";
+import "../Home/Home.css";
+import SleepTimesChart from "./SleepTimesChart";
+import Calendar from "./Calendar";
 
 export default function MyComponent() {
     return (
-        <div id="sleepWrapper">
+        <div id="homeWrapper">
             <Header/>
             <div className="pt-48 pb-40 md:pt-60 px-8 md:px-24">
                 <Container>
-                    <Row>
-                        <Col md={6}> 1</Col>
-                        <Col md={6}>
+                    <Row className="justify-content-md-evenly" md={12}>
+                        <Col className="bg-theme-gray pr-1 rounded-xl" md={6}>
+                            <SleepTimesChart></SleepTimesChart>
+                        </Col>
+                        <Col md={5}>
                             <Row>
-                                <Col>
-                                    2
+                                <Col className="bg-theme-gray mb-1">
+                                    <SleepTimesChart></SleepTimesChart>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
                                     3
                                 </Col>
-                                <Col>
+                                <Col className="bg-theme-gray ">
                                     4
                                 </Col>
                             </Row>
