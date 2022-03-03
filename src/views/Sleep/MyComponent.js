@@ -1,35 +1,30 @@
-import Header from "../../components/Header";
 import React from "react";
-import CalendarFunc from "./CalendarFunc";
-import resizeObserver from "./ResizeObserver";
-import line from "./Oprions/Line";
-import SleepLineChartFunc from "./SleepLineChartFunc";
-import polarSleepQuality from "./Oprions/PolarSleepQuality";
-import "./Sleep.css";
-import SleepLineChartFunc2 from "./SleepLineChartFunc2";
-import Container from 'react-bootstrap/Container';
-import {Col, Row} from "react-bootstrap";
+import Header from "../../components/Header";
+import 'react-bootstrap';
+import {Col, Container, Row} from "react-bootstrap";
 
 export default function MyComponent() {
     return (
         <div id="sleepWrapper">
             <Header/>
-            <div className="pt-40 md:pt-30">
+            <div className="pt-48 pb-40 md:pt-60 px-8 md:px-24">
                 <Container>
                     <Row>
-                        <Col md="auto" id="chart1">
-                            <SleepLineChartFunc options={line} resizeObserver={resizeObserver}/>
-                        </Col>
-                        <Col md="auto" id="chart2">
-                            <SleepLineChartFunc2 options={line} resizeObserver={resizeObserver}/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <CalendarFunc/>
-                        </Col>
-                        <Col>
-                            <SleepLineChartFunc options={polarSleepQuality} resizeObserver={resizeObserver}/>
+                        <Col md={6}> 1</Col>
+                        <Col md={6}>
+                            <Row>
+                                <Col>
+                                    2
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    3
+                                </Col>
+                                <Col>
+                                    4
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Container>
