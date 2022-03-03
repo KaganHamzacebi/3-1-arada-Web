@@ -6,9 +6,10 @@ export default class ChatService extends Service {
         super('/chat');
     }
 
-    async startChat(payload) {
+    async startChat(payload, userToken) {
         return await axios.post('/startChat', payload, {
-            baseUrl: this.endpointBase
+            baseUrl: this.endpointBase,
+            headers: userToken
         });
 
     }
