@@ -2,14 +2,20 @@ import {useForm} from "react-hook-form";
 import {useState} from "react";
 import {EyeIcon, EyeOffIcon} from "@heroicons/react/solid";
 import UserService from "../../service/UserService";
+import {useNavigate} from "react-router-dom";
+
 
 export default function LoginForm() {
 
     const {register, handleSubmit} = useForm();
-    //const onSubmit = data => console.log(data);
     const userService = new UserService();
-    const onSubmit = data => userService.login(data);
+    const onSubmit = (data) => {
+        userService.login(data);
+        if (userService.isLogin())
+            navigate("/");
+    };
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <form className="h-full" onSubmit={handleSubmit(onSubmit)}>

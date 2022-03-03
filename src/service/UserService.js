@@ -10,7 +10,7 @@ export default class UserService extends Service {
     async login(payload) {
         this.endpointBase = "http://localhost:8080";
         //todo:: Burada tokenla napılacak, giris yapildiktan sonra nereye navigate edilecek vs problemleri var
-        return await axios.post('/signin', payload).then((rs) => {
+        return await axios.post('http://localhost:8080/user/signin', payload).then((rs) => {
             if (rs.data.accessToken) {
                 localStorage.setItem("user", JSON.stringify(rs.data));
             }
@@ -32,6 +32,10 @@ export default class UserService extends Service {
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'));
         ;
+    }
+
+    isLogin(){
+        return localStorage.getItem('user') != null;
     }
 
     async forgotPassword(payload) {

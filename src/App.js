@@ -24,7 +24,7 @@ function App() {
                   <Route path="/chat" element={<Chat />} />
                   <Route path="/chat/room=:id" element={<ChatRoom />} />
                   <Route path="*" element={<NotFound />} />
-                  <Route path="sleep" element={<Sleep/>}/>
+                  <Route path="/sleep" element={<Sleep/>}/>
               </Routes>
           </BrowserRouter>
       </div>
