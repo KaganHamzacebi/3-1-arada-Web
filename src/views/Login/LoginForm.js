@@ -3,16 +3,31 @@ import {useState} from "react";
 import {EyeIcon, EyeOffIcon} from "@heroicons/react/solid";
 import UserService from "../../service/UserService";
 import {useNavigate} from "react-router-dom";
+import {useCookies} from 'react-cookie';
 
 
 export default function LoginForm() {
-
     const {register, handleSubmit} = useForm();
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
     const userService = new UserService();
-    const onSubmit = (data) => {
-        userService.login(data);
-        if (userService.isLogin())
-            navigate("/");
+
+    const onSubmit = async data => {
+        await userService.login(data)
+            .then((res) => {
+                if (res.status === 200) {
+                    if (res.data.accessToken) {
+                        setCookie("userToken", res.data.accessToken);
+                    }
+                    navigate("/");
+                    window.location.reload();
+                }
+            })
+            .catch((err) => {
+                if (err.response) {
+                    console.log(err.response.data);
+                }
+            })
+
     };
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
