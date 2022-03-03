@@ -3,7 +3,7 @@ import Logo from "../assets/images/logo_white.png";
 import {useState} from "react";
 import TextAnimation from "../common/TextAnimation";
 import UserService from "../service/UserService";
-import {ChevronDownIcon, LogoutIcon, MenuIcon} from "@heroicons/react/solid";
+import {LogoutIcon, MenuIcon} from "@heroicons/react/solid";
 import "./Header.css";
 
 
@@ -84,7 +84,8 @@ export default function Header() {
                                                 <li onClick={event => signOut()}
                                                     className="relative block py-2 px-4 text-sm justify-content-sm-between items-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                                     <a className="align-items-center text-red-600">Sign Out
-                                                        <LogoutIcon className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
+                                                        <LogoutIcon
+                                                            className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
                                                     </a>
                                                 </li>
                                             </ul>
