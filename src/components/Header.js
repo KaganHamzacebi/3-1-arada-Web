@@ -1,6 +1,5 @@
 import {NavLink, useNavigate} from "react-router-dom";
 import Logo from "../assets/images/logo_white.png";
-import {MenuIcon} from "@heroicons/react/solid"
 import {useState} from "react";
 import TextAnimation from "../common/TextAnimation";
 import UserService from "../service/UserService";
@@ -68,7 +67,7 @@ export default function Header() {
                                         {/*<ChevronDownIcon className=" absolute h-3 w-3"/>*/}
 
                                         <div hidden={!isOpen}
-                                             className="dropdown z-10000 w-44 mr-2 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                                             className="dropdown z-50 w-44 mt-1 ml-1 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
                                             <ul className="py-1" aria-labelledby="dropdownButton">
                                                 <li id="profile" onClick={event => navFunc("profile")}
                                                     className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
@@ -83,9 +82,10 @@ export default function Header() {
                                                     About
                                                 </li>
                                                 <li onClick={event => signOut()}
-                                                    className="block py-2 px-4 text-sm justify-content-sm-between items-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                                    <a className="align-items-center ">Sign Out <LogoutIcon
-                                                        className=" absolute h-3 w-3"/> </a>
+                                                    className="relative block py-2 px-4 text-sm justify-content-sm-between items-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                                    <a className="align-items-center text-red-600">Sign Out
+                                                        <LogoutIcon className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -95,7 +95,7 @@ export default function Header() {
                                 <div className="flex gap-x-4 my-auto">
                                     <img
                                         src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
-                                        className="rounded-circle w-14 h-14 rounded-full"
+                                        className="rounded-circle w-12 rounded-full"
                                         alt="avatar image"
                                     />
                                 </div>
