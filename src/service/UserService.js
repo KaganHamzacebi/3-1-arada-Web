@@ -6,23 +6,22 @@ export default class UserService extends Service {
         super('/user');
     }
 
-    async login(payload) {
+    login(payload) {
         //todo:: Burada tokenla napılacak, giris yapildiktan sonra nereye navigate edilecek vs problemleri var
-        return await axios.post('/auth/signin', payload, {
-            baseUrl: this.endpointBase
+        return axios.post('/signin', payload, {
+            baseURL: this.endpointBase
         });
     }
 
-    async createUser(payload) {
-        return await axios.post('/auth/signup', payload, {
-            baseUrl: this.endpointBase
+    signUp (payload) {
+        return axios.post('/signup', payload, {
+            baseURL: this.endpointBase
         });
-
     }
 
-    async forgotPassword(payload) {
-        return await axios.post('/forgotPassword', payload, {
-            baseUrl: this.endpointBase
+    forgotPassword(payload) {
+        return axios.post('/forgotPassword', payload, {
+            baseURL: this.endpointBase
         });
 
     }
