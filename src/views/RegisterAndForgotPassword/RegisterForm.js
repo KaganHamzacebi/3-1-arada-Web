@@ -1,12 +1,26 @@
 import {useForm} from "react-hook-form";
 import {EyeIcon, EyeOffIcon} from "@heroicons/react/solid";
 import {useState} from "react";
+import UserService from "../../service/UserService";
 
 export default function RegisterForm() {
+    const userService = new UserService();
 
     const {register, handleSubmit} = useForm();
-    const onSubmit = data => console.log(data);
-    //const onSubmit = data => userService.createUser(data);
+    const onSubmit = async data => {
+        await userService.signUp(data)
+            .then((res) => {
+                if (res.status === 200) {
+                    //TODO: successful implementation
+                }
+            })
+            .catch((err) => {
+                if (err.response) {
+                    console.log(err.response.data);
+                }
+            })
+    };
+
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -16,16 +30,18 @@ export default function RegisterForm() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <input
-                            {...register("firstName")}
+                            {...register("name")}
                             placeholder="First Name"
+                            maxLength={50}
                             className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                             required
                         />
                     </div>
                     <div>
                         <input
-                            {...register("lastName")}
+                            {...register("surname")}
                             placeholder="Last Name"
+                            maxLength={50}
                             className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                             required
                         />
@@ -36,6 +52,7 @@ export default function RegisterForm() {
                         {...register("email")}
                         placeholder="Email"
                         type="email"
+                        maxLength={50}
                         className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                         required
                     />
@@ -45,6 +62,8 @@ export default function RegisterForm() {
                         {...register("password")}
                         placeholder="Password"
                         type={showPassword ? "text" : "password"}
+                        minLength={6}
+                        maxLength={40}
                         className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                         required
                     />
@@ -68,9 +87,9 @@ export default function RegisterForm() {
                         className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                         required
                     >
-                        <option value={0}>Female</option>
-                        <option value={1}>Male</option>
-                        <option value={2}>Other</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="MALE">Male</option>
+                        <option value="OTHER">Other</option>
                     </select>
                     <input
                         {...register("birthDate")}
