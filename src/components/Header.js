@@ -3,55 +3,134 @@ import Logo from "../assets/images/logo_white.png";
 import {MenuIcon} from "@heroicons/react/solid"
 import {useState} from "react";
 import TextAnimation from "../common/TextAnimation";
-export default function Header(props) {
+import UserService from "../service/UserService";
+import {LogoutIcon, MenuIcon} from "@heroicons/react/solid";
+import "./Header.css";
+
+
+export default function Header() {
 
     const navigate = useNavigate();
+    const userService = new UserService();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const firstColor = props.firstColor ? props.firstColor : null;
-    const secondColor = props.secondColor ? props.firstColor : null;
-    const thirdColor = props.thirdColor ? props.firstColor : null;
-    
+    const [isLogin, setIsLogin] = useState(userService.isLogin());
+    const [userName, setUserName] = useState(userService.getCurrentUser());
+    const [isOpen, setIsOpen] = useState(false);
+
+    const navFunc = (name) => {
+        let url = "/" + name;
+        navigate(url);
+    }
+
+    const signOut = () => {
+        setIsLogin(false);
+        userService.logout();
+    }
+
     return (
         <div className="fixed w-full z-50">
             <div className="flex px-4 md:px-16">
                 <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer" />
                 <div className="my-auto ml-4 select-none hidden sm:block" onClick={() => navigate("/")}>
-                    <TextAnimation componentId="appName" text="3 in 1" fontSize={40} fontWeight="bold" firstColor={firstColor} secondColor={secondColor} thirdColor={thirdColor}/>
+                    <TextAnimation componentId="appName" text="3 in 1" fontSize={40} fontWeight="bold"/>
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8">
-                    <NavLink to="/sleep" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
-                        <TextAnimation componentId="sleeptext" text="Sleep" fontSize={20} firstColor={firstColor} secondColor={secondColor} thirdColor={thirdColor}/>
+                    <NavLink to="/sleep"
+                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
+                        <TextAnimation componentId="sleeptext" text="Sleep" fontSize={20}/>
                     </NavLink>
-                    <NavLink to="/chat" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
-                        <TextAnimation componentId="chattext" text="Chat" fontSize={20} firstColor={firstColor} secondColor={secondColor} thirdColor={thirdColor}/>
+                    <NavLink to="/chat"
+                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
+                        <TextAnimation componentId="chattext" text="Chat" fontSize={20}/>
                     </NavLink>
-                    <NavLink to="/meditation" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white" >
-                        <TextAnimation componentId="meditationtext" text="Meditation" fontSize={20} firstColor={firstColor} secondColor={secondColor} thirdColor={thirdColor}/>
+                    <NavLink to="/meditation"
+                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
+                        <TextAnimation componentId="meditationtext" text="Meditation" fontSize={20}/>
                     </NavLink>
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8 my-auto">
-                    <NavLink to="/login" className="text-2xl hidden md:block m-auto font-semibold text-white p-2 px-4 rounded-lg bg-theme-blue hover:bg-opacity-90 shadow-xl" >
-                        <TextAnimation componentId="logintext" text="Login" fontSize={25} firstColor={firstColor} secondColor={secondColor} thirdColor={thirdColor}/>
-                    </NavLink>
+                    {
+                        isLogin ?
+                            <div className="flex px-2 md:px-18">
+                                <div className="container hidden md:block">
+                                    <button id="dropdownButton" data-dropdown-toggle="dropdown"
+                                            onClick={() => {
+                                                setIsOpen(!isOpen)
+                                            }}
+                                            onBlur={() => {
+                                                setIsOpen(!isOpen)
+                                            }}
+                                            className="text-white text-2xl  align-items-center rounded-lg hover:bg-theme-brown  md:block m-auto font-semibold px-4 py-2.5 text-center inline-flex items-center"
+                                            type="button">
+                                        {userName.username}
+                                        {/*<ChevronDownIcon className=" absolute h-3 w-3"/>*/}
+
+                                        <div hidden={!isOpen}
+                                             className="dropdown z-50 w-44 mt-1 ml-1 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                                            <ul className="py-1" aria-labelledby="dropdownButton">
+                                                <li id="profile" onClick={event => navFunc("profile")}
+                                                    className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                                    Profile
+                                                </li>
+                                                <li onClick={event => navFunc("settings")}
+                                                    className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                                    Settings
+                                                </li>
+                                                <li onClick={event => navFunc("about")}
+                                                    className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                                    About
+                                                </li>
+                                                <li onClick={event => signOut()}
+                                                    className="relative block py-2 px-4 text-sm justify-content-sm-between items-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                                    <a className="align-items-center text-red-600">Sign Out
+                                                        <LogoutIcon
+                                                            className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className="flex-grow"></div>
+                                <div className="flex gap-x-4 my-auto">
+                                    <img
+                                        src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                                        className="rounded-circle w-12 rounded-full"
+                                        alt="avatar image"
+                                    />
+                                </div>
+                            </div>
+                            :
+                            <NavLink to="/login"
+                                     className="text-2xl hidden md:block m-auto font-semibold text-white p-2 px-4 rounded-lg bg-theme-blue hover:bg-opacity-90 shadow-xl">
+                                <TextAnimation componentId="logintext" text="Login" fontSize={25}/>
+                            </NavLink>
+                    }
                 </div>
+
                 <div className="block md:hidden flex my-auto p-1 border-2 rounded-xl cursor-pointer">
-                    <MenuIcon onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="w-8 h-8 text-white" />
+                    <MenuIcon onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="w-8 h-8 text-white"/>
                 </div>
                 {/* Mobile Header */}
-                <div className={`${isMobileMenuOpen ? "block" : "hidden"}   md:hidden absolute p-4 top-20 left-0 w-full`}>
+                <div
+                    className={`${isMobileMenuOpen ? "block" : "hidden"}   md:hidden absolute p-4 top-20 left-0 w-full`}>
                     <div className="bg-theme-green rounded-xl flex flex-col p-1 bg-opacity-90">
-                        <NavLink to="/sleep" className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-blue hover:bg-opacity-50 hover:text-green-800" >
+                        <NavLink to="/sleep"
+                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
                             Sleep
                         </NavLink>
-                        <NavLink to="/chat" className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800" >
+                        <NavLink to="/chat"
+                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
                             Chat
                         </NavLink>
-                        <NavLink to="/meditation" className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800" >
+                        <NavLink to="/meditation"
+                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
                             Meditation
                         </NavLink>
-                        <NavLink to="/login" className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800" >
+                        <NavLink to="/login"
+                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
                             Login
                         </NavLink>
                     </div>

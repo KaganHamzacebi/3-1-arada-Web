@@ -5,6 +5,7 @@
   "dependencies": {
     "@craco/craco": "^6.2.0",
     "@heroicons/react": "^1.0.5",
+    "@material-tailwind/react": "0.3.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -21,12 +22,13 @@
     "react-datepicker": "^4.7.0",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.22.5",
+    "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "craco --openssl-legacy-provider start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
@@ -51,8 +53,6 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
-    "highcharts": "^9.3.3",
-    "highcharts-react-official": "^3.1.0",
     "postcss": "^7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
   }
