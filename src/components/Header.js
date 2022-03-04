@@ -1,6 +1,5 @@
 import {NavLink, useNavigate} from "react-router-dom";
 import Logo from "../assets/images/logo_white.png";
-import {MenuIcon} from "@heroicons/react/solid"
 import {useState} from "react";
 import TextAnimation from "../common/TextAnimation";
 import UserService from "../service/UserService";

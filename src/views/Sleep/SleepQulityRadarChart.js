@@ -1,0 +1,57 @@
+import React from "react";
+import {Chart as ChartJS, Filler, Legend, LineElement, PointElement, RadialLinearScale, Tooltip} from "chart.js";
+import {Radar} from "react-chartjs-2";
+
+ChartJS.register(
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend
+);
+
+export default function SleepQulityRadarChart() {
+    const data = {
+        labels: [
+            "12",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23"
+        ],
+        datasets: [
+            {
+                label: "Monday",
+                data: [2, 9, 3, 5, 2, 3],
+                borderWidth: 1
+            },
+            {
+                label: "Tuesday",
+                data: [1, 8, 10, 7, 6, 3, 5, 6, 1, 0, 0, 0, 0],
+                borderWidth: 1
+            }
+        ]
+    };
+
+    return <Radar data={data}/>;
+}

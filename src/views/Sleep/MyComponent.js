@@ -5,6 +5,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import "../Home/Home.css";
 import SleepTimesChart from "./SleepTimesChart";
 import Calendar from "./Calendar";
+import SleepQulityRadarChart from "./SleepQulityRadarChart";
 
 export default function MyComponent() {
     return (
@@ -27,7 +28,7 @@ export default function MyComponent() {
                                     <Calendar></Calendar>
                                 </Col>
                                 <Col className="bg-theme-gray ">
-                                    4
+                                    <SleepQulityRadarChart></SleepQulityRadarChart>
                                 </Col>
                             </Row>
                         </Col>

@@ -10,8 +10,8 @@ import NotFound from "./views/NotFound/NotFound";
 import Login from "./views/Login/Login";
 import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 import Chat from "./views/Chat/Chat";
-import Sleep from "./views/Sleep/Sleep";
 import ChatRoom from "./views/Chat/ChatRoom";
+import MyComponent from "./views/Sleep/MyComponent";
 
 function App() {
   return (
