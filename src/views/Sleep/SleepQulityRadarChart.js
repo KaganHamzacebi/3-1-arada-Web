@@ -11,7 +11,18 @@ ChartJS.register(
     Legend
 );
 
-export default function SleepQulityRadarChart() {
+export default function SleepQulityRadarChart(props) {
+    debugger;
+    let dataset = props.data ? props.data : [{
+        label: "Monday",
+        data: [2, 9, 3, 5, 2, 3],
+        borderWidth: 1
+    },
+        {
+            label: "Tuesday",
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            borderWidth: 1
+        }]
     const data = {
         labels: [
             "12",
@@ -39,19 +50,11 @@ export default function SleepQulityRadarChart() {
             "22",
             "23"
         ],
-        datasets: [
-            {
-                label: "Monday",
-                data: [2, 9, 3, 5, 2, 3],
-                borderWidth: 1
-            },
-            {
-                label: "Tuesday",
-                data: [1, 8, 10, 7, 6, 3, 5, 6, 1, 0, 0, 0, 0],
-                borderWidth: 1
-            }
-        ]
+        datasets: dataset
+
     };
 
-    return <Radar data={data}/>;
+    return <div>
+        {data && <Radar data={data}/>}
+    </div>;
 }

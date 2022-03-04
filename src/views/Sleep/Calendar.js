@@ -4,10 +4,15 @@ import "./Calendar.css";
 import {useState} from "react";
 import SleepService from "../../service/SleepService";
 
-export default function Calendar() {
-    const [startDate, setStartDate] = useState(new Date());
+export default function Calendar(props) {
+    let startDate = props.startDate;
+    let setStartDate = props.setStartDate;
+    let endDate = props.endDate;
+    let setEndDate = props.setEndDate;
+    let data = props.data;
+    let setData = props.setData;
     const [isOpen, setIsOpen] = useState(false);
-    const [endDate, setEndDate] = useState(null);
+
     const sleepService = new SleepService();
     const onChange = (dates) => {
         const [start, end] = dates;
@@ -20,7 +25,12 @@ export default function Calendar() {
     };
     const handleClick = (e) => {
         //console.log(sleepService.getLineChartData());
-        sleepService.getSleepTimeData({startDate,endDate});
+        if (setData){
+            sleepService.getSleepTimeData({startDate,endDate}).then((response) => {
+                setData(response.data);
+            })
+        }
+
         e.preventDefault();
         setIsOpen(!isOpen);
     };

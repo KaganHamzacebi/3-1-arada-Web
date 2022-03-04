@@ -9,12 +9,12 @@ export default class SleepService extends Service {
     async getLineChartData() {
         return await axios.get("http://localhost:8080/sleep/deneme", {
             headers: this.authHeader()
-        }).then(rs => console.log(rs.data));
+        })
     }
 
     async getSleepTimeData(payload){
         return await axios.post("http://localhost:8080/sleep/deneme", payload, {
             headers : this.authHeader()
-        }).then(rs => console.log(rs));
+        });
     }
 }
