@@ -18,6 +18,7 @@ export default function Calendar() {
                 onChange={onChange}
                 startDate={startDate}
                 endDate={endDate}
+                shouldCloseOnSelect={false}
                 selectsRange/>
         </div>
     );

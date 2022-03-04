@@ -23,8 +23,8 @@ export default function MyComponent() {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col>
-                                    3
+                                <Col className="bg-theme-gray mr-1">
+                                    <Calendar></Calendar>
                                 </Col>
                                 <Col className="bg-theme-gray ">
                                     4
