@@ -23,6 +23,23 @@ ChartJS.register(
 
 export default function SleepTimesChart() {
     const options = {
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                grid: {
+                    display: false
+                }
+            }
+        },
+        elements: {
+            line: {
+                tension: 0.4
+            }
+        },
         responsive: true,
         plugins: {
             legend: {
@@ -32,6 +49,13 @@ export default function SleepTimesChart() {
                 display: true,
                 text: 'Chart.js Line Chart',
             },
+            backgroundColor: "red",
+            borderColor: "lightblue",
+            fill: false,
+            lineTension: 0.4,
+            radius: 6,
+            borderJoinStyle: "round",
+            tension : 40,
         },
     };
 
