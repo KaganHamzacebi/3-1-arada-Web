@@ -16,7 +16,7 @@ export default function LoginForm() {
             .then((res) => {
                 if (res.status === 200) {
                     if (res.data.accessToken) {
-                        setCookie("userToken", res.data.accessToken);
+                        setCookie("userToken", res.data.accessToken, {secure: true, sameSite: 'none'});
                     }
                     navigate("/");
                     window.location.reload();
