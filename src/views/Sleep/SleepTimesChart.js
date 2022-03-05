@@ -10,6 +10,8 @@ import {
     Tooltip,
 } from 'chart.js';
 import faker from "faker";
+import SleepService from "../../service/SleepService";
+import {useEffect} from "react";
 
 ChartJS.register(
     CategoryScale,
@@ -21,7 +23,21 @@ ChartJS.register(
     Legend
 );
 
-export default function SleepTimesChart() {
+export default function SleepTimesChart(props) {
+
+
+    let chartData = props.chartData;
+    let setChartData = props.setChartData;
+    useEffect(() => {
+        if (setChartData){
+            props.service.getLineChartData().then((response) => {
+                debugger;
+                setChartData(response.data);
+            })
+        }
+
+    },[])
+
     const options = {
         scales: {
             x: {
@@ -72,14 +88,13 @@ export default function SleepTimesChart() {
             },
             {
                 label: 'Dataset 2',
-                data: labels.map(() => faker.datatype.number({min: -1000, max: 1000})),
+                data: chartData,
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
             },
         ],
+
     };
-
-
     return (
         <div>
             <Line data={data} options={options}/>
