@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Header from "../../components/Header";
 import 'react-bootstrap';
 import {Col, Container, Row} from "react-bootstrap";

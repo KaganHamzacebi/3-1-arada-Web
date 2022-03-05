@@ -1,8 +1,4 @@
-import {
-    BrowserRouter,
-    Routes,
-    Route
-} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {createContext, useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 
@@ -15,9 +11,9 @@ import Chat from "./views/Chat/Chat";
 import ChatRoom from "./views/Chat/ChatRoom";
 import ProfileService from "./service/ProfileService";
 import Loading from "./views/Loading/Loading";
+import MyComponent from "./views/Sleep/MyComponent";
 
 export const UserContext = createContext(null);
-import MyComponent from "./views/Sleep/MyComponent";
 
 function App() {
     const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
