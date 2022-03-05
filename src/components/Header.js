@@ -1,19 +1,19 @@
 import {NavLink, useNavigate} from "react-router-dom";
 import Logo from "../assets/images/logo_white.png";
-import {useState} from "react";
+import {useState, useContext, useEffect} from "react";
 import TextAnimation from "../common/TextAnimation";
-import UserService from "../service/UserService";
+import {useCookies} from 'react-cookie';
 import {LogoutIcon, MenuIcon} from "@heroicons/react/solid";
 import "./Header.css";
+import {UserContext} from "../App";
 
 
 export default function Header() {
+    const {user, setUser} = useContext(UserContext);
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
 
-    const navigate = useNavigate();
-    const userService = new UserService();
+    const navigate = useNavigate()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isLogin, setIsLogin] = useState(userService.isLogin());
-    const [userName, setUserName] = useState(userService.getCurrentUser());
     const [isOpen, setIsOpen] = useState(false);
 
     const navFunc = (name) => {
@@ -22,8 +22,8 @@ export default function Header() {
     }
 
     const signOut = () => {
-        setIsLogin(false);
-        userService.logout();
+        removeCookie("userToken", {path: '/'});
+        window.location.reload();
     }
 
     return (
@@ -51,7 +51,7 @@ export default function Header() {
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8 my-auto">
                     {
-                        isLogin ?
+                        user ?
                             <div className="flex px-2 md:px-18">
                                 <div className="container hidden md:block">
                                     <button id="dropdownButton" data-dropdown-toggle="dropdown"
@@ -63,7 +63,7 @@ export default function Header() {
                                             }}
                                             className="text-white text-2xl  align-items-center rounded-lg hover:bg-theme-brown  md:block m-auto font-semibold px-4 py-2.5 text-center inline-flex items-center"
                                             type="button">
-                                        {userName.username}
+                                        {user.userDetails.username}
                                         {/*<ChevronDownIcon className=" absolute h-3 w-3"/>*/}
 
                                         <div hidden={!isOpen}
@@ -84,8 +84,7 @@ export default function Header() {
                                                 <li onClick={event => signOut()}
                                                     className="relative block py-2 px-4 text-sm justify-content-sm-between items-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                                     <a className="align-items-center text-red-600">Sign Out
-                                                        <LogoutIcon
-                                                            className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
+                                                        <LogoutIcon className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
                                                     </a>
                                                 </li>
                                             </ul>
