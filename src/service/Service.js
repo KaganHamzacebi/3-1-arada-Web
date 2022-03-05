@@ -11,8 +11,8 @@ export default class Service {
         });
     }
 
-    async get(url) {
-        return axios.get("http://localhost:8080" + url);
+    async get(url,config) {
+        return axios.get("http://localhost:8080" + url,config);
     }
 
     authHeader() {

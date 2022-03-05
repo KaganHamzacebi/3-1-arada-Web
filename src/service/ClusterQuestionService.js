@@ -5,7 +5,7 @@ class ClusterQuestionService extends Service{
         super('localhost:8080');
     }
     getQuestions(){
-        return this.get("/question/getQuestions");
+        return this.get("/question/getQuestions",{headers:this.authHeader()});
     }
 }
 export default ClusterQuestionService;
