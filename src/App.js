@@ -1,8 +1,4 @@
-import {
-    BrowserRouter,
-    Routes,
-    Route
-} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {createContext, useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 
@@ -12,10 +8,10 @@ import NotFound from "./views/NotFound/NotFound";
 import Login from "./views/Login/Login";
 import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 import Chat from "./views/Chat/Chat";
-import Sleep from "./views/Sleep/Sleep";
 import ChatRoom from "./views/Chat/ChatRoom";
 import ProfileService from "./service/ProfileService";
 import Loading from "./views/Loading/Loading";
+import MyComponent from "./views/Sleep/MyComponent";
 
 export const UserContext = createContext(null);
 
@@ -58,7 +54,7 @@ function App() {
                             <Route path="/chat" element={<Chat/>}/>
                             <Route path="/chat/room=:id" element={<ChatRoom/>}/>
                             <Route path="*" element={<NotFound/>}/>
-                            <Route path="/sleep" element={<Sleep/>}/>
+                            <Route path="/sleep" element={<MyComponent/>}/>
                         </Routes>
                     </BrowserRouter>
                 </div>

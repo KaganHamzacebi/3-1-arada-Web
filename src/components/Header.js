@@ -29,7 +29,7 @@ export default function Header() {
     return (
         <div className="fixed w-full z-50">
             <div className="flex px-4 md:px-16">
-                <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer"/>
+                <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer" />
                 <div className="my-auto ml-4 select-none hidden sm:block" onClick={() => navigate("/")}>
                     <TextAnimation componentId="appName" text="3 in 1" fontSize={40} fontWeight="bold"/>
                 </div>

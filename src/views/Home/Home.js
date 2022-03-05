@@ -6,6 +6,7 @@ import Flower from "../../assets/images/3.png";
 import Leaf from "../../assets/images/7.png";
 import Cactus from "../../assets/images/9.png";
 
+
 export default function Home() {
 
     return (
