@@ -12,7 +12,6 @@ ChartJS.register(
 );
 
 export default function SleepQulityRadarChart(props) {
-    debugger;
     let dataset = props.data ? props.data : [{
         label: "Monday",
         data: [2, 9, 3, 5, 2, 3],

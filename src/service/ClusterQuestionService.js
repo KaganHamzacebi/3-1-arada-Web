@@ -7,5 +7,8 @@ class ClusterQuestionService extends Service{
     getQuestions(){
         return this.get("/question/getQuestions",{headers:this.authHeader()});
     }
+    addQuestion(payload){
+        return this.post("/question/addQuestion",payload,{headers:this.authHeader()});
+    }
 }
 export default ClusterQuestionService;

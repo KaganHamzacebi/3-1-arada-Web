@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
+import AddQuestionPopUp from "../views/ClusterQuestions/AddQuestionPopUp";
 function QuestionDataTable(props){
     let questions = props.questions && props.questions.questions;
-
+    let [isPopUpActive, setIsPopUpActive] = useState(false);
     function answerMap(question) {
-        debugger;
         if (question.type == "OPEN_ENDED"){
             return (
                 <input
@@ -30,7 +30,6 @@ function QuestionDataTable(props){
         }
 
     }
-    debugger;
     return (
         <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -43,6 +42,15 @@ function QuestionDataTable(props){
                                     scope="col"
                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
+                                    {isPopUpActive && <AddQuestionPopUp onSubmit={props.onSubmit}setPopUpActive={setIsPopUpActive}service={props.service}handleClose={() => {setIsPopUpActive(false)}}/>}
+                                    {props.isEditable &&
+                                    <button onClick={() => setIsPopUpActive(true)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                        </svg>
+                                    </button> }
                                     Question
                                 </th>
                                 <th
@@ -50,10 +58,14 @@ function QuestionDataTable(props){
                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
                                     Answer
+
+                                    {!props.isEditable &&
                                     <button
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                         Submit Answers
                                     </button>
+                                    }
+
                                 </th>
 
                             </tr>
@@ -62,14 +74,24 @@ function QuestionDataTable(props){
                             {questions && questions.map((question) => (
                                 <tr key={question.questionBody}>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="flex items-center">
 
+                                        <div className="flex items-center">
+                                            {props.isEditable &&
+                                            <button>
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
+                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                                </svg>
+                                            </button>
+                                            }
                                             <div className="ml-4">
                                                 <div className="text-sm font-medium text-gray-900">{question.questionBody}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
+
                                         {answerMap(question)}
                                     </td>
                                 </tr>

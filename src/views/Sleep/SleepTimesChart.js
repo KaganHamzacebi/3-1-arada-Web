@@ -31,7 +31,6 @@ export default function SleepTimesChart(props) {
     useEffect(() => {
         if (setChartData){
             props.service.getLineChartData().then((response) => {
-                debugger;
                 setChartData(response.data);
             })
         }

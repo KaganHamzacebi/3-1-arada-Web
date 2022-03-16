@@ -13,6 +13,7 @@ import Chat from "./views/Chat/Chat";
 import ChatRoom from "./views/Chat/ChatRoom";
 import MyComponent from "./views/Sleep/MyComponent";
 import ClusterQuestion from "./views/ClusterQuestions/ClusterQuestion";
+import UpdateQuestions from "./views/ClusterQuestions/UpdateQuestions";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
                   <Route path="/sleep" element={<Home/>}/>
                   <Route path="/deneme" element={<MyComponent/>}/>
                   <Route path="/clustering" element={<ClusterQuestion/>}/>
+                  <Route path="/updateQuestions" element={<UpdateQuestions/>}/>
 
               </Routes>
           </BrowserRouter>

@@ -5,14 +5,12 @@ export default class Service {
         this.endpointBase = process.env.SERVER_URL + endpointBase;
     }
 
-    async post(url, payload) {
-        return axios.post(url, payload, {
-            baseUrl: this.endpointBase
-        });
+    async post(url, payload,config) {
+        return axios.post("http://localhost:8080"+url, payload,config);
     }
 
     async get(url,config) {
-        return axios.get("http://localhost:8080" + url,config);
+        return axios.get("http://localhost:8080"+url,config);
     }
 
     authHeader() {
