@@ -1,26 +1,49 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import AddQuestionPopUp from "../views/ClusterQuestions/AddQuestionPopUp";
 function QuestionDataTable(props){
     let questions = props.questions && props.questions.questions;
     let [isPopUpActive, setIsPopUpActive] = useState(false);
+    let [error,setError] = useState(null);
+    function handleValidation(){
+        debugger;
+        let flag = true;
+        props.questions.questions.forEach((question) => {
+            debugger;
+            if (!props.answers[question.questionBody]){
+                flag = false;
+            }
+        })
+        return flag;
+    }
     function answerMap(question) {
+
         if (question.type == "OPEN_ENDED"){
             return (
                 <input
                     type="text"
-                    name="price"
-                    id="price"
+                    value={props.answers ? props.answers[question.questionBody]: null}
+                    onChange={(e) => {
+                        let questionBody = question.questionBody;
+                        props.setAnswers({...props.answers,[question.questionBody]:e.target.value})}}
                     className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
                     placeholder="Type Your Answer Here"
                 />);
         }
         else if (question.potentialAnswer == null){
-            return (<input
+            return (<input  value={props.answers ? props.answers[question.questionBody]: null}
+                           onChange={(e) => {
+                               let questionBody = question.questionBody;
+                               props.setAnswers({...props.answers,[question.questionBody]:e.target.value})}}
                 className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                 type="text" placeholder="Answer" aria-label="Full name"/>);
         }
         else {
-            return (<select id="currency" name="currency" className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+            return (<select
+                            value={props.answers ? props.answers[question.questionBody]: null}
+                            onChange={(e) => {
+                                let questionBody = question.questionBody;
+                                props.setAnswers({...props.answers,[question.questionBody]:e.target.value})}}
+                            className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
                 {
                     question.potentialAnswer.map((answer) => {
                         return <option>{answer}</option>
@@ -61,11 +84,27 @@ function QuestionDataTable(props){
 
                                     {!props.isEditable &&
                                     <button
+                                        onClick={(e) => {
+                                            debugger;
+                                            let payload = [];
+                                            props.questions.questions.forEach((question) => {
+                                                payload.push({questionBody:question.questionBody,answer:props.answers[question.questionBody]})
+                                            })
+                                            if (handleValidation()){
+                                                setError(true);
+                                                props.service.submitAnswers(payload);
+                                            }
+                                            else {
+                                                setError("Please submit an answer for each question")
+                                            }
+
+                                        }}
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                         Submit Answers
+
                                     </button>
                                     }
-
+                                    {error && <span style={{color: "red"}}>{error}</span>}
                                 </th>
 
                             </tr>
@@ -77,7 +116,13 @@ function QuestionDataTable(props){
 
                                         <div className="flex items-center">
                                             {props.isEditable &&
-                                            <button>
+                                            <button onClick={(e) => {
+                                                props.service.removeQuestion(question.questionBody).then((response) => {
+                                                    if (response.data){
+                                                        props.onRemove();
+                                                    }
+                                                })
+                                            }}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
                                                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -91,7 +136,6 @@ function QuestionDataTable(props){
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-
                                         {answerMap(question)}
                                     </td>
                                 </tr>

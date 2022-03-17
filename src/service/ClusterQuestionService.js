@@ -10,5 +10,12 @@ class ClusterQuestionService extends Service{
     addQuestion(payload){
         return this.post("/question/addQuestion",payload,{headers:this.authHeader()});
     }
+    removeQuestion(questionBody){
+        return this.post("/question/deleteQuestion",{questionBody:questionBody},{headers:this.authHeader()});
+    }
+    submitAnswers(answerObject){
+        debugger;
+        return this.post("/question/submitAnswers",{user:JSON.parse(localStorage.getItem('user')),payload:answerObject},{headers:this.authHeader()});
+    }
 }
 export default ClusterQuestionService;

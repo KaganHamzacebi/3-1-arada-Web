@@ -8,8 +8,12 @@ function UpdateQuestions(){
     let [fetchComplete, setFetchComplete] = useState(false);
     let [answers, setAnswers] = useState(null);
     let [questionAdded,setQuestionAdded] = useState(false);
+    let [questionRemoved,setQuestionRemoved] = useState(false);
     function onSubmit(){
         setQuestionAdded(!questionAdded)
+    }
+    function onRemove(){
+        setQuestionRemoved(!questionRemoved);
     }
     let service = new ClusterQuestionService();
     useEffect(() => {
@@ -17,13 +21,14 @@ function UpdateQuestions(){
             setQuestions(response.data);
             setFetchComplete(true);
         })
-    },[questionAdded])
+    },[questionAdded,questionRemoved])
     return(
         <div id="clusterQuestionWrapper">
             <Header/>
             <div className="pt-48 pb-40 md:pt-60 px-8 md:px-24">
                 <QuestionDataTable
                     onSubmit={onSubmit}
+                    onRemove={onRemove}
                     service={service}
                     isEditable={true}
                     setAnswers={setAnswers}
