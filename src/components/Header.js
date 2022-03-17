@@ -52,7 +52,7 @@ export default function Header() {
                 <div className="flex gap-x-8 my-auto">
                     {
                         user ?
-                            <div className="flex px-2 md:px-18">
+                            <div className="hidden lg:flex px-2 md:px-18">
                                 <div className="container hidden md:block">
                                     <button id="dropdownButton" data-dropdown-toggle="dropdown"
                                             onClick={() => {
@@ -63,7 +63,7 @@ export default function Header() {
                                             }}
                                             className="text-white text-2xl  align-items-center rounded-lg hover:bg-theme-brown  md:block m-auto font-semibold px-4 py-2.5 text-center inline-flex items-center"
                                             type="button">
-                                        {user.userDetails.username}
+                                        {user.username}
                                         {/*<ChevronDownIcon className=" absolute h-3 w-3"/>*/}
 
                                         <div hidden={!isOpen}

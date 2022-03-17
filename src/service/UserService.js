@@ -12,12 +12,9 @@ export default class UserService extends Service {
         });
     }
 
-    async createUser(payload, userToken) {
+    async createUser(payload) {
         return await axios.post('/signup', payload, {
-            baseURL: this.endpointBase,
-            headers: {
-                Authorization: 'Bearer ' + userToken
-            }
+            baseURL: this.endpointBase
         });
     }
 

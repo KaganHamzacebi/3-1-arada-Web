@@ -2,16 +2,18 @@ import {useForm} from "react-hook-form";
 import {EyeIcon, EyeOffIcon} from "@heroicons/react/solid";
 import {useState} from "react";
 import UserService from "../../service/UserService";
+import {useNavigate} from "react-router-dom";
 
 export default function RegisterForm() {
     const userService = new UserService();
+    const navigate = useNavigate();
 
     const {register, handleSubmit} = useForm();
     const onSubmit = async data => {
-        await userService.signUp(data)
+        await userService.createUser(data)
             .then((res) => {
                 if (res.status === 200) {
-                    //TODO: successful implementation
+                    navigate("/login");
                 }
             })
             .catch((err) => {
