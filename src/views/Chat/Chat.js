@@ -9,6 +9,7 @@ import {createContext, useContext, useEffect, useState} from "react";
 import {UserContext} from "../../App";
 import {ThreeDots} from "react-loader-spinner";
 import ChatRoom from "./ChatRoom";
+import {ShieldExclamationIcon} from "@heroicons/react/solid"
 
 
 export const ChatContext = createContext(null);
@@ -19,6 +20,8 @@ export default function Chat() {
     const chatService = new ChatService();
     const [isLoading, setIsLoading] = useState(false);
     const [timer, setTimer] = useState(0);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
     const {user, setUser, userToken} = useContext(UserContext);
     const [chatData, setChatData] = useState([]);
 
@@ -48,17 +51,13 @@ export default function Chat() {
         connected: false,
     });
 
-    const startChattingQueue = () => {
-        setIsLoading(true);
-        registerUser();
-    }
-
     const stopChattingQueue = () => {
         setIsLoading(false);
         setTimer(0);
     }
 
     const registerUser = () => {
+        const loadingTimeout = setTimeout(() => setIsLoading(true), 100);
         chatService.connectChat(userToken, user.username)
             .then((res) => {
                 if (res.status === 200) {
@@ -74,8 +73,16 @@ export default function Chat() {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                clearTimeout(loadingTimeout);
                 setIsLoading(false);
+                if (err.response) {
+                    setErrorMessage(err.response.data);
+                }
+                else {
+                    setErrorMessage("An error occurred!");
+                }
+                setShowErrorMessage(true);
+                setTimeout(() => setShowErrorMessage(false), 2000);
             })
     }
     const onMessageReceived = (payload) => {
@@ -106,6 +113,15 @@ export default function Chat() {
 
     return (
         <ChatContext.Provider value={{sendMessage, chatData, connectionData, stompClient}}>
+            {
+                <div
+                    className={`fixed left-1/2 p-6 top-24 text-center transition-all duration-500 opacity-0 ${showErrorMessage ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-300 z-50`}>
+                    <div className="flex flex-row">
+                        <ShieldExclamationIcon className="w-8 h-8 mr-2 text-red-600"/>
+                        <span className="m-auto text-xl font-bold text-red-600">{errorMessage}</span>
+                    </div>
+                </div>
+            }
             {
                 connectionData.connected ?
                     <ChatRoom/>
@@ -140,7 +156,7 @@ export default function Chat() {
                                 className="font-semibold text-gray-600">Click the button below to start chatting</span>
                                     </div>
                                     <div className="flex">
-                                        <button onClick={() => startChattingQueue()}
+                                        <button onClick={() => registerUser()}
                                                 disabled={isLoading}
                                                 className={`m-auto ${isLoading ? "bg-gray-600" : "bg-theme-green"} px-8 py-4 rounded-xl text-white transition-colors duration-500 font-semibold hover:bg-green-600 shadow-xl z-20`}>Start
                                             Chatting!
