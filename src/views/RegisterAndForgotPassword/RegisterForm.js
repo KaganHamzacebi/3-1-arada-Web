@@ -85,7 +85,6 @@ export default function RegisterForm() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <select
                         {...register("gender")}
-                        defaultValue={0}
                         className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
                         required
                     >
@@ -98,6 +97,7 @@ export default function RegisterForm() {
                         placeholder="Birth Date"
                         type="date"
                         className="w-full p-2 rounded focus:ring-2 focus:ring-green-600 outline-none"
+                        required
                     />
                 </div>
                 <div>

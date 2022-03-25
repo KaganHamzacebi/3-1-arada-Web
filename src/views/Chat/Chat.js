@@ -26,7 +26,7 @@ export default function Chat() {
 
     useEffect(() => {
         if (!user) {
-            navigate("/");
+            navigate("/register");
         }
     }, [])
 

@@ -23,7 +23,7 @@ export default function ChatRoom() {
 
     useEffect(() => {
         if (!connectionData) {
-            navigate("/");
+            navigate("/register");
         }
     }, [])
 
