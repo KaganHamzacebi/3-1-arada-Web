@@ -10,6 +10,7 @@ import {UserContext} from "../../App";
 import {ThreeDots} from "react-loader-spinner";
 import ChatRoom from "./ChatRoom";
 
+
 export const ChatContext = createContext(null);
 
 let stompClient = null;
@@ -61,10 +62,10 @@ export default function Chat() {
         chatService.connectChat(userToken, user.username)
             .then((res) => {
                 if (res.status === 200) {
-                    stompClient = chatService.connectSocket();
-                    stompClient.connect({}, function () {
+                    stompClient = chatService.connectSocket(userToken);
+                    stompClient.connect({Authorization: `Bearer ${userToken}`}, function () {
                             setConnectionData({...connectionData, "connected": true, "receiverName": res.data.receiver});
-                            stompClient.subscribe('/user/' + connectionData.username + '/private', onMessageReceived);
+                            stompClient.subscribe('/user/' + connectionData.username + '/private', onMessageReceived, {Authorization: `Bearer ${userToken}`});
                         },
                         function (err) {
                             console.log(err);
@@ -77,7 +78,6 @@ export default function Chat() {
                 setIsLoading(false);
             })
     }
-
     const onMessageReceived = (payload) => {
         let payloadData = JSON.parse(payload.body);
         setChatData(chatData => [...chatData, payloadData]);
@@ -105,10 +105,10 @@ export default function Chat() {
     }
 
     return (
-        <ChatContext.Provider value={{sendMessage, chatData, connectionData}}>
+        <ChatContext.Provider value={{sendMessage, chatData, connectionData, stompClient}}>
             {
                 connectionData.connected ?
-                    <ChatRoom />
+                    <ChatRoom/>
                     :
                     <div>
                         {
