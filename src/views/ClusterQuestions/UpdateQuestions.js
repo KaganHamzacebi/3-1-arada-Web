@@ -2,6 +2,7 @@ import Header from "../../components/Header";
 import QuestionDataTable from "../../common/QuestionDataTable";
 import React, {useEffect, useState} from "react";
 import ClusterQuestionService from "../../service/ClusterQuestionService";
+import "./UpdateQuestions.css";
 
 function UpdateQuestions(){
     let [questions,setQuestions] = useState(null);
@@ -25,7 +26,7 @@ function UpdateQuestions(){
     return(
         <div id="clusterQuestionWrapper">
             <Header/>
-            <div className="pt-48 pb-40 md:pt-60 px-8 md:px-24">
+            <div id="clusterDataTableWrapper" className="pt-48 pb-40 md:pt-60 px-8 md:px-24">
                 <QuestionDataTable
                     onSubmit={onSubmit}
                     onRemove={onRemove}

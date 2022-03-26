@@ -30,7 +30,6 @@ function App() {
                   <Route path="/deneme" element={<MyComponent/>}/>
                   <Route path="/clustering" element={<ClusterQuestion/>}/>
                   <Route path="/updateQuestions" element={<UpdateQuestions/>}/>
-
               </Routes>
           </BrowserRouter>
       </div>

@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import AddQuestionPopUp from "../views/ClusterQuestions/AddQuestionPopUp";
 function QuestionDataTable(props){
     let trueFalse = "True,False";
     let score = "1,2,3,4,5";
@@ -25,11 +24,11 @@ function QuestionDataTable(props){
         }
     }
     function handleValidation(){
-        if (questionBody.length == 0){
+        if (questionBody.length === 0){
             setError("Question Body is not valid");
             return false;
         }
-        else if (chosenType == "DROPDOWN" && potentialAnswer.length == 0){
+        else if (chosenType === "DROPDOWN" && potentialAnswer.length === 0){
             setError("Potential answers is not valid");
             return false;
         }
@@ -99,13 +98,6 @@ function QuestionDataTable(props){
                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
                                     Possible Answers
-                                    <button
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                    onClick={() => addQuestion()}>
-                                        Submit Answers
-
-                                    </button>
-                                    {error && <span style={{color: "red"}}>{error}</span>}
                                 </th>
 
                             </tr>
@@ -149,6 +141,21 @@ function QuestionDataTable(props){
                                     </td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <button
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                        onClick={() => addQuestion()}>
+                                        Add Question
+
+                                    </button>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {error && <span style={{color: "red"}}>{error}</span>}
+                                </td>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

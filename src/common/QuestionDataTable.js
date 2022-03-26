@@ -1,15 +1,24 @@
 import React, {useEffect, useState} from "react";
 import AddQuestionPopUp from "../views/ClusterQuestions/AddQuestionPopUp";
+import "./QuestionDataTable.css"
 function QuestionDataTable(props){
     let questions = props.questions && props.questions.questions;
+    let [visibleQuestions,setVisibleQuestions] = useState(null);
+    let [page,setPage] = useState(0);
+    useEffect(() => {
+        if (questions){
+            setVisibleQuestions(props.questions.questions.slice(page*10,(page*10+10)))
+            if (page * 10 >= props.questions.questions.length){
+                setPage(page-1);
+            }
+        }
+    },[page,questions]);
     let [isPopUpActive, setIsPopUpActive] = useState(false);
     let [error,setError] = useState(null);
     function handleValidation(){
-        debugger;
         let flag = true;
-        props.questions.questions.forEach((question) => {
-            debugger;
-            if (!props.answers[question.questionBody]){
+        visibleQuestions.forEach((question) => {
+            if (!props.isEditable && !props.answers[question.questionBody]){
                 flag = false;
             }
         })
@@ -17,13 +26,12 @@ function QuestionDataTable(props){
     }
     function answerMap(question) {
 
-        if (question.type == "OPEN_ENDED"){
+        if (question.type === "OPEN_ENDED"){
             return (
                 <input
                     type="text"
                     value={props.answers ? props.answers[question.questionBody]: null}
                     onChange={(e) => {
-                        let questionBody = question.questionBody;
                         props.setAnswers({...props.answers,[question.questionBody]:e.target.value})}}
                     className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
                     placeholder="Type Your Answer Here"
@@ -32,7 +40,6 @@ function QuestionDataTable(props){
         else if (question.potentialAnswer == null){
             return (<input  value={props.answers ? props.answers[question.questionBody]: null}
                            onChange={(e) => {
-                               let questionBody = question.questionBody;
                                props.setAnswers({...props.answers,[question.questionBody]:e.target.value})}}
                 className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                 type="text" placeholder="Answer" aria-label="Full name"/>);
@@ -41,7 +48,6 @@ function QuestionDataTable(props){
             return (<select
                             value={props.answers ? props.answers[question.questionBody]: null}
                             onChange={(e) => {
-                                let questionBody = question.questionBody;
                                 props.setAnswers({...props.answers,[question.questionBody]:e.target.value})}}
                             className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
                 {
@@ -50,6 +56,8 @@ function QuestionDataTable(props){
                     })
                 }
             </select>);
+
+
         }
 
     }
@@ -65,7 +73,7 @@ function QuestionDataTable(props){
                                     scope="col"
                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
-                                    {isPopUpActive && <AddQuestionPopUp onSubmit={props.onSubmit}setPopUpActive={setIsPopUpActive}service={props.service}handleClose={() => {setIsPopUpActive(false)}}/>}
+                                    {isPopUpActive && <AddQuestionPopUp onSubmit={props.onSubmit} setPopUpActive={setIsPopUpActive} service={props.service} handleClose={() => {setIsPopUpActive(false)}}/>}
                                     {props.isEditable &&
                                     <button onClick={() => setIsPopUpActive(true)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
@@ -82,35 +90,13 @@ function QuestionDataTable(props){
                                 >
                                     Answer
 
-                                    {!props.isEditable &&
-                                    <button
-                                        onClick={(e) => {
-                                            debugger;
-                                            let payload = [];
-                                            props.questions.questions.forEach((question) => {
-                                                payload.push({questionBody:question.questionBody,answer:props.answers[question.questionBody]})
-                                            })
-                                            if (handleValidation()){
-                                                setError(true);
-                                                props.service.submitAnswers(payload);
-                                            }
-                                            else {
-                                                setError("Please submit an answer for each question")
-                                            }
 
-                                        }}
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        Submit Answers
-
-                                    </button>
-                                    }
-                                    {error && <span style={{color: "red"}}>{error}</span>}
                                 </th>
 
                             </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                            {questions && questions.map((question) => (
+                            {visibleQuestions && visibleQuestions.map((question) => (
                                 <tr key={question.questionBody}>
                                     <td className="px-6 py-4 whitespace-nowrap">
 
@@ -119,7 +105,7 @@ function QuestionDataTable(props){
                                             <button onClick={(e) => {
                                                 props.service.removeQuestion(question.questionBody).then((response) => {
                                                     if (response.data){
-                                                        props.onRemove();
+                                                        props.onRemove()
                                                     }
                                                 })
                                             }}>
@@ -141,6 +127,75 @@ function QuestionDataTable(props){
                                 </tr>
                             ))}
                             </tbody>
+                            <tfoot className="bg-gray-50">
+                            <tr>
+
+                                <td align="left">
+                                    {page > 0 &&
+                                    <button
+                                        onClick={() => {
+                                            setError(false);
+                                            setPage(page-1)
+                                        }}
+                                    >
+                                        Previous Page
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                                        </svg>
+                                    </button>
+                                    }
+                                </td>
+
+                                <td align="right">
+                                    { questions && page < (questions.length / 10)-1 &&
+                                    <button
+                                        onClick={() => {
+                                            if (handleValidation()){
+                                                setError(false);
+                                                setPage(page+1)
+                                            }
+                                            else {
+                                                setError("Please submit an answer for each question")
+                                            }
+                                            }}
+                                    >
+                                        Next Page
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                        </svg>
+                                    </button>
+                                    }
+                                    {!props.isEditable && questions && page === (questions.length / 10)-1 &&
+                                    <button
+                                        onClick={(e) => {
+                                            let payload = [];
+                                            props.questions.questions.forEach((question) => {
+                                                payload.push({questionBody:question.questionBody,answer:props.answers[question.questionBody]})
+                                            })
+                                            if (handleValidation()){
+                                                setError(false);
+                                                props.service.submitAnswers(payload);
+                                            }
+                                            else {
+                                                setError("Please submit an answer for each question")
+                                            }
+
+                                        }}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Submit Answers
+
+                                    </button>
+
+                                    }
+                                    { error && questions && !props.isEditable && <span style={{color: "red"}}>{error}</span>}
+                                </td>
+                            </tr>
+
+                            </tfoot>
                         </table>
                     </div>
                 </div>
