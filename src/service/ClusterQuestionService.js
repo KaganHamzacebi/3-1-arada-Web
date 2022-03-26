@@ -15,7 +15,7 @@ class ClusterQuestionService extends Service{
         return this.post("/question/deleteQuestion",{questionBody:questionBody},{headers:this.authHeader()});
     }
     submitAnswers(answerObject){
-        return this.post("/question/submitAnswers",{user:JSON.parse(localStorage.getItem('user')),payload:answerObject},{headers:this.authHeader()});
+        return this.post("/question/submitAnswers",{payload:answerObject},{headers:this.authHeader()});
     }
     populateDataset() {
         return this.get("/question/populateDataset",{headers: authHeader()});
