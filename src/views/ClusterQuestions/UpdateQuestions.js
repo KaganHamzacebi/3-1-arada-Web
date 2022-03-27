@@ -26,7 +26,7 @@ function UpdateQuestions(){
     return(
         <div id="clusterQuestionWrapper">
             <Header/>
-            <div id="clusterDataTableWrapper" className="pt-48 pb-40 md:pt-60 px-8 md:px-24">
+            <div id="clusterDataTableWrapper" className="pt-48 pb-40 md:pt-36 px-8 md:px-24">
                 <QuestionDataTable
                     onSubmit={onSubmit}
                     onRemove={onRemove}

@@ -172,9 +172,10 @@ function QuestionDataTable(props){
                                     {!props.isEditable && questions && page === (questions.length / 10)-1 &&
                                     <button
                                         onClick={(e) => {
+                                            debugger;
                                             let payload = [];
                                             props.questions.questions.forEach((question) => {
-                                                payload.push({questionBody:question.questionBody,answer:props.answers[question.questionBody]})
+                                                payload.push({question:question,answer:props.answers[question.questionBody]})
                                             })
                                             if (handleValidation()){
                                                 setError(false);
