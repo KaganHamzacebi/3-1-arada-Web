@@ -1,6 +1,6 @@
 import {NavLink, useNavigate} from "react-router-dom";
 import Logo from "../assets/images/logo_white.png";
-import {useState, useContext, useEffect} from "react";
+import {useState, useContext} from "react";
 import TextAnimation from "../common/TextAnimation";
 import {useCookies} from 'react-cookie';
 import {LogoutIcon, MenuIcon} from "@heroicons/react/solid";
@@ -46,6 +46,10 @@ export default function Header() {
                     <NavLink to="/meditation"
                              className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
                         <TextAnimation componentId="meditationtext" text="Meditation" fontSize={20}/>
+                    </NavLink>
+                    <NavLink to="/todo"
+                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
+                        <TextAnimation componentId="todo" text="To-Do" fontSize={20}/>
                     </NavLink>
                 </div>
                 <div className="flex-grow"></div>

@@ -14,6 +14,7 @@ import MyComponent from "./views/Sleep/MyComponent";
 import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 
 import ProfileService from "./service/ProfileService";
+import ToDo from "./views/ToDo/ToDo";
 
 export const UserContext = createContext(null);
 
@@ -58,6 +59,7 @@ function App() {
                             <Route path="/chat/room=:id" element={<ChatRoom/>}/>
                             <Route path="*" element={<NotFound/>}/>
                             <Route path="/sleep" element={<MyComponent/>}/>
+                            <Route path="/todo" element={<ToDo/>}/>
                         </Routes>
                     </BrowserRouter>
                 </div>
