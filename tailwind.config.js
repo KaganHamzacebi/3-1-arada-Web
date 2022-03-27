@@ -30,7 +30,8 @@ module.exports = {
                 '18': '18deg',
             },
             spacing: {
-                '13': '3.25rem'
+                '13': '3.25rem',
+                '128': '32rem'
             }
         },
     },
