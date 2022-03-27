@@ -31,12 +31,12 @@ function EditTaskPanel(props){
                     Add Note
                 </li>
                 }
-                {props.focusedTask.repeatByDay &&
+                {props.focusedTask.repeatByDay !== -1  &&
                 <li className="p-3">
                     Habit:{props.focusedTask.repeatByDay}
                 </li>
                 }
-                {!props.focusedTask.repeatByDay &&
+                {props.focusedTask.repeatByDay === -1 &&
                 <li className="p-3">
                     Make Habit
                 </li>}

@@ -3,13 +3,13 @@ import {useEffect, useState} from "react";
 function TaskList(props){
     let [addTask,setAddTask] = useState(false);
     useEffect(() => {
-        debugger;
+
         let checkObject = {};
         props.currentCategory && props.currentCategory.content.forEach((task) => {
-            debugger;
+
             checkObject = {...checkObject,[task.name]:false}
         })
-        debugger;
+
         props.setCheckMap(checkObject);
     },[props.currentCategory])
     return <div className="col-span-2 rounded-r-xl bg-gray-200 shadow-lg z-20 relative">
@@ -56,7 +56,6 @@ function TaskList(props){
                             onChange={(e) => {
                                 setAddTask(e.target.value)}}
                             onSubmit={() => {
-                                debugger;
                                 props.setEditActive(false);
                                 props.addTask(props.currentCategory,addTask)}
                             }

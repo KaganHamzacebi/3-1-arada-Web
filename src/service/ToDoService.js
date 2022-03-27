@@ -13,8 +13,7 @@ class ToDoService extends Service{
     }
     addTask(currentCategory,taskName){
         if (currentCategory){
-            let payload = {categoryName : currentCategory.name, taskName:taskName}
-            debugger;
+            let payload = {categoryName : currentCategory.id, taskName:taskName}
             return axios.post("/addTask",payload,{
                 baseURL: this.endpointBase,
                 headers: this.authHeader()

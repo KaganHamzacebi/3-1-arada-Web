@@ -20,7 +20,7 @@ function ToDo(){
         })
     },[])
     if (editActive){
-        body = <div className="w-85 pt-28 pb-8 px-14 grid grid-cols-1 md:grid-cols-4">
+        body = <div className="w-100 pt-28 pb-8 px-14 grid grid-cols-1 md:grid-cols-4">
              <TasksTab categories={taskCategories}
                        setCurrentCategory={setCurrentCategory}/>
             <TaskList
@@ -37,7 +37,7 @@ function ToDo(){
          </div>
     }
          else {
-        body = <div className="w-85 pt-28 pb-8 px-14 grid grid-cols-1 md:grid-cols-3">
+        body = <div className="w-100 pt-28 pb-8 px-14 grid grid-cols-1 md:grid-cols-3">
             <TasksTab categories={taskCategories}
                       setCurrentCategory={setCurrentCategory}/>
             <TaskList addTask={(currentCategory,taskName) => service.addTask(currentCategory,taskName)}
