@@ -30,7 +30,7 @@ export default function ChatRoom() {
 
     useEffect(() => {
         if (!connectionData) {
-            navigate("/");
+            navigate("/register");
         }
         window.addEventListener('beforeunload', () => {
             console.log("before unload");

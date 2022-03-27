@@ -4,14 +4,16 @@ import {useCookies} from 'react-cookie';
 
 //Views
 import Home from "./views/Home/Home";
-import NotFound from "./views/NotFound/NotFound";
 import Login from "./views/Login/Login";
-import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 import Chat from "./views/Chat/Chat";
+import Profile from "./views/Profile/Profile";
 import ChatRoom from "./views/Chat/ChatRoom";
-import ProfileService from "./service/ProfileService";
 import Loading from "./views/Loading/Loading";
+import NotFound from "./views/NotFound/NotFound";
 import MyComponent from "./views/Sleep/MyComponent";
+import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
+
+import ProfileService from "./service/ProfileService";
 
 export const UserContext = createContext(null);
 
@@ -45,12 +47,13 @@ function App() {
     return (
         <UserContext.Provider value={{user, userToken, setUserToken}}>
             {loaded ?
-                <div id="appWrapper" className="flex flex-col flex-grow">
+                <div id="appWrapper" className="w-full h-full flex flex-col flex-grow">
                     <BrowserRouter>
                         <Routes>
                             <Route exact path="/" element={<Home/>}/>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/register" element={<RegisterAndForgotPassword/>}/>
+                            <Route path="/profile" element={<Profile/>}/>
                             <Route path="/chat" element={<Chat/>}/>
                             <Route path="/chat/room=:id" element={<ChatRoom/>}/>
                             <Route path="*" element={<NotFound/>}/>
