@@ -14,7 +14,14 @@ export default function Header() {
 
     const navigate = useNavigate()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [scroll, setScroll] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            setScroll(window.scrollY > 50);
+        });
+    }, [])
 
     const navFunc = (name) => {
         let url = "/" + name;
@@ -27,7 +34,7 @@ export default function Header() {
     }
 
     return (
-        <div className="fixed w-full z-50">
+        <div className={`fixed w-full transform transition duration-500 ${scroll && "bg-theme-darkgreen bg-opacity-80"} z-50`}>
             <div className="flex px-4 md:px-16">
                 <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer" />
                 <div className="my-auto ml-4 select-none hidden sm:block" onClick={() => navigate("/")}>

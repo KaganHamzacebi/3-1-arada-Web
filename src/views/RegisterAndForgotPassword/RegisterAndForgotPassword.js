@@ -23,7 +23,7 @@ export default function RegisterAndForgotPassword() {
         <div id="registerAndForgotPasswordWrapper" className="w-full md:h-full">
             <div className="m-auto">
                 <div className="grid grid-cols-1 p-6 lg:flex lg:p-0">
-                    <img src={LogoGreen} alt="logo_mobile" className="w-32 h-32 block lg:hidden m-auto"/>
+                    <img src={LogoGreen} alt="logo_mobile" onClick={() => navigate("/")} className="w-32 h-32 cursor-pointer block lg:hidden m-auto"/>
                     <div className="p-12 hidden lg:block bg-theme-green rounded-l-lg shadow-xl">
                         <div className="h-full w-full py-6 grid grid-rows-2">
                             <div id="Logo" className="flex flex-col">

@@ -6,6 +6,7 @@ module.exports = {
         extend: {
             backgroundColor: {
                 "theme-green": "#92A74B",
+                "theme-darkgreen": "#2E5700",
                 "theme-brown": "#EADFD1",
                 "theme-darkbrown": "#C3765A",
                 "theme-darkerbrown": "#4E2F24",
