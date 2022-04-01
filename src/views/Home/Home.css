@@ -2,3 +2,8 @@
     background: rgb(146,167,75);
     background: linear-gradient(90deg, rgba(146,167,75,0.5) 0%, rgba(218,189,157,0.7) 50%, rgba(195,118,90,0.5) 100%);
 }
+
+#grad1 {
+    background: rgb(142,23,23);
+    background: linear-gradient(120deg, rgba(142,23,23,0.34079569327731096) 0%, rgba(105,11,11,0.5592830882352942) 100%);
+}

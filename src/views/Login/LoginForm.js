@@ -1,14 +1,15 @@
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {EyeIcon, EyeOffIcon} from "@heroicons/react/solid";
 import UserService from "../../service/UserService";
 import {useNavigate} from "react-router-dom";
 import {useCookies} from 'react-cookie';
-
+import {LoginErrorContext} from "./Login";
 
 export default function LoginForm() {
     const {register, handleSubmit} = useForm();
     const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
+    const {setShowLoginError, setLoginErrorMessage} = useContext(LoginErrorContext);
     const userService = new UserService();
 
     const onSubmit = async data => {
@@ -24,8 +25,12 @@ export default function LoginForm() {
             })
             .catch((err) => {
                 if (err.response) {
-                    console.log(err.response.data);
+                    setLoginErrorMessage(err.response.data.message);
+                } else {
+                    setLoginErrorMessage("An error occurred!");
                 }
+                setShowLoginError(true);
+                setTimeout(() => setShowLoginError(false), 2000);
             })
 
     };

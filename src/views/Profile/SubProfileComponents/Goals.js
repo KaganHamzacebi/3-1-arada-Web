@@ -1,6 +1,6 @@
 import {useForm} from "react-hook-form";
 import {useEffect, useState} from "react";
-import GoalImg from "../../../assets/goals_image.svg";
+import GoalImg from "../../../assets/goals_img.svg";
 
 export default function Goals(
     props
