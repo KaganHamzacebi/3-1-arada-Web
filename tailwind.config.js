@@ -18,7 +18,8 @@ module.exports = {
                 "theme-brown": "#EADFD1",
                 "theme-darkbrown": "#C3765A",
                 "theme-darkerbrown": "#4E2F24",
-                "theme-pink": "#D18390"
+                "theme-pink": "#D18390",
+                "theme-blue": "#C45567",
             },
             colors: {
                 "theme-green": "#92A74B",
