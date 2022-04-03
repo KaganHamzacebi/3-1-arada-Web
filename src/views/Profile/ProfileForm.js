@@ -5,53 +5,81 @@ import ProfileService from "../../service/ProfileService";
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../App";
 import "./ProfileForm.css";
+import moment from "moment";
+import {useCookies} from "react-cookie";
+import {ProfileNotificationContext} from "./Profile";
 
 export default function ProfileForm() {
     const navigate = useNavigate();
     const profileService = new ProfileService();
     const {user, userToken} = useContext(UserContext);
+    const {setShowNotification, setNotificationMessage, setIsSuccessNotification} = useContext(ProfileNotificationContext);
     const [isEditMode, setIsEditMode] = useState(false);
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
 
-    const [firstNameValue, setFirstNameValue] = useState("Melissa");
-    const [lastNameValue, setLastNameValue] = useState("Göşmen");
-    const [emailValue, setEmailValue] = useState("gosmenmelissa@gmail.com");
-    const [genderValue, setGenderValue] = useState("FEMALE");
-    const [birthDateValue, setBirthDateValue] = useState("1998-02-14");
+    const [firstNameValue, setFirstNameValue] = useState(user && user.name);
+    const [lastNameValue, setLastNameValue] = useState(user && user.surname);
+    const [emailValue, setEmailValue] = useState(user && user.email);
+    const [genderValue, setGenderValue] = useState(user && user.gender);
+    const [birthDateValue, setBirthDateValue] = useState(user && moment(user.birthDate).format("YYYY-MM-DD"));
 
-    const {register, handleSubmit} = useForm();
-    const onSubmit = async data => {};
-
-    useEffect(() => {
-
-    });
-
-    const save = () => {
-
+    const {register, setValue, handleSubmit} = useForm();
+    const onSubmit = data => {
+        profileService.updateUser(data, userToken)
+            .then((res) => {
+                if (res.status === 200) {
+                    setShowNotification(true);
+                    setIsSuccessNotification(true);
+                    setNotificationMessage("Profile successfully updated!")
+                    setTimeout(() => setShowNotification(false), 2000);
+                    setIsEditMode(false);
+                }
+            })
+            .catch((err) => {
+                setIsSuccessNotification(false);
+                if (err.response) {
+                    setNotificationMessage(err.response.data.message);
+                } else {
+                    setNotificationMessage("An error occurred!");
+                }
+                setShowNotification(true);
+                setTimeout(() => setShowNotification(false), 2000);
+            })
     };
 
     const cancel = () => {
-
+        setValue("name", user.name);
+        setValue("surname", user.surname);
+        setValue("email", user.email);
+        setValue("gender", user.gender);
+        setValue("birthDate", moment(user.birthDate).format("YYYY-MM-DD"));
+        setIsEditMode(false);
     };
+
+    const signOut = () => {
+        removeCookie("userToken", {path: '/'});
+        navigate("/");
+        window.location.reload();
+    }
+
+    useEffect(() => {
+        console.log(user);
+    }, [])
 
     return (
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full my-auto space-y-2 flex flex-col relative">
-                <CogIcon className="w-6 h-6 cursor-pointer transform translate duration-500 hover:rotate-90 self-end" onClick={() => {
-                    setIsEditMode(!isEditMode)
-                }} color="white"/>
+                <CogIcon className="w-6 h-6 cursor-pointer transform translate duration-500 hover:rotate-90 self-end"
+                         onClick={() => {
+                             setIsEditMode(!isEditMode)
+                         }} color="white"/>
                 <div className={`${isEditMode ? "block" : "hidden"} absolute -bottom-14 right-0`}>
-                    <div
-                        className="flex flex-row p-1 px-2 rounded-lg cursor-pointer bg-white"
-                        onClick={() => {
-
-                        }}>
-                            <span
-                                className="text-theme-pink font-bold my-auto self-start">
-                                Save
-                            </span>
-                    </div>
+                    <input
+                        type="submit"
+                        className="flex flex-row p-1 px-2 rounded-lg text-theme-pink font-bold my-auto self-start bg-white"
+                    />
                 </div>
-                <div className={`${isEditMode ? "block" : "hidden"} absolute -bottom-14 right-16`}>
+                <div className={`${isEditMode ? "block" : "hidden"} absolute -bottom-14 right-20`}>
                     <div
                         className="flex flex-row p-1 px-2 rounded-lg cursor-pointer bg-red-600"
                         onClick={() => {
@@ -72,7 +100,8 @@ export default function ProfileForm() {
                         <LogoutIcon
                             className="w-4 h-4 transform transition-all group-hover:text-white duration-500 text-theme-pink my-auto self-start mr-2"/>
                         <span
-                            className="transform transition-all duration-500 text-theme-pink group-hover:text-white font-bold my-auto self-start">
+                            className="transform transition-all duration-500 text-theme-pink group-hover:text-white font-bold my-auto self-start"
+                            onClick={() => signOut()}>
                                 Logout
                             </span>
                     </div>
@@ -120,7 +149,7 @@ export default function ProfileForm() {
                     <span className="text-white font-semibold">Password</span>
                     {
                         isEditMode ?
-                            <button className="w-full text-white font-bold bg-gray-400 rounded mt-1 p-2">
+                            <button className="w-full text-white font-bold bg-gray-400 transition duration-500 hover:bg-blue-600 rounded mt-1 p-2">
                                 Change Password
                             </button>
                             :

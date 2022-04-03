@@ -1,16 +1,47 @@
 import {useForm} from "react-hook-form";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import GoalImg from "../../../assets/goals_img.svg";
+import ProfileService from "../../../service/ProfileService";
+import {UserContext} from "../../../App";
+import {ProfileNotificationContext} from "../Profile";
 
 export default function Goals(
     props
 ) {
 
     const {register, handleSubmit} = useForm();
-
+    const profileService = new ProfileService();
+    const {user, userToken} = useContext(UserContext);
+    const {setShowNotification, setNotificationMessage, setIsSuccessNotification} = useContext(ProfileNotificationContext);
     const [sleepValue, setSleepValue] = useState(props.sleepGoalValue);
     const [meditationValue, setMeditationValue] = useState(props.meditationValue);
     const [isSaveButtonVisible, setIsSaveButtonVisible] = useState(false);
+
+    const saveChanges = () => {
+        const payload = {
+            "meditationGoal": meditationValue,
+            "sleepGoal": sleepValue
+        }
+        profileService.updateUser(payload, userToken)
+            .then((res) => {
+                if (res.status === 200) {
+                    setShowNotification(true);
+                    setIsSuccessNotification(true);
+                    setNotificationMessage("Goals successfully updated!")
+                    setTimeout(() => setShowNotification(false), 2000);
+                }
+            })
+            .catch((err) => {
+                setIsSuccessNotification(false);
+                if (err.response) {
+                    setNotificationMessage(err.response.data.message);
+                } else {
+                    setNotificationMessage("An error occurred!");
+                }
+                setShowNotification(true);
+                setTimeout(() => setShowNotification(false), 2000);
+            })
+    }
 
     useEffect(() => {
         if (sleepValue == props.sleepGoalValue && meditationValue == props.meditationValue) {
@@ -62,7 +93,12 @@ export default function Goals(
                             <img src={GoalImg} className="m-auto w-8/12"/>
                         </div>
                         <div className="flex-grow">
-                            <button className={`w-full font-bold text-white opacity-0 transition-all transform duration-700 ${isSaveButtonVisible ? "opacity-100" : "opacity-0"} mx-auto self-end bg-theme-blue p-2 rounded hover:bg-opacity-80`}>Save Changes</button>
+                            <button
+                                className={`w-full font-bold text-white opacity-0 transition-all transform duration-700 ${isSaveButtonVisible ? "opacity-100" : "opacity-0"} mx-auto self-end bg-theme-blue p-2 rounded hover:bg-opacity-80`}
+                                onClick={() => {saveChanges()}}
+                            >
+                                Save Changes
+                            </button>
                         </div>
                     </div>
                 </div>
