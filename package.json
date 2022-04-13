@@ -30,6 +30,7 @@
     "react-move": "^6.5.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
+    "reactjs-media": "^2.2.0",
     "react-tooltip": "^4.2.21",
     "reactjs-popup": "^2.0.5",
     "sockjs-client": "^1.6.0",
@@ -38,7 +39,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "craco --openssl-legacy-provider start",
+    "start": "craco  start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
