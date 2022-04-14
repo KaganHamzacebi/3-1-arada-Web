@@ -23,8 +23,7 @@ export default function Meditation() {
 
     }, [])
 
-    /*Take a meditation position: keep your spine loosely straight, and let your body relax. If you find that you can’t relax, just allow that to be true — that in itself is to be relaxed! You can gently close your eyes, or leave them slightly open, whichever feels most comfortable.
-Ask yourself, from deep within your heart, “What do I really want?”*/
+
     return (
         <div id="meditationWrapper">
             <Header/>
@@ -49,7 +48,7 @@ Ask yourself, from deep within your heart, “What do I really want?”*/
                             </Row>
                         </Col>
                         <Col md={8} className="align-items-center">
-                            <Carousel variant="dark" interval={null} indicators={false}>
+                            <Carousel variant="dark" interval={null} indicators={false}  className="mt-3">
                                 <Carousel.Item>
                                     <VideoPlayer id="video1" video={video1}/>
                                 </Carousel.Item>
