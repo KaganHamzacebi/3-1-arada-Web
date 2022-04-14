@@ -17,9 +17,31 @@ export default class ChatService extends Service {
         });
     }
 
-    connectSocket() {
-        const Sock = new SockJS('http://localhost:8080/ws');
+    connectSocket(userToken) {
+        const Sock = new SockJS('http://localhost:8080/ws', null, {
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            },
+        });
+        Sock.addEventListener('close', (event) => {
+            this.closeSocket(userToken);
+        });
         return over(Sock)
     }
 
+    closeSocket(userToken) {
+        return axios.post(`http://localhost:8080/chat/connect/abort`,null, {
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
+    }
+
+    checkConnection(userToken){
+        return axios.get('http://localhost:8080/chat/check-connection', {
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
+    }
 }

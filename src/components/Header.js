@@ -14,7 +14,14 @@ export default function Header() {
 
     const navigate = useNavigate()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [scroll, setScroll] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            setScroll(window.scrollY > 50);
+        });
+    }, [])
 
     const navFunc = (name) => {
         let url = "/" + name;
@@ -23,11 +30,12 @@ export default function Header() {
 
     const signOut = () => {
         removeCookie("userToken", {path: '/'});
+        navigate("/");
         window.location.reload();
     }
 
     return (
-        <div className="fixed w-full z-50">
+        <div className={`fixed w-full transform transition duration-500 ${scroll && "bg-gray-600 bg-opacity-80"} z-50`}>
             <div className="flex px-4 md:px-16">
                 <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer" />
                 <div className="my-auto ml-4 select-none hidden sm:block" onClick={() => navigate("/")}>
@@ -77,17 +85,13 @@ export default function Header() {
                                                     className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                                     Profile
                                                 </li>
-                                                <li onClick={event => navFunc("settings")}
+                                                <li onClick={event => navFunc("to-do")}
                                                     className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                                    Settings
-                                                </li>
-                                                <li onClick={event => navFunc("about")}
-                                                    className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                                    About
+                                                    To-Do List
                                                 </li>
                                                 <li onClick={event => signOut()}
                                                     className="relative block py-2 px-4 text-sm justify-content-sm-between items-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                                    <a className="align-items-center text-red-600">Sign Out
+                                                    <a className="align-items-center text-red-600">Logout
                                                         <LogoutIcon className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
                                                     </a>
                                                 </li>

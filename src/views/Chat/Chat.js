@@ -9,7 +9,8 @@ import {createContext, useContext, useEffect, useState} from "react";
 import {UserContext} from "../../App";
 import {ThreeDots} from "react-loader-spinner";
 import ChatRoom from "./ChatRoom";
-import {ShieldExclamationIcon} from "@heroicons/react/solid"
+import {ExclamationCircleIcon} from "@heroicons/react/solid"
+
 
 export const ChatContext = createContext(null);
 
@@ -60,10 +61,10 @@ export default function Chat() {
         chatService.connectChat(userToken, user.username)
             .then((res) => {
                 if (res.status === 200) {
-                    stompClient = chatService.connectSocket();
-                    stompClient.connect({}, function () {
+                    stompClient = chatService.connectSocket(userToken);
+                    stompClient.connect({Authorization: `Bearer ${userToken}`}, function () {
                             setConnectionData({...connectionData, "connected": true, "receiverName": res.data.receiver});
-                            stompClient.subscribe('/user/' + connectionData.username + '/private', onMessageReceived);
+                            stompClient.subscribe('/user/' + connectionData.username + '/private', onMessageReceived, {Authorization: `Bearer ${userToken}`});
                         },
                         function (err) {
                             console.log(err);
@@ -84,7 +85,6 @@ export default function Chat() {
                 setTimeout(() => setShowErrorMessage(false), 2000);
             })
     }
-
     const onMessageReceived = (payload) => {
         let payloadData = JSON.parse(payload.body);
         setChatData(chatData => [...chatData, payloadData]);
@@ -112,13 +112,13 @@ export default function Chat() {
     }
 
     return (
-        <ChatContext.Provider value={{sendMessage, chatData, connectionData}}>
+        <ChatContext.Provider value={{sendMessage, chatData, connectionData, stompClient}}>
             {
                 <div
-                    className={`fixed left-1/2 p-6 top-24 text-center transition-all duration-500 opacity-0 ${showErrorMessage ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-300 z-50`}>
+                    className={`fixed left-1/2 p-6 top-24 text-center transition-all duration-500 opacity-0 ${showErrorMessage ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-200 z-50`}>
                     <div className="flex flex-row">
-                        <ShieldExclamationIcon className="w-8 h-8 mr-2 text-red-600"/>
-                        <span className="m-auto text-xl font-bold text-red-600">{errorMessage}</span>
+                        <ExclamationCircleIcon className="w-8 h-8 mr-2 text-theme-blue"/>
+                        <span className="m-auto text-xl text-theme-blue">{errorMessage}</span>
                     </div>
                 </div>
             }

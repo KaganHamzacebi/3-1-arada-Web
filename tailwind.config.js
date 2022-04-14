@@ -6,6 +6,7 @@ module.exports = {
         extend: {
             backgroundColor: {
                 "theme-green": "#92A74B",
+                "theme-darkgreen": "#2E5700",
                 "theme-brown": "#EADFD1",
                 "theme-darkbrown": "#C3765A",
                 "theme-darkerbrown": "#4E2F24",
@@ -17,7 +18,8 @@ module.exports = {
                 "theme-brown": "#EADFD1",
                 "theme-darkbrown": "#C3765A",
                 "theme-darkerbrown": "#4E2F24",
-                "theme-pink": "#D18390"
+                "theme-pink": "#D18390",
+                "theme-blue": "#C45567",
             },
             colors: {
                 "theme-green": "#92A74B",
@@ -30,7 +32,8 @@ module.exports = {
                 '18': '18deg',
             },
             spacing: {
-                '13': '3.25rem'
+                '13': '3.25rem',
+                '128': '32rem'
             }
         },
     },
