@@ -8,6 +8,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 
 import "./RegisterAndForgotPassword.css";
 import {ExclamationCircleIcon} from "@heroicons/react/solid";
+import UserService from "../../service/UserService";
 
 export const RegisterErrorContext = createContext(null);
 
@@ -15,6 +16,7 @@ export default function RegisterAndForgotPassword() {
 
     const [isForgotPassword, setIsForgotPassword] = useState(false);
     const navigate = useNavigate();
+    const userService = new UserService();
     const [searchParams, setSearchParams] = useSearchParams();
     const [showRegisterError, setShowRegisterError] = useState(false);
     const [registerErrorMessage, setRegisterErrorMessage] = useState("An unexpected error occurred!");
@@ -77,7 +79,7 @@ export default function RegisterAndForgotPassword() {
                         <span className="text-black"> / {isForgotPassword ? "Sign " : "Forgot "}
                             <span className="font-bold underline cursor-pointer"
                                   onClick={() => {
-                                      setIsForgotPassword(!isForgotPassword)
+                                      navigate("/register?forgot=true")
                                   }}>
                         {isForgotPassword ? "up" : "password?"}
                     </span>

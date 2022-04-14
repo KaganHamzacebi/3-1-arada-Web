@@ -90,7 +90,7 @@ export default function Goals(
                     </div>
                     <div className="w-1/2 h-full flex flex-col mt-3 px-4">
                         <div className="flex flex-grow">
-                            <img src={GoalImg} className="m-auto w-8/12"/>
+                            <img src={GoalImg} className="m-auto w-1/2"/>
                         </div>
                         <div className="flex-grow">
                             <button

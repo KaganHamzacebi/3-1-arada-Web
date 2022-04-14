@@ -14,6 +14,7 @@ import MyComponent from "./views/Sleep/MyComponent";
 import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 
 import ProfileService from "./service/ProfileService";
+import ResetPassword from "./views/RegisterAndForgotPassword/ChangePassword/ResetPassword";
 
 export const UserContext = createContext(null);
 
@@ -53,6 +54,7 @@ function App() {
                             <Route exact path="/" element={<Home/>}/>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/register" element={<RegisterAndForgotPassword/>}/>
+                            <Route path="/resetPassword/token=:token" element={<ResetPassword/>}/>
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/chat" element={<Chat/>}/>
                             <Route path="/chat/room=:id" element={<ChatRoom/>}/>
