@@ -11,7 +11,6 @@ import Chat from "./views/Chat/Chat";
 import ChatRoom from "./views/Chat/ChatRoom";
 import Loading from "./views/Loading/Loading";
 import MyComponent from "./views/Sleep/MyComponent";
-import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 
 import ProfileService from "./service/ProfileService";
 import Meditation from "./views/Meditation/Meditation";
