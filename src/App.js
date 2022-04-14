@@ -4,16 +4,17 @@ import {useCookies} from 'react-cookie';
 
 //Views
 import Home from "./views/Home/Home";
+import NotFound from "./views/NotFound/NotFound";
 import Login from "./views/Login/Login";
+import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 import Chat from "./views/Chat/Chat";
-import Profile from "./views/Profile/Profile";
 import ChatRoom from "./views/Chat/ChatRoom";
 import Loading from "./views/Loading/Loading";
-import NotFound from "./views/NotFound/NotFound";
 import MyComponent from "./views/Sleep/MyComponent";
 import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 
 import ProfileService from "./service/ProfileService";
+import Meditation from "./views/Meditation/Meditation";
 
 export const UserContext = createContext(null);
 
@@ -53,11 +54,12 @@ function App() {
                             <Route exact path="/" element={<Home/>}/>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/register" element={<RegisterAndForgotPassword/>}/>
-                            <Route path="/profile" element={<Profile/>}/>
+                            {/*<Route path="/profile" element={<Profile/>}/>*/}
                             <Route path="/chat" element={<Chat/>}/>
                             <Route path="/chat/room=:id" element={<ChatRoom/>}/>
                             <Route path="*" element={<NotFound/>}/>
                             <Route path="/sleep" element={<MyComponent/>}/>
+                            <Route path="/meditation" element={<Meditation/>}/>
                         </Routes>
                     </BrowserRouter>
                 </div>
