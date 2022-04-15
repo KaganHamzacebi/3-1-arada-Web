@@ -20,7 +20,7 @@ function TaskList(props){
                                 className="h-4 w-4 border border-gray-300 rounded-sm bg-white bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
                                 onChange={() => {
                                     debugger;
-                                    props.addTrueTask(userToken,task.task)}}
+                                    props.addTrueTask(userToken,task.task,!task.isDone)}}
                                 type="checkbox"
                                 checked={task.isDone}/>
                             {task.task}
@@ -49,7 +49,6 @@ function TaskList(props){
                 {addTask &&
                 <li className="p-3">
                     <form  onSubmit={() => {
-                        debugger;
                         props.setEditActive(false);
                         props.addTask(userToken,taskNameBody)}
                     }>

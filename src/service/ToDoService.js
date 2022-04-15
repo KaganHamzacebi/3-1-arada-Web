@@ -13,9 +13,9 @@ class ToDoService extends Service{
             }
         });
     }
-    addTrueTask(userToken,taskName){
-        let payload = {task:taskName, isDone:true}
-        return axios.post("/todo",payload,{
+    addTrueTask(userToken,taskName,taskBoolean){
+        let payload = {task:taskName, isDone:taskBoolean}
+        return axios.put("/todo",payload,{
             baseURL: this.endpointBase,
             headers: {
                 Authorization: 'Bearer ' + userToken

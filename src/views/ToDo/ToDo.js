@@ -26,8 +26,8 @@ function ToDo(){
         <div className="w-100 pt-28 pb-8 px-14 grid grid-cols-1 md:grid-cols-2">
             <TaskList
                 addTask={(userToken,taskName) => service.addTask(userToken,taskName)}
-                addTrueTask={(userToken,taskName) => {
-                    service.addTrueTask(userToken,taskName)
+                addTrueTask={(userToken,taskName,taskBoolean) => {
+                    service.addTrueTask(userToken,taskName,taskBoolean)
                     setChangeState(!changeState);
                 }}
                 removeTask={(userToken,taskName,taskId) => {
