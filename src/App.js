@@ -18,6 +18,7 @@ import ResetPassword from "./views/RegisterAndForgotPassword/ResetPassword/Reset
 import ResetSuccess from "./views/ResetPasswordResults/ResetSuccess";
 import ResetFailed from "./views/ResetPasswordResults/ResetFailed";
 import TokenExpired from "./views/ResetPasswordResults/TokenExpired";
+import ToDo from "./views/ToDo/ToDo";
 
 export const UserContext = createContext(null);
 
@@ -64,8 +65,9 @@ function App() {
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/chat" element={<Chat/>}/>
                             <Route path="/chat/room=:id" element={<ChatRoom/>}/>
-                            <Route path="*" element={<NotFound/>}/>z
+                            <Route path="*" element={<NotFound/>}/>
                             <Route path="/sleep" element={<MyComponent/>}/>
+                            <Route path="/to-do" element={<ToDo/>}/>
                         </Routes>
                     </BrowserRouter>
                 </div>
