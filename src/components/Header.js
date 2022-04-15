@@ -1,6 +1,6 @@
 import {NavLink, useNavigate} from "react-router-dom";
 import Logo from "../assets/images/logo_white.png";
-import {useState, useContext} from "react";
+import {useState, useContext, useEffect} from "react";
 import TextAnimation from "../common/TextAnimation";
 import {useCookies} from 'react-cookie';
 import {LogoutIcon, MenuIcon} from "@heroicons/react/solid";
@@ -42,23 +42,24 @@ export default function Header() {
                     <TextAnimation componentId="appName" text="3 in 1" fontSize={40} fontWeight="bold"/>
                 </div>
                 <div className="flex-grow"></div>
-                <div className="flex gap-x-8">
-                    <NavLink to="/sleep"
-                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                        <TextAnimation componentId="sleeptext" text="Sleep" fontSize={20}/>
-                    </NavLink>
-                    <NavLink to="/chat"
-                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                        <TextAnimation componentId="chattext" text="Chat" fontSize={20}/>
-                    </NavLink>
-                    <NavLink to="/meditation"
-                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                        <TextAnimation componentId="meditationtext" text="Meditation" fontSize={20}/>
-                    </NavLink>
-                    <NavLink to="/todo"
-                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                        <TextAnimation componentId="todo" text="To-Do" fontSize={20}/>
-                    </NavLink>
+                <div className="flex">
+                    {
+                        user &&
+                        <div className="flex gap-x-8">
+                            <NavLink to="/sleep"
+                                     className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
+                                <TextAnimation componentId="sleeptext" text="Sleep" fontSize={20}/>
+                            </NavLink>
+                            <NavLink to="/chat"
+                                     className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
+                                <TextAnimation componentId="chattext" text="Chat" fontSize={20}/>
+                            </NavLink>
+                            <NavLink to="/meditation"
+                                     className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
+                                <TextAnimation componentId="meditationtext" text="Meditation" fontSize={20}/>
+                            </NavLink>
+                        </div>
+                    }
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8 my-auto">
@@ -92,7 +93,8 @@ export default function Header() {
                                                 <li onClick={event => signOut()}
                                                     className="relative block py-2 px-4 text-sm justify-content-sm-between items-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                                     <a className="align-items-center text-red-600">Logout
-                                                        <LogoutIcon className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
+                                                        <LogoutIcon
+                                                            className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -122,23 +124,51 @@ export default function Header() {
                 {/* Mobile Header */}
                 <div
                     className={`${isMobileMenuOpen ? "block" : "hidden"}   md:hidden absolute p-4 top-20 left-0 w-full`}>
-                    <div className="bg-theme-green rounded-xl flex flex-col p-1 bg-opacity-90">
-                        <NavLink to="/sleep"
-                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
-                            Sleep
-                        </NavLink>
-                        <NavLink to="/chat"
-                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
-                            Chat
-                        </NavLink>
-                        <NavLink to="/meditation"
-                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
-                            Meditation
-                        </NavLink>
-                        <NavLink to="/login"
-                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
-                            Login
-                        </NavLink>
+                    <div className="">
+                        {
+                            user &&
+                            <div className="bg-theme-green rounded-xl flex flex-col p-1 bg-opacity-90">
+                                <NavLink to="/sleep"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Sleep
+                                </NavLink>
+                                <NavLink to="/chat"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Chat
+                                </NavLink>
+                                <NavLink to="/meditation"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Meditation
+                                </NavLink>
+                                <NavLink to="/profile"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Profile
+                                </NavLink>
+                                <NavLink to="/to-do"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    To-Do List
+                                </NavLink>
+                                <div
+                                    className="text-xl bg-red-600 my-auto font-semibold text-white p-2 rounded-lg transition duration-300"
+                                    onClick={() => signOut()}
+                                >
+                                    <span>Logout</span>
+                                </div>
+                            </div>
+                        }
+                        {
+                            !user &&
+                            <div className="bg-theme-green rounded-xl flex flex-col p-1 bg-opacity-90">
+                                <NavLink to="/login"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Login
+                                </NavLink>
+                                <NavLink to="/register"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Register
+                                </NavLink>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

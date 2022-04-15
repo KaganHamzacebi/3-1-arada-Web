@@ -18,8 +18,21 @@ export default class UserService extends Service {
         });
     }
 
-    async forgotPassword(payload) {
-        return await axios.post('/forgotPassword', payload, {
+    async updatePass(payload) {
+        return await axios.post('/updatePass', payload, {
+            baseURL: this.endpointBase
+        });
+    }
+
+    async forgotPassword(email) {
+        return await axios.get(`/forgotPass?email=${email}`, {
+            baseURL: this.endpointBase
+        });
+
+    }
+
+    async checkExpire(token) {
+        return await axios.get(`/forgotPass/checkExpire=${token}`, {
             baseURL: this.endpointBase
         });
 

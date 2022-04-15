@@ -3,7 +3,6 @@ import Header from "../../components/Header";
 import ProfileForm from "./ProfileForm";
 import 'react-circular-progressbar/dist/styles.css';
 import {createContext, useContext, useEffect, useState} from "react";
-import Melissa from "../../assets/melissa_img.jpeg";
 import ReactTooltip from 'react-tooltip';
 import {CheckCircleIcon, ExclamationCircleIcon, PlusCircleIcon, UserCircleIcon} from "@heroicons/react/solid";
 import ProfileProgressBars from "./SubProfileComponents/ProfileProgressBars";
@@ -20,6 +19,8 @@ export default function Profile() {
     const [isProfile, setIsProfile] = useState(true);
     const profileService = new ProfileService();
     const {user, userToken} = useContext(UserContext);
+
+    const [isPasswordChange, setIsPasswordChange] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState(false);
     const [isSuccessNotification, setIsSuccessNotification] = useState(false);
@@ -32,7 +33,6 @@ export default function Profile() {
 
     const updateProfilePhoto = photo => {
         const formData = new FormData();
-        console.log(photo);
 
         formData.append("image", photo);
 
@@ -53,7 +53,7 @@ export default function Profile() {
     }
 
     return (
-        <ProfileNotificationContext.Provider value={{setShowNotification, setNotificationMessage, setIsSuccessNotification}}>
+        <ProfileNotificationContext.Provider value={{setShowNotification, setNotificationMessage, setIsSuccessNotification, setIsPasswordChange}}>
             <div id="profileWrapper">
                 <ReactTooltip backgroundColor="#4B5563"/>
                 <div
