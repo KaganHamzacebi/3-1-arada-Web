@@ -1,27 +1,39 @@
 import {useForm} from "react-hook-form";
 import UserService from "../../../service/UserService";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import "./ResetPassword.css";
 import {useNavigate, useParams} from "react-router-dom";
+import {UserContext} from "../../../App";
 
 export default function ResetPassword() {
 
     const userService = new UserService();
+    const {user} = useContext(UserContext);
     const {token} = useParams();
     const navigate = useNavigate();
 
 
     const {register, handleSubmit} = useForm();
-    const onSubmit = data => {}
+    const onSubmit = data => {
+        data.email = user.email;
+        console.log(data);
+        userService.resetPass()
+            .then((res) => {
+                navigate("/resetSuccess");
+            })
+            .catch((err) => {
+                navigate("/resetFailed");
+            })
+    }
 
     useEffect(() => {
         if (token) {
             userService.checkExpire(token)
                 .then((res) => {
-                    console.log(res);
+                    //Do nothing
                 })
                 .catch((err) => {
-                    console.log(err);
+                    navigate("/tokenExpired");
                 })
         }
         else {
@@ -39,7 +51,7 @@ export default function ResetPassword() {
                     <div className="pt-4">
                         <div className="flex">
                             <input
-                                {...register("password")}
+                                {...register("newPassword")}
                                 placeholder="Password"
                                 type={"password"}
                                 minLength={6}

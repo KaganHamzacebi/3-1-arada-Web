@@ -14,7 +14,10 @@ import MyComponent from "./views/Sleep/MyComponent";
 import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
 
 import ProfileService from "./service/ProfileService";
-import ResetPassword from "./views/RegisterAndForgotPassword/ChangePassword/ResetPassword";
+import ResetPassword from "./views/RegisterAndForgotPassword/ResetPassword/ResetPassword";
+import ResetSuccess from "./views/ResetPasswordResults/ResetSuccess";
+import ResetFailed from "./views/ResetPasswordResults/ResetFailed";
+import TokenExpired from "./views/ResetPasswordResults/TokenExpired";
 
 export const UserContext = createContext(null);
 
@@ -55,10 +58,13 @@ function App() {
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/register" element={<RegisterAndForgotPassword/>}/>
                             <Route path="/resetPassword/token=:token" element={<ResetPassword/>}/>
+                            <Route path="/resetSuccess" element={<ResetSuccess/>}/>
+                            <Route path="/resetFailed" element={<ResetFailed/>}/>
+                            <Route path="/tokenExpired" element={<TokenExpired/>}/>
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/chat" element={<Chat/>}/>
                             <Route path="/chat/room=:id" element={<ChatRoom/>}/>
-                            <Route path="*" element={<NotFound/>}/>
+                            <Route path="*" element={<NotFound/>}/>z
                             <Route path="/sleep" element={<MyComponent/>}/>
                         </Routes>
                     </BrowserRouter>
