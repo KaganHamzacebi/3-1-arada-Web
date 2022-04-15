@@ -52,6 +52,7 @@ export default function Goals(
         }
     }, [sleepValue, meditationValue])
 
+
     return (
         <div className="w-full h-full p-4">
             <div className="flex flex-col w-full h-full p-4 bg-gray-100 shadow border-1 border-gray-600 border-opacity-10 rounded-lg">
@@ -90,7 +91,7 @@ export default function Goals(
                     </div>
                     <div className="w-1/2 h-full flex flex-col mt-3 px-4">
                         <div className="flex flex-grow">
-                            <img src={GoalImg} className="m-auto w-1/2"/>
+                            <img src={GoalImg} className="m-auto w-5/12"/>
                         </div>
                         <div className="flex-grow">
                             <button
