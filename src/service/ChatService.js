@@ -30,7 +30,8 @@ export default class ChatService extends Service {
     }
 
     closeSocket(userToken) {
-        return axios.post(`http://localhost:8080/chat/connect/abort`,null, {
+        return axios.post(`/connect/abort`,null, {
+            baseURL: this.endpointBase,
             headers: {
                 Authorization: 'Bearer ' + userToken
             }
@@ -38,7 +39,17 @@ export default class ChatService extends Service {
     }
 
     checkConnection(userToken){
-        return axios.get('http://localhost:8080/chat/check-connection', {
+        return axios.get('/check-connection', {
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
+    }
+
+    reportChat(payload, userToken) {
+        return axios.get('/report', {
+            baseURL: this.endpointBase,
             headers: {
                 Authorization: 'Bearer ' + userToken
             }

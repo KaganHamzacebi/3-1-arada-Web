@@ -38,7 +38,7 @@ export default class UserService extends Service {
     }
 
     async checkExpire(token) {
-        return await axios.get(`/forgotPass/checkExpire=${token}`, {
+        return await axios.get(`/forgotPass/checkExpire?token=${token}`, {
             baseURL: this.endpointBase
         });
 

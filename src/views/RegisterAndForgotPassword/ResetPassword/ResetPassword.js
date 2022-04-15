@@ -16,8 +16,7 @@ export default function ResetPassword() {
     const {register, handleSubmit} = useForm();
     const onSubmit = data => {
         data.email = user.email;
-        console.log(data);
-        userService.resetPass()
+        userService.resetPass(data)
             .then((res) => {
                 navigate("/resetSuccess");
             })
@@ -27,13 +26,19 @@ export default function ResetPassword() {
     }
 
     useEffect(() => {
+        console.log(token);
         if (token) {
             userService.checkExpire(token)
                 .then((res) => {
-                    //Do nothing
+                    if (res.status === 200) {
+                        if (res.data !== false) {
+                            navigate("/tokenExpired");
+                        }
+                    }
                 })
                 .catch((err) => {
-                    navigate("/tokenExpired");
+                    console.log(err);
+                    //navigate("/tokenExpired");
                 })
         }
         else {

@@ -9,7 +9,7 @@ import {createContext, useContext, useEffect, useState} from "react";
 import {UserContext} from "../../App";
 import {ThreeDots} from "react-loader-spinner";
 import ChatRoom from "./ChatRoom";
-import {ExclamationCircleIcon} from "@heroicons/react/solid"
+import {CheckCircleIcon, ExclamationCircleIcon} from "@heroicons/react/solid"
 
 
 export const ChatContext = createContext(null);
@@ -21,7 +21,12 @@ export default function Chat() {
     const [isLoading, setIsLoading] = useState(false);
     const [timer, setTimer] = useState(0);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("An error occurred");
+
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState("");
+    const [isSuccessNotification, setIsSuccessNotification] = useState(false);
+
     const {user, setUser, userToken} = useContext(UserContext);
     const [chatData, setChatData] = useState([]);
 
@@ -112,13 +117,31 @@ export default function Chat() {
     }
 
     return (
-        <ChatContext.Provider value={{sendMessage, chatData, connectionData, stompClient}}>
+        <ChatContext.Provider value={{
+            sendMessage, chatData, connectionData, stompClient, setErrorMessage,
+            setShowNotification, setNotificationMessage, setIsSuccessNotification
+        }}>
             {
-                <div
-                    className={`fixed left-1/2 p-6 top-24 text-center transition-all duration-500 opacity-0 ${showErrorMessage ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-200 z-50`}>
-                    <div className="flex flex-row">
-                        <ExclamationCircleIcon className="w-8 h-8 mr-2 text-theme-blue"/>
-                        <span className="m-auto text-xl text-theme-blue">{errorMessage}</span>
+                <div>
+                    <div
+                        className={`fixed left-1/2 p-6 top-24 text-center transition-all duration-500 opacity-0 ${showErrorMessage ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-200 z-50`}>
+                        <div className="flex flex-row">
+                            <ExclamationCircleIcon className="w-8 h-8 mr-2 text-theme-blue"/>
+                            <span className="m-auto text-xl text-theme-blue">{errorMessage}</span>
+                        </div>
+                    </div>
+                    <div
+                        className={`fixed left-1/2 p-6 bottom-8 text-center transition-all duration-500 opacity-0 ${showNotification ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl ${setIsSuccessNotification ? "bg-green-600" : "bg-gray-200"} z-50`}>
+                        <div className="flex flex-row">
+                            {
+                                isSuccessNotification ?
+                                    <CheckCircleIcon className="w-8 h-8 mr-2 text-white"/>
+                                    :
+                                    <ExclamationCircleIcon className="w-8 h-8 mr-2 text-theme-blue"/>
+                            }
+                            <span
+                                className={`m-auto text-xl ${setIsSuccessNotification ? "text-white" : "text-theme-blue"} text-theme-blue"`}>{notificationMessage}</span>
+                        </div>
                     </div>
                 </div>
             }
