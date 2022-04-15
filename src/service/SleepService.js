@@ -6,15 +6,21 @@ export default class SleepService extends Service {
         super('/sleep');
     }
 
-    async getLineChartData() {
+    async getLineChartData(userToken) {
         return await axios.get("http://localhost:8080/sleep/deneme", {
-            headers: this.authHeader()
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
         })
     }
 
-    async getSleepTimeData(payload){
+    async getSleepTimeData(userToken,payload){
         return await axios.post("http://localhost:8080/sleep/deneme", payload, {
-            headers : this.authHeader()
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
         });
     }
 }

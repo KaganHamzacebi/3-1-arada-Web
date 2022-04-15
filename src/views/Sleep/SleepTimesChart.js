@@ -11,7 +11,8 @@ import {
 } from 'chart.js';
 import faker from "faker";
 import SleepService from "../../service/SleepService";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import {useCookies} from "react-cookie";
 
 ChartJS.register(
     CategoryScale,
@@ -24,14 +25,14 @@ ChartJS.register(
 );
 
 export default function SleepTimesChart(props) {
-
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
+    const [userToken, setUserToken] = useState(cookies["userToken"]);
 
     let chartData = props.chartData;
     let setChartData = props.setChartData;
     useEffect(() => {
         if (setChartData){
-            props.service.getLineChartData().then((response) => {
-
+            props.service.getLineChartData(userToken).then((response) => {
                 setChartData(response.data);
             })
         }
