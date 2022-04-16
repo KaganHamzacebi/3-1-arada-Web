@@ -30,7 +30,7 @@ export default function MyComponent() {
     const [sleepData, setSleepData] = useState(null);
 
     const dateBack = () => {
-        setWeek(week+1);
+        setWeek(week + 1);
         setIsCurrentWeek(false);
 
         sleepService.getSleepData(week);
@@ -38,9 +38,9 @@ export default function MyComponent() {
     }
 
     const dateForward = () => {
-        if(isCurrentWeek){
+        if (isCurrentWeek) {
             //TODO doNothing
-        }else{
+        } else {
             setWeek(week + 1);
         }
     }
@@ -54,7 +54,8 @@ export default function MyComponent() {
                         <Col md={1}>
                             <ChevronLeftIcon
                                 className="align-middle mt-5 w-10 h-8 text-theme-darkbrown cursor-pointer z-50"
-                                onClick={() => { dateBack()
+                                onClick={() => {
+                                    dateBack()
                                 }}
                             />
                         </Col>
@@ -65,27 +66,25 @@ export default function MyComponent() {
                         <Col md={1}>
                             <ChevronRightIcon
                                 className="align-middle mt-5 w-10 h-8 text-theme-darkbrown cursor-pointer z-50 "
-                                onClick={() => { dateForward()
+                                onClick={() => {
+                                    dateForward()
                                 }}
                             />
                         </Col>
                     </Row>
-                    <Row className="justify-content-md-evenly mt-8" md={12}>
+                    <Row className="justify-content-md-evenly mt-8 gap-x-4" md={12}>
                         <Col className="bg-theme-gray rounded-xl">
                             <SleepQualityChart service={sleepService} chartData={chartData}
                                                setChartData={(data) => setChartData(data)}></SleepQualityChart>
                         </Col>
-                        <Col md={1}>
-
-                        </Col>
                         <Col md={4} className="bg-theme-gray rounded-xl">
-                            <Row md={12}>
-                                <Col className="pt-20" md={8}>
+                            <Row md={12} className="h-full">
+                                <Col className="flex" md={7}>
                                     <div
-                                        className="w-full rounded-lg">
+                                        className="m-auto rounded-lg">
                                         <span
                                             className="ml-4 mt-2 text-xl text-gray-500 font-semibold align-items-center">Today's Sleep Quality</span>
-                                        <div className="m-auto w-2/3 lg:w-1/2">
+                                        <div className="m-auto p-4">
                                             {/* Sleep Progress Bar */}
                                             <AnimatedProgressProvider
                                                 valueStart={0}
@@ -115,52 +114,33 @@ export default function MyComponent() {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col md={4}>
-                                    <Col>
-                                        <Row md={12} className="">
-                                            <Col md={4}>
-                                                <MoonIcon data-tip="Sleep Time"
-                                                    className="w-14 h-14 text-blue-800 transition transform duration-700 hover:scale-125"/>
-                                            </Col>
-                                            <Col className="mt-3">
-                                                 <span
-                                                     className="mt-8 p-1 ml-3 bg-theme-green font-bold rounded-md text-white text-xl">
-                                                00:35
-                                            </span>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col md={4}>
-                                                <SunIcon data-tip="Wake Time"
-                                                    className="w-14 h-14 text-yellow-400 transition transform duration-700 hover:scale-125"/>
-                                            </Col>
-                                            <Col className="mt-3">
-                                                 <span
-                                                     className="mt-8 p-1 ml-3 bg-theme-green font-bold rounded-md text-white text-xl"> 07:12</span>
-                                            </Col>
-                                        </Row>
-
-                                        <Row>
-                                            <Col md={4}>
-                                                <EmojiHappyIcon data-tip="Best Sleep Quality Time"
-                                                    className="mr-0 w-14 h-14 text-pink-700 transition transform duration-700 hover:scale-125"/>
-                                            </Col>
-                                            <Col className="mt-3">
-                                                  <span
-                                                      className="mt-8 p-1 ml-3 bg-theme-green font-bold rounded-md text-white text-xl"> 03:48</span>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col md={4}>
-                                                <EmojiSadIcon data-tip="Worst Sleep Quality Time"
-                                                    className="mr-0 w-14 h-14 text-teal-500 transition transform duration-700 hover:scale-125"/>
-                                            </Col>
-                                            <Col className="mt-3" >
-                                                   <span
-                                                       className="mt-8 p-1 ml-3 bg-theme-green font-bold rounded-md text-white text-xl"> 01:20</span>
-                                            </Col>
-                                        </Row>
-                                    </Col>
+                                <Col md={5}>
+                                    <div className="h-full grid grid-rows-4">
+                                        <div className="flex">
+                                            <MoonIcon data-tip="Sleep Time"
+                                                      className="w-14 h-14 m-auto text-blue-800 transition transform duration-700 hover:scale-125"/>
+                                            <span
+                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl"> 01:20</span>
+                                        </div>
+                                        <div className="flex">
+                                            <SunIcon data-tip="Wake Time"
+                                                     className="w-14 h-14 m-auto text-yellow-400 transition transform duration-700 hover:scale-125"/>
+                                            <span
+                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl"> 01:20</span>
+                                        </div>
+                                        <div className="flex">
+                                            <EmojiHappyIcon data-tip="Best Sleep Quality Time"
+                                                            className="w-14 h-14 m-auto text-teal-500 transition transform duration-700 hover:scale-125"/>
+                                            <span
+                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl"> 01:20</span>
+                                        </div>
+                                        <div className="flex">
+                                            <EmojiSadIcon data-tip="Worst Sleep Quality Time"
+                                                          className="w-14 h-14 m-auto text-pink-700 transition transform duration-700 hover:scale-125"/>
+                                            <span
+                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl"> 01:20</span>
+                                        </div>
+                                    </div>
                                 </Col>
                             </Row>
                         </Col>
