@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useCookies} from "react-cookie";
 function QuestionDataTable(props){
     let trueFalse = "True,False";
     let score = "1,2,3,4,5";
@@ -11,10 +12,12 @@ function QuestionDataTable(props){
     let [visibleChosenType,setVisibleChosenType] = useState("Open Ended");
     let [possibleAnswers,setPossibleAnswers] = useState(openEnded);
     let [error, setError] = useState(null);
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
+    const [userToken, setUserToken] = useState(cookies["userToken"]);
     function addQuestion(){
         if (handleValidation() && props.service){
             let formattedPotentialAnswer = !potentialAnswer ? null : potentialAnswer.split(",");
-            props.service.addQuestion({questionBody:questionBody,answerType:chosenType,potentialAnswer:formattedPotentialAnswer}).then((response) => {
+            props.service.addQuestion(userToken,{questionBody:questionBody,answerType:chosenType,potentialAnswer:formattedPotentialAnswer}).then((response) => {
 
                 if (response.data){
                     props.onSubmit();

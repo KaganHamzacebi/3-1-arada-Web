@@ -69,7 +69,7 @@ function App() {
                             <Route path="/chat/room=:id" element={<ChatRoom/>}/>
                             <Route path="*" element={<NotFound/>}/>
                             <Route path="/clustering" element={<ClusterQuestion/>}/>
-                            <Route path="/updateQuestions" element={<UpdateQuestions/>
+                            <Route path="/updateQuestions" element={<UpdateQuestions/>}/>
                             <Route path="/sleep" element={<MyComponent/>}/>
                             <Route path="/to-do" element={<ToDo/>}/>
                         </Routes>

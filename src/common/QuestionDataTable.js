@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
 import AddQuestionPopUp from "../views/ClusterQuestions/AddQuestionPopUp";
 import "./QuestionDataTable.css"
+import {useCookies} from "react-cookie";
 function QuestionDataTable(props){
     let questions = props.questions && props.questions.questions;
     let [visibleQuestions,setVisibleQuestions] = useState(null);
     let [page,setPage] = useState(0);
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
+    const [userToken, setUserToken] = useState(cookies["userToken"]);
     useEffect(() => {
         if (questions){
             setVisibleQuestions(props.questions.questions.slice(page*10,(page*10+10)))
@@ -18,7 +21,7 @@ function QuestionDataTable(props){
     function handleValidation(){
         let flag = true;
         visibleQuestions.forEach((question) => {
-            if (!props.isEditable && !props.answers[question.questionBody]){
+            if (!props.isEditable && (!props.answers[question.questionBody] || props.answers[question.questionBody] === "Select")){
                 flag = false;
             }
         })
@@ -50,7 +53,9 @@ function QuestionDataTable(props){
                             onChange={(e) => {
                                 props.setAnswers({...props.answers,[question.questionBody]:e.target.value})}}
                             className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                <option>Select</option>
                 {
+
                     question.potentialAnswer.map((answer) => {
                         return <option>{answer}</option>
                     })
@@ -103,7 +108,7 @@ function QuestionDataTable(props){
                                         <div className="flex items-center">
                                             {props.isEditable &&
                                             <button onClick={(e) => {
-                                                props.service.removeQuestion(question.questionBody).then((response) => {
+                                                props.service.removeQuestion(userToken,question.questionBody).then((response) => {
                                                     if (response.data){
                                                         props.onRemove()
                                                     }
@@ -178,7 +183,7 @@ function QuestionDataTable(props){
                                             })
                                             if (handleValidation()){
                                                 setError(false);
-                                                props.service.submitAnswers(payload);
+                                                props.service.submitAnswers(userToken,payload);
                                             }
                                             else {
                                                 setError("Please submit an answer for each question")

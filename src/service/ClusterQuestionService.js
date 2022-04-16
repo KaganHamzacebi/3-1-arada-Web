@@ -1,30 +1,67 @@
 import Service from "./Service";
-import authHeader from "./AuthHeader";
+import axios from "axios";
 
 class ClusterQuestionService extends Service{
     constructor() {
         super('/question');
     }
-    getQuestions(){
-        return this.get("/question/getQuestions",{headers:this.authHeader()});
+    getQuestions(userToken){
+        return axios.get("/getQuestions", {
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
     }
-    addQuestion(payload){
-        return this.post("/question/addQuestion",payload,{headers:this.authHeader()});
+
+    addQuestion(userToken,payload){
+        return axios.post("/addQuestion",payload, {
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
     }
-    removeQuestion(questionBody){
-        return this.post("/question/deleteQuestion",{questionBody:questionBody},{headers:this.authHeader()});
+    removeQuestion(userToken,questionBody){
+        return axios.post("/deleteQuestion",questionBody, {
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
     }
-    submitAnswers(answerObject){
-        return this.post("/question/submitAnswers",{payload:answerObject},{headers:this.authHeader()});
+    submitAnswers(userToken,answerObject){
+        return axios.post("/submitAnswers",{payload:answerObject}, {
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
     }
-    populateDataset() {
-        return this.get("/question/populateDataset",{headers: authHeader()});
+    populateDataset(userToken) {
+        return axios.get("/populateDataset", {
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
     }
-    clusterQuestion(){
-        return this.get("/question/clusterQuestions",{headers:this.authHeader()})
+    clusterQuestion(userToken){
+        return axios.get("/clusterQuestions", {
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
+
     }
-    getClusteredForms(){
-        return this.get("/question/getClusteredForms",{headers:this.authHeader()})
+    getClusteredForms(userToken){
+        return axios.get("/getClusteredForms", {
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
     }
 }
 export default ClusterQuestionService;

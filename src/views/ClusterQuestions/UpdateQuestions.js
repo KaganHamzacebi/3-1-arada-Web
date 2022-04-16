@@ -3,6 +3,7 @@ import QuestionDataTable from "../../common/QuestionDataTable";
 import React, {useEffect, useState} from "react";
 import ClusterQuestionService from "../../service/ClusterQuestionService";
 import "./UpdateQuestions.css";
+import {useCookies} from "react-cookie";
 
 function UpdateQuestions(){
     let [questions,setQuestions] = useState(null);
@@ -10,6 +11,8 @@ function UpdateQuestions(){
     let [answers, setAnswers] = useState(null);
     let [questionAdded,setQuestionAdded] = useState(false);
     let [questionRemoved,setQuestionRemoved] = useState(false);
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
+    const [userToken, setUserToken] = useState(cookies["userToken"]);
     function onSubmit(){
         setQuestionAdded(!questionAdded)
     }
@@ -18,7 +21,7 @@ function UpdateQuestions(){
     }
     let service = new ClusterQuestionService();
     useEffect(() => {
-        service.getQuestions().then((response) => {
+        service.getQuestions(userToken).then((response) => {
             setQuestions(response.data);
             setFetchComplete(true);
         })
