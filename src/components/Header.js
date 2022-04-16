@@ -1,6 +1,6 @@
 import {NavLink, useNavigate} from "react-router-dom";
 import Logo from "../assets/images/logo_white.png";
-import {useState, useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import TextAnimation from "../common/TextAnimation";
 import {useCookies} from 'react-cookie';
 import {LogoutIcon, MenuIcon} from "@heroicons/react/solid";
@@ -8,7 +8,7 @@ import "./Header.css";
 import {UserContext} from "../App";
 
 
-export default function Header() {
+export default function Header(props) {
     const {user, setUser} = useContext(UserContext);
     const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
 
@@ -16,11 +16,15 @@ export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scroll, setScroll] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [currentComponent, setCurrentComponent] = useState(props.currentComponent);
 
     useEffect(() => {
+        setCurrentComponent(props.currentComponent);
+
         window.addEventListener("scroll", () => {
             setScroll(window.scrollY > 50);
         });
+        console.log(currentComponent == 1 );
     }, [])
 
     const navFunc = (name) => {
@@ -37,23 +41,23 @@ export default function Header() {
     return (
         <div className={`fixed w-full transform transition duration-500 ${scroll && "bg-gray-600 bg-opacity-80"} z-50`}>
             <div className="flex px-4 md:px-16">
-                <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer" />
+                <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer"/>
                 <div className="my-auto ml-4 select-none hidden sm:block" onClick={() => navigate("/")}>
                     <TextAnimation componentId="appName" text="3 in 1" fontSize={40} fontWeight="bold"/>
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8">
                     <NavLink to="/sleep"
-                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                        <TextAnimation componentId="sleeptext" text="Sleep" fontSize={20}/>
+                             className={"text-2xl hidden md:block m-auto  text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white"}>
+                        <TextAnimation componentId="sleeptext" text="Sleep" fontSize={(currentComponent == 1 ? 33 : 20)} />
                     </NavLink>
                     <NavLink to="/chat"
                              className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                        <TextAnimation componentId="chattext" text="Chat" fontSize={20}/>
+                        <TextAnimation componentId="chattext" text="Chat" fontSize={(currentComponent == 2 ? 33 : 20)}/>
                     </NavLink>
                     <NavLink to="/meditation"
                              className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                        <TextAnimation componentId="meditationtext" text="Meditation" fontSize={20}/>
+                        <TextAnimation componentId="meditationtext" text="Meditation" fontSize={(currentComponent == 3 ? 33 : 20)}/>
                     </NavLink>
                 </div>
                 <div className="flex-grow"></div>
@@ -71,7 +75,7 @@ export default function Header() {
                                             }}
                                             className="text-white text-2xl  align-items-center rounded-lg hover:bg-theme-brown  md:block m-auto font-semibold px-4 py-2.5 text-center inline-flex items-center"
                                             type="button">
-                                        {user.username}
+                                        {user.name + " " + user.surname}
                                         {/*<ChevronDownIcon className=" absolute h-3 w-3"/>*/}
 
                                         <div hidden={!isOpen}
@@ -88,7 +92,8 @@ export default function Header() {
                                                 <li onClick={event => signOut()}
                                                     className="relative block py-2 px-4 text-sm justify-content-sm-between items-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                                     <a className="align-items-center text-red-600">Logout
-                                                        <LogoutIcon className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
+                                                        <LogoutIcon
+                                                            className="absolute text-red-600 h-4 w-4 left-2 bottom-1/2 transform translate-y-1/2"/>
                                                     </a>
                                                 </li>
                                             </ul>

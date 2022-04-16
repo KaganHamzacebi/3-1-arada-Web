@@ -143,7 +143,7 @@ export default function Chat() {
                             </div>
                         }
                         <div id="chatWrapper" style={{filter: `blur(${isLoading ? "4px" : "0px"}`}}>
-                            <Header/>
+                            <Header currentComponent={2}/>
                             <div className="m-auto">
                                 <div>
                                     <div className="flex flex-row">

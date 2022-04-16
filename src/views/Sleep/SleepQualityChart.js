@@ -10,7 +10,6 @@ import {
     Tooltip,
 } from 'chart.js';
 import faker from "faker";
-import SleepService from "../../service/SleepService";
 import {useEffect} from "react";
 
 ChartJS.register(
@@ -23,29 +22,33 @@ ChartJS.register(
     Legend
 );
 
-export default function SleepTimesChart(props) {
-
-
+export default function SleepQualityChart(props) {
     let chartData = props.chartData;
     let setChartData = props.setChartData;
     useEffect(() => {
-        if (setChartData){
-            props.service.getLineChartData().then((response) => {
+        if (setChartData) {
+            /*props.service.getLineChartData().then((response) => {
                 debugger;
                 setChartData(response.data);
-            })
+            })*/
         }
 
-    },[])
+    }, [])
 
     const options = {
         scales: {
-            x: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'minute',
+                    stepSize: 30,
+                    displayFormats: {hour: 'HH:mm'}
+                },
                 grid: {
                     display: false
                 }
-            },
-            y: {
+            }],
+            yAxes: {
                 grid: {
                     display: false
                 }
@@ -63,7 +66,7 @@ export default function SleepTimesChart(props) {
             },
             title: {
                 display: true,
-                text: 'Chart.js Line Chart',
+                text: 'Sleep Quality',
             },
             backgroundColor: "red",
             borderColor: "lightblue",
@@ -71,26 +74,33 @@ export default function SleepTimesChart(props) {
             lineTension: 0.4,
             radius: 6,
             borderJoinStyle: "round",
-            tension : 40,
+            tension: 40,
         },
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const labels = [
+        "14:00",
+        "14:10",
+        "14:20",
+        "14:30",
+        "14:40",
+        "14:50",
+        "15:00",
+        "15:10",
+        "15:20",
+        "15:30",
+        "15:40",
+        "15:50",
+    ];
 
     const data = {
         labels,
         datasets: [
             {
-                label: 'Dataset 1',
-                data: labels.map(() => faker.datatype.number({min: -1000, max: 1000})),
+                label: 'Quality',
+                data: labels.map(() => faker.datatype.number({min: 1, max: 10})),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            },
-            {
-                label: 'Dataset 2',
-                data: chartData,
-                borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
             },
         ],
 
