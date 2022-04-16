@@ -5,17 +5,27 @@ import Footer from "../../components/Footer";
 import Flower from "../../assets/images/3.png";
 import Leaf from "../../assets/images/7.png";
 import Cactus from "../../assets/images/9.png";
+import {useEffect, useState} from "react";
 
+import MobileLogin from "../../assets/mobile_login.png";
+import SlideMenu from "./SlideMenu";
 
 export default function Home() {
+    const [scroll, setScroll] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            setScroll(window.scrollY > 50);
+        });
+    }, []);
 
     return (
         <div id="homeWrapper">
             <Header/>
-            <img src={Flower} className="fixed hidden md:block transform scale-50 -right-40 -bottom-56 z-50" />
-            <img src={Leaf} className="fixed hidden scale-75 rotate-18 md:block transform scale-50 -left-30 -bottom-56 z-50" />
-            <img src={Cactus} className="fixed hidden md:block transform scale-50 -left-40 -bottom-56 z-40" />
-            <div className="pt-48 pb-40 md:pt-60 px-8 md:px-24">
+            <img src={Flower} className={`fixed transition duration-500 ${scroll ? "opacity-0" : "opacity-100"}  transform scale-50 -right-40 -bottom-56 z-50`} />
+            <img src={Leaf} className={`fixed transition duration-500 ${scroll ? "opacity-0" : "opacity-100"} scale-75 rotate-18 transform scale-50 -left-30 -bottom-56 z-50`} />
+            <img src={Cactus} className={`fixed transition duration-500 ${scroll ? "opacity-0" : "opacity-100"} transform scale-50 -left-40 -bottom-56 z-40`} />
+            <div className="pt-48 pb-40 md:pt-50 px-8 md:px-24 flex flex-col gap-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:grid-flow-col gap-x-16 gap-y-4">
                     <div className="row-span-2 px-8 py-12 bg-theme-gray rounded-xl opacity-95 shadow-xl transition duration-700 transform hover:scale-105">
                         <h1 className="text-2xl uppercase font-bold">Ilerleme</h1>
@@ -37,6 +47,9 @@ export default function Home() {
                             <span>Bu alanda 20 yılı aşkın danışmanlık deneyimine sahibiz ve şunlara ulaşmak için çabalıyoruz: gelişmek, güçlenmek, imkan tanımak ve sürdürmek.</span>
                         </div>
                     </div>
+                </div>
+                <div id="grad1" className="opacity-95 py-6 md:mt-48 rounded-xl shadow-xl">
+                    <SlideMenu />
                 </div>
             </div>
             <Footer />

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Service from "./Service";
-import authHeader from "./AuthHeader";
 
 export default class UserService extends Service {
     constructor() {
@@ -8,39 +7,39 @@ export default class UserService extends Service {
     }
 
     async login(payload) {
-        this.endpointBase = "http://localhost:8080";
-        //todo:: Burada tokenla napılacak, giris yapildiktan sonra nereye navigate edilecek vs problemleri var
-        return await axios.post('http://localhost:8080/user/signin', payload).then((rs) => {
-            if (rs.data.accessToken) {
-                localStorage.setItem("user", JSON.stringify(rs.data));
-            }
-            return rs.data;
+        return axios.post('/signin', payload, {
+            baseURL: this.endpointBase
         });
-    }
-
-    logout() {
-        localStorage.removeItem("user");
     }
 
     async createUser(payload) {
         return await axios.post('/signup', payload, {
-            baseUrl: this.endpointBase,
-            headers: authHeader()
+            baseURL: this.endpointBase
         });
     }
 
-    getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));
-        ;
+    async updatePass(payload) {
+        return await axios.post('/updatePass', payload, {
+            baseURL: this.endpointBase
+        });
     }
 
-    isLogin(){
-        return localStorage.getItem('user') != null;
+    async resetPass(payload) {
+        return await axios.post('/resetPass', payload, {
+            baseURL: this.endpointBase
+        });
     }
 
-    async forgotPassword(payload) {
-        return await axios.post('/forgotPassword', payload, {
-            baseUrl: this.endpointBase
+    async forgotPassword(email) {
+        return await axios.get(`/forgotPass?email=${email}`, {
+            baseURL: this.endpointBase
+        });
+
+    }
+
+    async checkExpire(token) {
+        return await axios.get(`/forgotPass/checkExpire?token=${token}`, {
+            baseURL: this.endpointBase
         });
 
     }

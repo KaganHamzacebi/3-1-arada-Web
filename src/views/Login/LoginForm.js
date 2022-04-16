@@ -1,18 +1,38 @@
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {EyeIcon, EyeOffIcon} from "@heroicons/react/solid";
 import UserService from "../../service/UserService";
 import {useNavigate} from "react-router-dom";
-
+import {useCookies} from 'react-cookie';
+import {LoginErrorContext} from "./Login";
 
 export default function LoginForm() {
-
     const {register, handleSubmit} = useForm();
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
+    const {setShowLoginError, setLoginErrorMessage} = useContext(LoginErrorContext);
     const userService = new UserService();
-    const onSubmit = (data) => {
-        userService.login(data);
-        if (userService.isLogin())
-            navigate("/");
+
+    const onSubmit = async data => {
+        await userService.login(data)
+            .then((res) => {
+                if (res.status === 200) {
+                    if (res.data.accessToken) {
+                        setCookie("userToken", res.data.accessToken, {secure: true, sameSite: 'none'});
+                    }
+                    navigate("/");
+                    window.location.reload();
+                }
+            })
+            .catch((err) => {
+                if (err.response) {
+                    setLoginErrorMessage(err.response.data.message);
+                } else {
+                    setLoginErrorMessage("An error occurred!");
+                }
+                setShowLoginError(true);
+                setTimeout(() => setShowLoginError(false), 2000);
+            })
+
     };
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();

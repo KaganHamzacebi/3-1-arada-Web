@@ -3,8 +3,11 @@ import "react-datepicker/dist/react-datepicker.min.css";
 import "./Calendar.css";
 import {useState} from "react";
 import SleepService from "../../service/SleepService";
+import {useCookies} from "react-cookie";
 
 export default function Calendar(props) {
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
+    const [userToken, setUserToken] = useState(cookies["userToken"]);
     let startDate = props.startDate;
     let setStartDate = props.setStartDate;
     let endDate = props.endDate;
@@ -26,7 +29,7 @@ export default function Calendar(props) {
     const handleClick = (e) => {
         //console.log(sleepService.getLineChartData());
         if (setData){
-            sleepService.getSleepTimeData({startDate,endDate}).then((response) => {
+            sleepService.getSleepTimeData(userToken,{startDate,endDate}).then((response) => {
                 setData(response.data);
             })
         }
