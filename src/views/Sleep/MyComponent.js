@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Header from "../../components/Header";
 import 'react-bootstrap';
 import {Col, Container, Row} from "react-bootstrap";
@@ -17,6 +17,7 @@ import {
 import AnimatedProgressProvider from "../../components/AnimatedProgressProvider/AnimatedProgressProvider";
 import {easeQuadInOut} from "d3-ease";
 import {buildStyles, CircularProgressbar} from "react-circular-progressbar";
+import {UserContext} from "../../App";
 
 
 export default function MyComponent() {
@@ -26,14 +27,38 @@ export default function MyComponent() {
     const [endDate, setEndDate] = useState(null);
     const [data, setData] = useState(null);
     const [isCurrentWeek, setIsCurrentWeek] = useState(true);
-    const [week, setWeek] = useState(0);
+    const [week, setWeek] = useState(1);
     const [sleepData, setSleepData] = useState(null);
+    const {user, userToken} = useContext(UserContext);
+
+
+    useEffect(() => {
+        sleepService.getSleepData(week-1, userToken).then((res) => {
+                if (res.status === 200) {
+                    if (res == null) {
+                    } else {
+                        setSleepData(res);
+                    }
+                }
+            }
+        );
+    }, [])
 
     const dateBack = () => {
-        setWeek(week + 1);
+        setWeek((week) => week + 1);
+        console.log("week" + week);
         setIsCurrentWeek(false);
 
-        sleepService.getSleepData(week);
+        sleepService.getSleepData(week, userToken).then((res) => {
+                if (res.status === 200) {
+                    if (res.data == null) {
+                        console.log(null);
+                    } else {
+                        console.log(data);
+                    }
+                }
+            }
+        );
 
     }
 
@@ -41,7 +66,7 @@ export default function MyComponent() {
         if (isCurrentWeek) {
             //TODO doNothing
         } else {
-            setWeek(week + 1);
+            setWeek(week - 1);
         }
     }
 
