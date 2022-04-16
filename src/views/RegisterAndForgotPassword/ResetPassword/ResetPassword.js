@@ -9,13 +9,13 @@ export default function ResetPassword() {
 
     const userService = new UserService();
     const {user} = useContext(UserContext);
-    const {token} = useParams();
+    const {token, email} = useParams();
     const navigate = useNavigate();
 
 
     const {register, handleSubmit} = useForm();
     const onSubmit = data => {
-        data.email = user.email;
+        data.email = email;
         userService.resetPass(data)
             .then((res) => {
                 navigate("/resetSuccess");
@@ -26,7 +26,6 @@ export default function ResetPassword() {
     }
 
     useEffect(() => {
-        console.log(token);
         if (token) {
             userService.checkExpire(token)
                 .then((res) => {

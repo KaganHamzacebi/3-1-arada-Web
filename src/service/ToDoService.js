@@ -23,7 +23,6 @@ class ToDoService extends Service{
         })
     }
     removeTask(userToken,taskName,taskId){
-        debugger;
         let payload = {id:taskId,task:taskName}
         return axios.post("/deleteTask",payload,{
             baseURL : this.endpointBase,
@@ -33,7 +32,6 @@ class ToDoService extends Service{
         })
     }
     addTask(userToken,taskName){
-        debugger;
         let payload = {task:taskName, isDone:false}
         return axios.post("/todo",payload,{
             baseURL: this.endpointBase,

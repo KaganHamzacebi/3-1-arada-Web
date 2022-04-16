@@ -23,6 +23,7 @@ export default function ChatRoom() {
     const [closeConfirm, setCloseConfirm] = useState(false);
 
     const reportUser = () => {
+        setIsMenuVisible(false);
         const data = {
             reporter: connectionData.username,
             reported: connectionData.receiverName

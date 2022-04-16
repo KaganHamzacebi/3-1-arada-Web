@@ -23,7 +23,7 @@ function ToDo(){
     },[changeState])
     return <div id="todoWrapper">
         <Header/>
-        <div className="w-100 pt-28 pb-8 px-14 grid grid-cols-1 md:grid-cols-2">
+        <div className="pt-28 pb-8 px-14 grid grid-cols-1 md:grid-cols-2">
             <TaskList
                 addTask={(userToken,taskName) => service.addTask(userToken,taskName)}
                 addTrueTask={(userToken,taskName,taskBoolean) => {
@@ -31,7 +31,6 @@ function ToDo(){
                     setChangeState(!changeState);
                 }}
                 removeTask={(userToken,taskName,taskId) => {
-                    debugger;
                     service.removeTask(userToken,taskName,taskId);
                     setChangeState(!changeState);
                 }}
