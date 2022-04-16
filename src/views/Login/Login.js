@@ -18,7 +18,7 @@ export default function Login() {
     return (
         <LoginErrorContext.Provider value={{setShowLoginError, setLoginErrorMessage}}>
             <div
-                className={`fixed left-1/2 p-6 bottom-8 text-center transition-all duration-500 opacity-0 ${showLoginError ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-200 z-50`}>
+                className={`fixed left-1/2 p-6 pointer-events-none bottom-8 text-center transition-all duration-500 opacity-0 ${showLoginError ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-200 z-50`}>
                 <div className="flex flex-row">
                     <ExclamationCircleIcon className="w-8 h-8 mr-2 text-theme-blue"/>
                     <span

@@ -30,7 +30,7 @@ export default function RegisterAndForgotPassword() {
         <RegisterErrorContext.Provider value={{setShowRegisterError, setRegisterErrorMessage}}>
             <div id="registerAndForgotPasswordWrapper" className="w-full md:h-full">
                 <div
-                    className={`fixed left-1/2 p-6 bottom-8 text-center transition-all duration-500 opacity-0 ${showRegisterError ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-200 z-50`}>
+                    className={`fixed left-1/2 pointer-events-none p-6 bottom-8 text-center transition-all duration-500 opacity-0 ${showRegisterError ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-200 z-50`}>
                     <div className="flex flex-row">
                         <ExclamationCircleIcon className="w-8 h-8 mr-2 text-theme-blue"/>
                         <span className="m-auto text-xl text-theme-blue">{registerErrorMessage ? registerErrorMessage : "An unexpected error occurred!"}</span>
