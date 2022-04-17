@@ -16,11 +16,16 @@ export default function LoginForm() {
         await userService.login(data)
             .then((res) => {
                 if (res.status === 200) {
-                    if (res.data.accessToken) {
-                        setCookie("userToken", res.data.accessToken, {secure: true, sameSite: 'none'});
+                    if (res.data.token) {
+                        setCookie("userToken", res.data.token, {secure: true, sameSite: 'none'});
+                        navigate("/");
+                        window.location.reload();
                     }
-                    navigate("/");
-                    window.location.reload();
+                    else {
+                        setLoginErrorMessage("An error occurred!");
+                        setShowLoginError(true);
+                        setTimeout(() => setShowLoginError(false), 2000);
+                    }
                 }
             })
             .catch((err) => {

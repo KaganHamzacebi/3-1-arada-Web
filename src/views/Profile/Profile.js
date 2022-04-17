@@ -19,6 +19,8 @@ export default function Profile() {
     const [isProfile, setIsProfile] = useState(true);
     const profileService = new ProfileService();
     const {user, userToken} = useContext(UserContext);
+
+    const [isPasswordChange, setIsPasswordChange] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState(false);
     const [isSuccessNotification, setIsSuccessNotification] = useState(false);
@@ -31,6 +33,7 @@ export default function Profile() {
 
     const updateProfilePhoto = photo => {
         const formData = new FormData();
+        console.log(photo);
 
         formData.append("image", photo);
 
@@ -51,12 +54,11 @@ export default function Profile() {
     }
 
     return (
-        <ProfileNotificationContext.Provider
-            value={{setShowNotification, setNotificationMessage, setIsSuccessNotification}}>
+        <ProfileNotificationContext.Provider value={{setShowNotification, setNotificationMessage, setIsSuccessNotification, setIsPasswordChange}}>
             <div id="profileWrapper">
                 <ReactTooltip backgroundColor="#4B5563"/>
                 <div
-                    className={`fixed left-1/2 p-6 bottom-8 text-center transition-all duration-500 opacity-0 ${showNotification ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl ${setIsSuccessNotification ? "bg-green-600" : "bg-gray-200"} z-50`}>
+                    className={`fixed left-1/2 p-6 pointer-events-none bottom-8 text-center transition-all duration-500 opacity-0 ${showNotification ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl ${setIsSuccessNotification ? "bg-green-600" : "bg-gray-200"} z-50`}>
                     <div className="flex flex-row">
                         {
                             isSuccessNotification ?

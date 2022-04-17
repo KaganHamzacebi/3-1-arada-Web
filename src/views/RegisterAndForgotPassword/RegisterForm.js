@@ -5,6 +5,7 @@ import UserService from "../../service/UserService";
 import {useNavigate} from "react-router-dom";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import "./RegisterForm.css"
 
 import {RegisterErrorContext} from "./RegisterAndForgotPassword";
 
@@ -32,9 +33,14 @@ export default function RegisterForm() {
             })
     };
 
+    const contentStyle = {borderRadius: "16px"};
+
     const Modal = () => (
-        <Popup trigger={<span className="text-blue-600 underline cursor-pointer">Terms of Service</span>} modal>
-            <p className="overflow-y-auto max-h-128">
+        <Popup className="popup-content"
+               trigger={<span className="text-blue-600 underline cursor-pointer">Terms of Service</span>}
+               {...{ contentStyle }}
+               modal>
+            <p className=" p-4 overflow-y-auto max-h-128">
                 <span className="font-bold text-2xl">Website Terms and Conditions of Use</span><br/><br/>
                 <b>1. Terms</b><br/>
                 By accessing this Website, accessible from https://3in1.com, you are agreeing to be bound by these

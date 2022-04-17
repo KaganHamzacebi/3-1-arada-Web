@@ -4,21 +4,20 @@ import LogoWhite from "../../assets/images/logo_white.png";
 import {LocationMarkerIcon} from "@heroicons/react/outline";
 import LoginForm from "./LoginForm"
 import "./Login.css";
-import {createContext, useState} from "react";
+import React, {createContext, useState} from "react";
 import {ExclamationCircleIcon} from "@heroicons/react/solid";
 
 export const LoginErrorContext = createContext(null);
 
 export default function Login() {
     const navigate = useNavigate();
-
     const [showLoginError, setShowLoginError] = useState(false);
     const [loginErrorMessage, setLoginErrorMessage] = useState("An unexpected error occurred!");
 
     return (
         <LoginErrorContext.Provider value={{setShowLoginError, setLoginErrorMessage}}>
             <div
-                className={`fixed left-1/2 p-6 bottom-8 text-center transition-all duration-500 opacity-0 ${showLoginError ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-200 z-50`}>
+                className={`fixed left-1/2 p-6 pointer-events-none bottom-8 text-center transition-all duration-500 opacity-0 ${showLoginError ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl bg-gray-200 z-50`}>
                 <div className="flex flex-row">
                     <ExclamationCircleIcon className="w-8 h-8 mr-2 text-theme-blue"/>
                     <span

@@ -40,7 +40,7 @@ export default function Header(props) {
     return (
         <div className={`fixed w-full transform transition duration-500 ${scroll && "bg-gray-600 bg-opacity-80"} z-50`}>
             <div className="flex px-4 md:px-16">
-                <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer"/>
+                <img src={Logo} onClick={() => navigate("/")} className="w-28 h-28 select-none cursor-pointer" />
                 <div className="my-auto ml-4 select-none hidden sm:block" onClick={() => navigate("/")}>
                     <TextAnimation componentId="appName" text="3 in 1" fontSize={40} fontWeight="bold"/>
                 </div>
@@ -74,7 +74,7 @@ export default function Header(props) {
                                             }}
                                             className="text-white text-2xl  align-items-center rounded-lg hover:bg-theme-brown  md:block m-auto font-semibold px-4 py-2.5 text-center inline-flex items-center"
                                             type="button">
-                                        {user.name + " " + user.surname}
+                                        {user.username}
                                         {/*<ChevronDownIcon className=" absolute h-3 w-3"/>*/}
 
                                         <div hidden={!isOpen}
@@ -122,23 +122,51 @@ export default function Header(props) {
                 {/* Mobile Header */}
                 <div
                     className={`${isMobileMenuOpen ? "block" : "hidden"}   md:hidden absolute p-4 top-20 left-0 w-full`}>
-                    <div className="bg-theme-green rounded-xl flex flex-col p-1 bg-opacity-90">
-                        <NavLink to="/sleep"
-                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
-                            Sleep
-                        </NavLink>
-                        <NavLink to="/chat"
-                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
-                            Chat
-                        </NavLink>
-                        <NavLink to="/meditation"
-                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
-                            Meditation
-                        </NavLink>
-                        <NavLink to="/login"
-                                 className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
-                            Login
-                        </NavLink>
+                    <div className="">
+                        {
+                            user &&
+                            <div className="bg-theme-green rounded-xl flex flex-col p-1 bg-opacity-90">
+                                <NavLink to="/sleep"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Sleep
+                                </NavLink>
+                                <NavLink to="/chat"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Chat
+                                </NavLink>
+                                <NavLink to="/meditation"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Meditation
+                                </NavLink>
+                                <NavLink to="/profile"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Profile
+                                </NavLink>
+                                <NavLink to="/to-do"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    To-Do List
+                                </NavLink>
+                                <div
+                                    className="text-xl bg-red-600 my-auto font-semibold text-white p-2 rounded-lg transition duration-300"
+                                    onClick={() => signOut()}
+                                >
+                                    <span>Logout</span>
+                                </div>
+                            </div>
+                        }
+                        {
+                            !user &&
+                            <div className="bg-theme-green rounded-xl flex flex-col p-1 bg-opacity-90">
+                                <NavLink to="/login"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Login
+                                </NavLink>
+                                <NavLink to="/register"
+                                         className="text-xl my-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-brown hover:bg-opacity-50 hover:text-green-800">
+                                    Register
+                                </NavLink>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

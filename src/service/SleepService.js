@@ -6,10 +6,8 @@ export default class SleepService extends Service {
         super('');
     }
 
-    async getSleepData(payload, userToken) {
-        userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG5hbmVraWNpNjY2QGdtYWlsLmNvbSIsImlhdCI6MTY1MDEzNjk0OCwiZXhwIjoxNjUwMjIzMzQ4fQ.djqCOp2sGKyx9S0dD23rSr5Jd2o7CYrSSI38Krrlhpe5OZaedLSQmCRsC-fsEHXgDjpA7DQ1ni9WCY1ZYqT14w";
-        var url = "/sleep/web?week=" + payload;
-        return await axios.get(url, {
+    async getLineChartData(userToken) {
+        return await axios.get("http://localhost:8080/sleep/deneme", {
             baseURL: this.endpointBase,
             headers: {
                 Authorization: 'Bearer ' + userToken
@@ -17,13 +15,12 @@ export default class SleepService extends Service {
         })
     }
 
-    async getSleepTimeData(payload, userToken) {
-        return await axios.post("/sleep", payload, {
+    async getSleepTimeData(userToken,payload){
+        return await axios.post("http://localhost:8080/sleep/deneme", payload, {
             baseURL: this.endpointBase,
             headers: {
                 Authorization: 'Bearer ' + userToken
             }
         });
     }
-
 }
