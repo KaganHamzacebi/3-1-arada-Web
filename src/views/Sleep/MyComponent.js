@@ -55,7 +55,7 @@ export default function MyComponent() {
                         var list = res.data.list[3].sleepTimeList.map((element) => {
                             return moment(element).format("HH:ss").toString();
                         });
-                        setChartLabel()
+                        setChartLabel(list);
 
                         console.log(res.data.list[3].sleepQualityList);
                         console.log(list);
@@ -64,6 +64,7 @@ export default function MyComponent() {
                         setChartLabel(list);
 
                         console.log("sleep");
+
                         console.log(chartData);
                         console.log(chartLabel);
 
