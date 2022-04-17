@@ -47,7 +47,6 @@ export default function Meditation() {
                             </Row>
                         </Col>
                         <Col md={8} className="align-items-center">
-                            <Carousel variant="dark" interval={null} indicators={false}>
                                 <Carousel variant="dark" interval={null} indicators={false}  className="mt-3">
                                     <Carousel.Item>
                                         <VideoPlayer id="video1" video={video1}/>
@@ -64,7 +63,6 @@ export default function Meditation() {
                                     <Carousel.Item>
                                         <VideoPlayer id="video5" video={video5}/>
                                     </Carousel.Item>
-                                </Carousel>
                             </Carousel>
                         </Col>
                         <Col md={2}>
