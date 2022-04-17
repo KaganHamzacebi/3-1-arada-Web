@@ -5,9 +5,10 @@ import Footer from "../../components/Footer";
 import Flower from "../../assets/images/3.png";
 import Leaf from "../../assets/images/7.png";
 import Cactus from "../../assets/images/9.png";
+import HomeSleep from "../../assets/home_sleep.png";
+import HomeChat from "../../assets/home_chat.png";
+import HomeMeditation from "../../assets/home_meditation.png";
 import {useEffect, useState} from "react";
-
-import MobileLogin from "../../assets/mobile_login.png";
 import SlideMenu from "./SlideMenu";
 
 export default function Home() {
@@ -28,23 +29,26 @@ export default function Home() {
             <div className="pt-48 pb-40 md:pt-50 px-8 md:px-24 flex flex-col gap-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:grid-flow-col gap-x-16 gap-y-4">
                     <div className="row-span-2 px-8 py-12 bg-theme-gray rounded-xl opacity-95 shadow-xl transition duration-700 transform hover:scale-105">
-                        <h1 className="text-2xl uppercase font-bold">Ilerleme</h1>
-                        <h1 className="text-2xl font-black mt-8">Müşterilerimize güç katıyoruz</h1>
-                        <h1 className="mt-8">Bu alanda 20 yılı aşkın danışmanlık deneyimine sahibiz ve şunlara ulaşmak
-                            için çabalıyoruz: gelişmek, güçlenmek, imkan tanımak ve sürdürmek.</h1>
+                        <h1 className="text-4xl text-gray-700 font-bold">3 in 1</h1>
+                        <h1 className="text-2xl text-black font-black mt-8"><span className="text-blue-800">Sleep</span> - <span className="text-green-800">Chat</span> - <span className="text-yellow-600">Meditation</span></h1>
+                        <h1 className="mt-8 text-black">We want to help the world to better sleep. By using 3in1 to track your sleep and find your perfect wake up window, we believe you’ll be part of that change, for the benefit of better health. With also chat and meditation we try to make you feel life better. You can track your sleep, chat anonymously and meditate in any environment</h1>
                     </div>
                     <div className="row-span-1 p-6 bg-theme-gray rounded-xl opacity-95 shadow-xl transition duration-700 transform hover:scale-105">
-                        <h1 className="text-2xl uppercase font-bold">Beslenme</h1>
+                        <h1 className="text-2xl text-blue-800 uppercase font-black">Sleep</h1>
                         <div className="flex mt-8 gap-8">
-                            <span className="text-6xl font-bold m-auto">%32</span>
-                            <span>Bu alanda 20 yılı aşkın danışmanlık deneyimine sahibiz ve şunlara ulaşmak için çabalıyoruz: gelişmek, güçlenmek, imkan tanımak ve sürdürmek.</span>
+                            <img src={HomeSleep} className="w-24 h-24 m-auto" />
+                            <span>With our sleep module you can track your sleep quality easily. Just before going sleep start the application and we will show how good you sleep and how to improve your sleep quality.</span>
                         </div>
                     </div>
                     <div className="row-span-1 p-6 bg-theme-gray rounded-xl opacity-95 shadow-xl transition duration-700 transform hover:scale-105">
-                        <h1 className="text-2xl uppercase font-bold">Beslenme</h1>
+                        <div className="flex">
+                            <span className="text-green-800 text-2xl font-black">CHAT</span>
+                            <span className="text-yellow-600 ml-auto text-2xl font-black">MEDITATION</span>
+                        </div>
                         <div className="flex mt-8 gap-8">
-                            <span className="text-6xl font-bold m-auto">%32</span>
-                            <span>Bu alanda 20 yılı aşkın danışmanlık deneyimine sahibiz ve şunlara ulaşmak için çabalıyoruz: gelişmek, güçlenmek, imkan tanımak ve sürdürmek.</span>
+                            <img src={HomeChat} className="w-24 h-24 m-auto" />
+                            <span>Chat and Meditation is the key of better life. Chat with random people and meditate at any place!</span>
+                            <img src={HomeMeditation} className="w-24 h-24 m-auto" />
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import Logo from "../assets/images/logo_white.png";
 import {useContext, useEffect, useState} from "react";
 import TextAnimation from "../common/TextAnimation";
 import {useCookies} from 'react-cookie';
-import {LogoutIcon, MenuIcon} from "@heroicons/react/solid";
+import {LogoutIcon, MenuIcon, UserCircleIcon} from "@heroicons/react/solid";
 import "./Header.css";
 import {UserContext} from "../App";
 
@@ -74,9 +74,8 @@ export default function Header(props) {
                                             }}
                                             className="text-white text-2xl  align-items-center rounded-lg hover:bg-theme-brown  md:block m-auto font-semibold px-4 py-2.5 text-center inline-flex items-center"
                                             type="button">
-                                        {user.username}
+                                        {user.name}
                                         {/*<ChevronDownIcon className=" absolute h-3 w-3"/>*/}
-
                                         <div hidden={!isOpen}
                                              className="dropdown z-50 w-44 mt-1 ml-1 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
                                             <ul className="py-1" aria-labelledby="dropdownButton">
@@ -101,11 +100,19 @@ export default function Header(props) {
                                 </div>
                                 <div className="flex-grow"></div>
                                 <div className="flex gap-x-4 my-auto">
-                                    <img
-                                        src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
-                                        className="rounded-circle w-12 rounded-full"
-                                        alt="avatar image"
-                                    />
+                                    {
+                                        user && user.profilePicture ?
+                                            <img
+                                                src={`data:image/jpeg;base64,${user.profilePicture}`}
+                                                className="rounded-circle w-12 rounded-full"
+                                                alt="avatar image"
+                                            />
+                                            :
+                                            <UserCircleIcon
+                                                className="m-auto text-gray-300 w-12 h-12 border-2 border-gray-300 shadow-2xl rounded-circle relative"
+                                            />
+                                    }
+
                                 </div>
                             </div>
                             :
