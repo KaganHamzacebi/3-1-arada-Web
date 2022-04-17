@@ -31,7 +31,6 @@ export default function Profile() {
 
     const updateProfilePhoto = photo => {
         const formData = new FormData();
-        console.log(photo);
 
         formData.append("image", photo);
 

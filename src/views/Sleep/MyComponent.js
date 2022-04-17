@@ -3,7 +3,6 @@ import Header from "../../components/Header";
 import 'react-bootstrap';
 import {Col, Container, Row} from "react-bootstrap";
 import "../Home/Home.css";
-import SleepQualityChart from "./SleepQualityChart";
 import SleepService from "../../service/SleepService";
 import SleepProgressBars from "./SleepProgressBars";
 import {
@@ -18,48 +17,93 @@ import AnimatedProgressProvider from "../../components/AnimatedProgressProvider/
 import {easeQuadInOut} from "d3-ease";
 import {buildStyles, CircularProgressbar} from "react-circular-progressbar";
 import {UserContext} from "../../App";
+import moment from "moment/moment";
+import SleepQualityChart from "./SleepQualityChart";
 
 
 export default function MyComponent() {
     const sleepService = new SleepService();
-    const [chartData, setChartData] = useState();
+    const {user, userToken} = useContext(UserContext);
+    const [chartData, setChartData] = useState([]);
+    const [chartLabel, setChartLabel] = useState([]);
+
+    const [monValue, setMonValue] = useState(0);
+    const [tueValue, setTueValue] = useState(0);
+    const [wedValue, setWedValue] = useState(0);
+    const [thuValue, setThuValue] = useState(0);
+    const [friValue, setFriValue] = useState(0);
+    const [satValue, setSatValue] = useState(0);
+    const [sunValue, setSunValue] = useState(0);
+
+    const [isCurrentWeek, setIsCurrentWeek] = useState(true);
+    const [week, setWeek] = useState(1);
+
+    const [currentDay, setCurrentDay] = useState(0);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(null);
     const [data, setData] = useState(null);
-    const [isCurrentWeek, setIsCurrentWeek] = useState(true);
-    const [week, setWeek] = useState(1);
     const [sleepData, setSleepData] = useState(null);
-    const {user, userToken} = useContext(UserContext);
 
 
     useEffect(() => {
-        sleepService.getSleepData(week-1, userToken).then((res) => {
+        console.log(currentDay);
+        setCurrentDay(getDate(new Date()));
+        sleepService.getSleepData(week - 1, userToken).then((res) => {
                 if (res.status === 200) {
                     if (res == null) {
                     } else {
-                        setSleepData(res);
+                        var list = res.data.list[3].sleepTimeList.map((element) => {
+                            return moment(element).format("HH:ss").toString();
+                        });
+                        setChartLabel()
+
+                        console.log(res.data.list[3].sleepQualityList);
+                        console.log(list);
+
+                        setChartData(res.data.list[3].sleepQualityList);
+                        setChartLabel(list);
+
+                        console.log("sleep");
+                        console.log(chartData);
+                        console.log(chartLabel);
+
+                        setMonValue(res.data.list[0] == null ? 0 : res.data.list[0].averageSleepQuality * 10);
+                        setTueValue(res.data.list[1] == null ? 0 : res.data.list[1].averageSleepQuality * 10);
+                        setWedValue(res.data.list[2] == null ? 0 : res.data.list[2].averageSleepQuality * 10);
+                        setThuValue(res.data.list[3] == null ? 0 : res.data.list[3].averageSleepQuality * 10);
+                        setFriValue(res.data.list[4] == null ? 0 : res.data.list[5].averageSleepQuality * 10);
+                        setSatValue(res.data.list[5] == null ? 0 : res.data.list[6].averageSleepQuality * 10);
+                        setSunValue(res.data.list[6] == null ? 0 : res.data.list[7].averageSleepQuality * 10);
                     }
                 }
             }
         );
-    }, [])
+    }, [currentDay])
+
+    const getDate = (date) => {
+        setCurrentDay(date.getDay() - 1 == 0 ? 7 : date.getDay() - 1);
+    }
 
     const dateBack = () => {
         setWeek((week) => week + 1);
-        console.log("week" + week);
         setIsCurrentWeek(false);
 
         sleepService.getSleepData(week, userToken).then((res) => {
                 if (res.status === 200) {
-                    if (res.data == null) {
-                        console.log(null);
+                    if (res == null) {
                     } else {
-                        console.log(data);
+                        setSleepData(res.data.list);
+                        setMonValue(res.data.list[0] == null ? 0 : res.data.list[0].averageSleepQuality * 10);
+                        setTueValue(res.data.list[1] == null ? 0 : res.data.list[1].averageSleepQuality * 10);
+                        setWedValue(res.data.list[2] == null ? 0 : res.data.list[2].averageSleepQuality * 10);
+                        setThuValue(res.data.list[3] == null ? 0 : res.data.list[3].averageSleepQuality * 10);
+                        setFriValue(res.data.list[4] == null ? 0 : res.data.list[5].averageSleepQuality * 10);
+                        setSatValue(res.data.list[5] == null ? 0 : res.data.list[6].averageSleepQuality * 10);
+                        setSunValue(res.data.list[6] == null ? 0 : res.data.list[7].averageSleepQuality * 10);
                     }
                 }
             }
         );
-
     }
 
     const dateForward = () => {
@@ -67,6 +111,23 @@ export default function MyComponent() {
             //TODO doNothing
         } else {
             setWeek(week - 1);
+            setIsCurrentWeek(week == 0 ? true : false);
+            sleepService.getSleepData(week, userToken).then((res) => {
+                    if (res.status === 200) {
+                        if (res == null) {
+                        } else {
+                            setSleepData(res.data);
+                            setMonValue(res.data.list[0] == null ? 0 : res.data.list[0].averageSleepQuality * 10);
+                            setTueValue(res.data.list[1] == null ? 0 : res.data.list[1].averageSleepQuality * 10);
+                            setWedValue(res.data.list[2] == null ? 0 : res.data.list[2].averageSleepQuality * 10);
+                            setThuValue(res.data.list[3] == null ? 0 : res.data.list[3].averageSleepQuality * 10);
+                            setFriValue(res.data.list[4] == null ? 0 : res.data.list[5].averageSleepQuality * 10);
+                            setSatValue(res.data.list[5] == null ? 0 : res.data.list[6].averageSleepQuality * 10);
+                            setSunValue(res.data.list[6] == null ? 0 : res.data.list[7].averageSleepQuality * 10);
+                        }
+                    }
+                }
+            );
         }
     }
 
@@ -85,8 +146,10 @@ export default function MyComponent() {
                             />
                         </Col>
                         <Col>
-                            <SleepProgressBars monValue={20} tueValue={77} wedValue={20} thuValue={77} friValue={20}
-                                               satValue={77} sunValue={77}/>
+                            <SleepProgressBars currentDay={currentDay} setCurrentDay={setCurrentDay}
+                                monValue={monValue} tueValue={tueValue} wedValue={wedValue}
+                                               thuValue={thuValue} friValue={friValue}
+                                               satValue={satValue} sunValue={sunValue}/>
                         </Col>
                         <Col md={1}>
                             <ChevronRightIcon
@@ -99,8 +162,7 @@ export default function MyComponent() {
                     </Row>
                     <Row className="justify-content-md-evenly mt-8 gap-x-4" md={12}>
                         <Col className="bg-theme-gray rounded-xl">
-                            <SleepQualityChart service={sleepService} chartData={chartData}
-                                               setChartData={(data) => setChartData(data)}></SleepQualityChart>
+                            <SleepQualityChart data={chartData} label={chartLabel}></SleepQualityChart>
                         </Col>
                         <Col md={4} className="bg-theme-gray rounded-xl">
                             <Row md={12} className="h-full">
@@ -124,8 +186,6 @@ export default function MyComponent() {
                                                             value={value}
                                                             text={`${roundedValue}%`}
                                                             strokeWidth={12}
-                                                            /* This is important to include, because if you're fully managing the
-                                                      animation yourself, you'll want to disable the CSS animation. */
                                                             styles={buildStyles({
                                                                     pathTransition: "none",
                                                                     pathColor: `rgba(146, 167, 75, ${100 / 100})`,
@@ -173,8 +233,7 @@ export default function MyComponent() {
                 </Container>
             </div>
         </div>
-    )
-        ;
+    );
 }
 
 

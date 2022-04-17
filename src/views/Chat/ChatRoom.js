@@ -33,7 +33,6 @@ export default function ChatRoom() {
             navigate("/register");
         }
         window.addEventListener('beforeunload', () => {
-            console.log("before unload");
             chatService.closeSocket(userToken).then(rs => console.log(rs));
             stompClient.close();
         });

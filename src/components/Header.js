@@ -24,7 +24,6 @@ export default function Header(props) {
         window.addEventListener("scroll", () => {
             setScroll(window.scrollY > 50);
         });
-        console.log(currentComponent == 1 );
     }, [])
 
     const navFunc = (name) => {
