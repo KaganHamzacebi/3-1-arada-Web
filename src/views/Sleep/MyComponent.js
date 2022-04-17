@@ -53,7 +53,7 @@ export default function MyComponent() {
                     if (res == null) {
                     } else {
                         var list = res.data.list[3].sleepTimeList.map((element) => {
-                            return moment(element).format("HH:ss").toString();
+                            return moment(element).format("HH:mm").toString();
                         });
                         setChartLabel(list);
 
@@ -148,7 +148,7 @@ export default function MyComponent() {
                         </Col>
                         <Col>
                             <SleepProgressBars currentDay={currentDay} setCurrentDay={setCurrentDay}
-                                monValue={monValue} tueValue={tueValue} wedValue={wedValue}
+                                               monValue={monValue} tueValue={tueValue} wedValue={wedValue}
                                                thuValue={thuValue} friValue={friValue}
                                                satValue={satValue} sunValue={sunValue}/>
                         </Col>

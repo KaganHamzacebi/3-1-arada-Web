@@ -1,5 +1,5 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {createContext, useEffect, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 
 //Views
@@ -22,6 +22,7 @@ import ResetFailed from "./views/ResetPasswordResults/ResetFailed";
 import TokenExpired from "./views/ResetPasswordResults/TokenExpired";
 import ToDo from "./views/ToDo/ToDo";
 import Popup from "reactjs-popup";
+import Meditation from "./views/Meditation/Meditation";
 
 export const UserContext = createContext(null);
 export const QuestionModalContext = createContext(null);
@@ -101,6 +102,7 @@ function App() {
                             <Route path="/clustering" element={<ClusterQuestion/>}/>
                             <Route path="/updateQuestions" element={<UpdateQuestions/>}/>
                             <Route path="/sleep" element={<MyComponent/>}/>
+                            <Route path="/to-do" element={<ToDo/>}/>
                             <Route path="/meditation" element={<Meditation/>}/>
                         </Routes>
                     </BrowserRouter>
