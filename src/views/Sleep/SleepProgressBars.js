@@ -1,7 +1,8 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import AnimatedProgressProvider from "../../components/AnimatedProgressProvider/AnimatedProgressProvider";
 import {easeQuadInOut} from "d3-ease";
 import {buildStyles, CircularProgressbar} from "react-circular-progressbar";
+import {SleepProgressContext} from "./Sleep";
 
 export default function SleepProgressBars(props) {
 
@@ -12,7 +13,7 @@ export default function SleepProgressBars(props) {
     const [friValue, setFriValue] = useState(props.friValue);
     const [satValue, setSatValue] = useState(props.satValue);
     const [sunValue, setSunValue] = useState(props.sunValue);
-    const [currentDay, setCurrentDay] = useState(props.currentDay);
+    const {currentDay, setCurrentDay} = useContext(SleepProgressContext);
 
     useEffect(() => {
         setMonValue(props.monValue);
@@ -22,7 +23,6 @@ export default function SleepProgressBars(props) {
         setFriValue(props.friValue);
         setSatValue(props.satValue);
         setSunValue(props.sunValue);
-        setCurrentDay(props.currentDay);
     }, [props])
 
     const onClick = (day) => {
@@ -33,8 +33,9 @@ export default function SleepProgressBars(props) {
         <div className="w-full h-full flex gap-x-4 p-4">
             <div
                 className="w-full rounded-lg">
-                <span className="ml-4 mt-2 text-xl text-gray-500 font-semibold align-items-center">MON</span>
-                <div className="m-auto w-2/3 lg:w-1/2 cursor-pointer"  onClick={() => {
+                <span
+                    className={`ml-4 mt-2 text-xl ${currentDay === 0 ? "text-green-600 font-black" : "text-gray-500 font-semibold"} align-items-center`}>MON</span>
+                <div className="m-auto w-2/3 lg:w-1/2 cursor-pointer" onClick={() => {
                     onClick(0)
                 }}>
                     {/* Sleep Progress Bar */}
@@ -67,7 +68,8 @@ export default function SleepProgressBars(props) {
             </div>
             <div
                 className="w-full rounded-lg">
-                <span className="ml-4 mt-2 text-xl text-gray-500 font-semibold align-items-center">TUE</span>
+                <span
+                    className={`ml-4 mt-2 text-xl ${currentDay === 1 ? "text-green-600 font-black" : "text-gray-500 font-semibold"} align-items-center`}>TUE</span>
                 <div className="m-auto w-2/3 lg:w-1/2 cursor-pointer" onClick={() => {
                     onClick(1)
                 }}>
@@ -100,7 +102,8 @@ export default function SleepProgressBars(props) {
             </div>
             <div
                 className="w-full rounded-lg">
-                <span className="ml-4 mt-2 text-xl text-gray-500 font-semibold align-items-center">WED</span>
+                <span
+                    className={`ml-4 mt-2 text-xl ${currentDay === 2 ? "text-green-600 font-black" : "text-gray-500 font-semibold"} align-items-center`}>WED</span>
                 <div className="m-auto w-2/3 lg:w-1/2 cursor-pointer" onClick={() => {
                     onClick(2)
                 }}>
@@ -133,7 +136,8 @@ export default function SleepProgressBars(props) {
             </div>
             <div
                 className="w-full rounded-lg">
-                <span className="ml-4 mt-2 text-xl text-gray-500 font-semibold align-items-center">THU</span>
+                <span
+                    className={`ml-4 mt-2 text-xl ${currentDay === 3 ? "text-green-600 font-black" : "text-gray-500 font-semibold"} align-items-center`}>THU</span>
                 <div className="m-auto w-2/3 lg:w-1/2 cursor-pointer" onClick={() => {
                     onClick(3)
                 }}>
@@ -166,9 +170,10 @@ export default function SleepProgressBars(props) {
             </div>
             <div
                 className="w-full rounded-lg">
-                <span className="ml-4 mt-2 text-xl text-gray-500 font-semibold align-items-center">FRI</span>
+                <span
+                    className={`ml-4 mt-2 text-xl ${currentDay === 4 ? "text-green-600 font-black" : "text-gray-500 font-semibold"} align-items-center`}>FRI</span>
                 <div className="m-auto w-2/3 lg:w-1/2 cursor-pointer" onClick={() => {
-                    onClick(5)
+                    onClick(4)
                 }}>
                     {/* Meditation Progress Bar */}
                     <AnimatedProgressProvider
@@ -199,9 +204,10 @@ export default function SleepProgressBars(props) {
             </div>
             <div
                 className="w-full rounded-lg">
-                <span className="ml-4 mt-2 text-xl text-gray-500 font-semibold align-items-center">SAT</span>
+                <span
+                    className={`ml-4 mt-2 text-xl ${currentDay === 5 ? "text-green-600 font-black" : "text-gray-500 font-semibold"} align-items-center`}>SAT</span>
                 <div className="m-auto w-2/3 lg:w-1/2 cursor-pointer" onClick={() => {
-                    onClick(6)
+                    onClick(5)
                 }}>
                     {/* Meditation Progress Bar */}
                     <AnimatedProgressProvider
@@ -232,9 +238,10 @@ export default function SleepProgressBars(props) {
             </div>
             <div
                 className="w-full rounded-lg">
-                <span className="ml-4 mt-2 text-xl text-gray-500 font-semibold align-items-center">SUN</span>
+                <span
+                    className={`ml-4 mt-2 text-xl ${currentDay === 6 ? "text-green-600 font-black" : "text-gray-500 font-semibold"} align-items-center`}>SUN</span>
                 <div className="m-auto w-2/3 lg:w-1/2 cursor-pointer" onClick={() => {
-                    onClick(7)
+                    onClick(6)
                 }}>
                     {/* Meditation Progress Bar */}
                     <AnimatedProgressProvider

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import Header from "../../components/Header";
 import 'react-bootstrap';
 import {Col, Container, Row} from "react-bootstrap";
@@ -19,13 +19,23 @@ import {buildStyles, CircularProgressbar} from "react-circular-progressbar";
 import {UserContext} from "../../App";
 import moment from "moment/moment";
 import SleepQualityChart from "./SleepQualityChart";
+import ReactTooltip from "react-tooltip";
 
+export const SleepChartContext = createContext(null);
+export const SleepProgressContext = createContext(null);
 
-export default function MyComponent() {
+export default function Sleep() {
+    const getDayOfWeek = () => {
+        const dayNum = moment().day();
+        return dayNum === 0 ? 6 : dayNum - 1;
+    }
+
     const sleepService = new SleepService();
     const {user, userToken} = useContext(UserContext);
     const [chartData, setChartData] = useState([]);
+    const [chartDayData, setChartDayData] = useState([]);
     const [chartLabel, setChartLabel] = useState([]);
+    const [chartDayLabel, setChartDayLabel] = useState([]);
 
     const [monValue, setMonValue] = useState(0);
     const [tueValue, setTueValue] = useState(0);
@@ -36,104 +46,72 @@ export default function MyComponent() {
     const [sunValue, setSunValue] = useState(0);
 
     const [isCurrentWeek, setIsCurrentWeek] = useState(true);
-    const [week, setWeek] = useState(1);
+    const [week, setWeek] = useState(0);
 
-    const [currentDay, setCurrentDay] = useState(0);
+    const [currentDay, setCurrentDay] = useState(getDayOfWeek());
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(null);
     const [data, setData] = useState(null);
     const [sleepData, setSleepData] = useState(null);
 
-
     useEffect(() => {
-        console.log(currentDay);
-        setCurrentDay(getDate(new Date()));
-        sleepService.getSleepData(week - 1, userToken).then((res) => {
+        sleepService.getSleepData(week, userToken).then((res) => {
                 if (res.status === 200) {
-                    if (res == null) {
-                    } else {
-                        var list = res.data.list[3].sleepTimeList.map((element) => {
-                            return moment(element).format("HH:mm").toString();
-                        });
-                        setChartLabel(list);
+                    const dayStatisticsData = res.data.validDays.map((isDay, index) => {
+                        if (isDay) {
+                            return res.data.dailyStatistics[index].sleepTimeList.map((day) => {
+                                return moment(day).format("HH:mm");
+                            })
+                        }
+                    });
+                    const daySleepQualityData = res.data.validDays.map((isDay, index) => {
+                        if (isDay) {
+                            return res.data.dailyStatistics[index].sleepQualityList.map((day) => {
+                                return day;
+                            })
+                        }
+                    });
 
-                        console.log(res.data.list[3].sleepQualityList);
-                        console.log(list);
-
-                        setChartData(res.data.list[3].sleepQualityList);
-                        setChartLabel(list);
-
-                        console.log("sleep");
-
-                        console.log(chartData);
-                        console.log(chartLabel);
-
-                        setMonValue(res.data.list[0] == null ? 0 : res.data.list[0].averageSleepQuality * 10);
-                        setTueValue(res.data.list[1] == null ? 0 : res.data.list[1].averageSleepQuality * 10);
-                        setWedValue(res.data.list[2] == null ? 0 : res.data.list[2].averageSleepQuality * 10);
-                        setThuValue(res.data.list[3] == null ? 0 : res.data.list[3].averageSleepQuality * 10);
-                        setFriValue(res.data.list[4] == null ? 0 : res.data.list[5].averageSleepQuality * 10);
-                        setSatValue(res.data.list[5] == null ? 0 : res.data.list[6].averageSleepQuality * 10);
-                        setSunValue(res.data.list[6] == null ? 0 : res.data.list[7].averageSleepQuality * 10);
+                    if (dayStatisticsData && daySleepQualityData) {
+                        setChartData(daySleepQualityData);
+                        setChartLabel(dayStatisticsData);
                     }
+                    setDayData(res.data);
                 }
             }
         );
+    }, [week])
+
+    useEffect(() => {
+        setChartDayLabel(chartLabel[currentDay]);
+        setChartDayData(chartData[currentDay]);
     }, [currentDay])
 
-    const getDate = (date) => {
-        setCurrentDay(date.getDay() - 1 == 0 ? 7 : date.getDay() - 1);
+    const dateForward = () => {
+        if (!isCurrentWeek) {
+            setWeek(week - 1);
+            setIsCurrentWeek(week === 0);
+        }
     }
 
     const dateBack = () => {
         setWeek((week) => week + 1);
         setIsCurrentWeek(false);
-
-        sleepService.getSleepData(week, userToken).then((res) => {
-                if (res.status === 200) {
-                    if (res == null) {
-                    } else {
-                        setSleepData(res.data.list);
-                        setMonValue(res.data.list[0] == null ? 0 : res.data.list[0].averageSleepQuality * 10);
-                        setTueValue(res.data.list[1] == null ? 0 : res.data.list[1].averageSleepQuality * 10);
-                        setWedValue(res.data.list[2] == null ? 0 : res.data.list[2].averageSleepQuality * 10);
-                        setThuValue(res.data.list[3] == null ? 0 : res.data.list[3].averageSleepQuality * 10);
-                        setFriValue(res.data.list[4] == null ? 0 : res.data.list[5].averageSleepQuality * 10);
-                        setSatValue(res.data.list[5] == null ? 0 : res.data.list[6].averageSleepQuality * 10);
-                        setSunValue(res.data.list[6] == null ? 0 : res.data.list[7].averageSleepQuality * 10);
-                    }
-                }
-            }
-        );
     }
 
-    const dateForward = () => {
-        if (isCurrentWeek) {
-            //TODO doNothing
-        } else {
-            setWeek(week - 1);
-            setIsCurrentWeek(week == 0 ? true : false);
-            sleepService.getSleepData(week, userToken).then((res) => {
-                    if (res.status === 200) {
-                        if (res == null) {
-                        } else {
-                            setSleepData(res.data);
-                            setMonValue(res.data.list[0] == null ? 0 : res.data.list[0].averageSleepQuality * 10);
-                            setTueValue(res.data.list[1] == null ? 0 : res.data.list[1].averageSleepQuality * 10);
-                            setWedValue(res.data.list[2] == null ? 0 : res.data.list[2].averageSleepQuality * 10);
-                            setThuValue(res.data.list[3] == null ? 0 : res.data.list[3].averageSleepQuality * 10);
-                            setFriValue(res.data.list[4] == null ? 0 : res.data.list[5].averageSleepQuality * 10);
-                            setSatValue(res.data.list[5] == null ? 0 : res.data.list[6].averageSleepQuality * 10);
-                            setSunValue(res.data.list[6] == null ? 0 : res.data.list[7].averageSleepQuality * 10);
-                        }
-                    }
-                }
-            );
-        }
+    const setDayData = (data) => {
+        setMonValue(data.validDays[0] ? data.dailyStatistics[0].averageSleepQuality * 10 : 0);
+        setTueValue(data.validDays[1] ? data.dailyStatistics[1].averageSleepQuality * 10 : 0);
+        setWedValue(data.validDays[2] ? data.dailyStatistics[2].averageSleepQuality * 10 : 0);
+        setThuValue(data.validDays[3] ? data.dailyStatistics[3].averageSleepQuality * 10 : 0);
+        setFriValue(data.validDays[4] ? data.dailyStatistics[4].averageSleepQuality * 10 : 0);
+        setSatValue(data.validDays[5] ? data.dailyStatistics[5].averageSleepQuality * 10 : 0);
+        setSunValue(data.validDays[6] ? data.dailyStatistics[6].averageSleepQuality * 10 : 0);
     }
 
     return (
         <div id="homeWrapper">
+            <ReactTooltip backgroundColor="#4B5563"/>
             <Header currentComponent={1}/>
             <div className="pt-40 pb-40  px-8 md:px-24 ">
                 <Container className="">
@@ -147,10 +125,12 @@ export default function MyComponent() {
                             />
                         </Col>
                         <Col>
-                            <SleepProgressBars currentDay={currentDay} setCurrentDay={setCurrentDay}
-                                               monValue={monValue} tueValue={tueValue} wedValue={wedValue}
-                                               thuValue={thuValue} friValue={friValue}
-                                               satValue={satValue} sunValue={sunValue}/>
+                            <SleepProgressContext.Provider value={{currentDay, setCurrentDay}}>
+                                <SleepProgressBars
+                                    monValue={monValue} tueValue={tueValue} wedValue={wedValue}
+                                    thuValue={thuValue} friValue={friValue}
+                                    satValue={satValue} sunValue={sunValue}/>
+                            </SleepProgressContext.Provider>
                         </Col>
                         <Col md={1}>
                             <ChevronRightIcon
@@ -163,7 +143,9 @@ export default function MyComponent() {
                     </Row>
                     <Row className="justify-content-md-evenly mt-8 gap-x-4" md={12}>
                         <Col className="bg-theme-gray rounded-xl">
-                            <SleepQualityChart data={chartData} label={chartLabel}></SleepQualityChart>
+                            <SleepChartContext.Provider value={{chartDayData, chartDayLabel}}>
+                                <SleepQualityChart/>
+                            </SleepChartContext.Provider>
                         </Col>
                         <Col md={4} className="bg-theme-gray rounded-xl">
                             <Row md={12} className="h-full">
