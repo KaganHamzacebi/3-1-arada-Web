@@ -155,9 +155,9 @@ export default function ProfileForm() {
                             placeholder="Email"
                             type="email"
                             maxLength={50}
-                            disabled={!isEditMode}
+                            disabled={true}
                             defaultValue={emailValue}
-                            className={`w-full ${isEditMode ? "text-black" : "text-white font-bold"} mt-1 p-2 rounded outline-none`}
+                            className={`w-full text-white font-bold mt-1 p-2 rounded outline-none`}
                             required
                         />
                     </div>

@@ -25,7 +25,7 @@ export default function Meditation() {
 
     return (
         <div id="meditationWrapper">
-            <Header/>
+            <Header currentComponent={3}/>
             <div className="pt-48 px-8 md:px-24">
                 <Container>
                     <Row md={12}>

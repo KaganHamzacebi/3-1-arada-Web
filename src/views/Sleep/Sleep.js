@@ -49,10 +49,11 @@ export default function Sleep() {
     const [week, setWeek] = useState(0);
 
     const [currentDay, setCurrentDay] = useState(getDayOfWeek());
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(null);
-    const [data, setData] = useState(null);
-    const [sleepData, setSleepData] = useState(null);
+    const [weeklySleepProps, setWeeklySleepProps] = useState([]);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [bestSleep, setBestSleep] = useState("");
+    const [worstSleep, setWorstSleep] = useState("");
 
     useEffect(() => {
         sleepService.getSleepData(week, userToken).then((res) => {
@@ -72,6 +73,19 @@ export default function Sleep() {
                         }
                     });
 
+                    const weeklyProps = res.data.validDays.map((isDay, index) => {
+                        if (isDay) {
+                            const data = res.data.dailyStatistics[index];
+                            return [
+                                moment(data.sleepEndTime).format("HH:mm"),
+                                moment(data.sleepStartTime).format("HH:mm"),
+                                moment(data.bestSleepAt).format("HH:mm"),
+                                moment(data.worstSleepAt).format("HH:mm")];
+                        }
+                    });
+                    if (weeklyProps) {
+                        setWeeklySleepProps(weeklyProps);
+                    }
                     if (dayStatisticsData && daySleepQualityData) {
                         setChartData(daySleepQualityData);
                         setChartLabel(dayStatisticsData);
@@ -85,6 +99,7 @@ export default function Sleep() {
     useEffect(() => {
         setChartDayLabel(chartLabel[currentDay]);
         setChartDayData(chartData[currentDay]);
+        setDailyProps(weeklySleepProps[currentDay]);
     }, [currentDay])
 
     const dateForward = () => {
@@ -107,6 +122,40 @@ export default function Sleep() {
         setFriValue(data.validDays[4] ? data.dailyStatistics[4].averageSleepQuality * 10 : 0);
         setSatValue(data.validDays[5] ? data.dailyStatistics[5].averageSleepQuality * 10 : 0);
         setSunValue(data.validDays[6] ? data.dailyStatistics[6].averageSleepQuality * 10 : 0);
+    }
+
+    const setDailyProps = (data) => {
+        if (data) {
+            setEndDate(data[0]);
+            setStartDate(data[1]);
+            setBestSleep(data[2]);
+            setWorstSleep(data[3]);
+        }
+        else {
+            setEndDate("-");
+            setStartDate("-");
+            setBestSleep("-");
+            setWorstSleep("-");
+        }
+    }
+
+    const getTodaysValue = () => {
+        switch (currentDay) {
+            case 0:
+                return monValue;
+            case 1:
+                return tueValue;
+            case 2:
+                return wedValue;
+            case 3:
+                return thuValue;
+            case 4:
+                return friValue;
+            case 5:
+                return satValue;
+            case 6:
+                return sunValue;
+        }
     }
 
     return (
@@ -158,7 +207,7 @@ export default function Sleep() {
                                             {/* Sleep Progress Bar */}
                                             <AnimatedProgressProvider
                                                 valueStart={0}
-                                                valueEnd={88}
+                                                valueEnd={getTodaysValue()}
                                                 duration={2}
                                                 easingFunction={easeQuadInOut}
                                             >
@@ -188,25 +237,25 @@ export default function Sleep() {
                                             <MoonIcon data-tip="Sleep Time"
                                                       className="w-14 h-14 m-auto text-blue-800 transition transform duration-700 hover:scale-125"/>
                                             <span
-                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl"> 01:20</span>
+                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl">{startDate}</span>
                                         </div>
                                         <div className="flex">
                                             <SunIcon data-tip="Wake Time"
                                                      className="w-14 h-14 m-auto text-yellow-400 transition transform duration-700 hover:scale-125"/>
                                             <span
-                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl"> 01:20</span>
+                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl">{endDate}</span>
                                         </div>
                                         <div className="flex">
                                             <EmojiHappyIcon data-tip="Best Sleep Quality Time"
                                                             className="w-14 h-14 m-auto text-teal-500 transition transform duration-700 hover:scale-125"/>
                                             <span
-                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl"> 01:20</span>
+                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl">{bestSleep}</span>
                                         </div>
                                         <div className="flex">
                                             <EmojiSadIcon data-tip="Worst Sleep Quality Time"
                                                           className="w-14 h-14 m-auto text-pink-700 transition transform duration-700 hover:scale-125"/>
                                             <span
-                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl"> 01:20</span>
+                                                className="m-auto p-1 bg-theme-green font-bold rounded-md text-white text-xl">{worstSleep}</span>
                                         </div>
                                     </div>
                                 </Col>

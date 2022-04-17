@@ -56,7 +56,6 @@ export default function Profile() {
     return (
         <ProfileNotificationContext.Provider value={{setShowNotification, setNotificationMessage, setIsSuccessNotification, setIsPasswordChange}}>
             <div id="profileWrapper">
-                <ReactTooltip backgroundColor="#4B5563"/>
                 <div
                     className={`fixed left-1/2 p-6 pointer-events-none bottom-8 text-center transition-all duration-500 opacity-0 ${showNotification ? "opacity-100" : "opacity-0"} transform translate -translate-x-1/2 rounded-xl ${setIsSuccessNotification ? "bg-green-600" : "bg-gray-200"} z-50`}>
                     <div className="flex flex-row">
