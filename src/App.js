@@ -41,6 +41,7 @@ function App() {
         <Popup
             open={open}
             onClose={closeModal}
+            closeOnDocumentClick={false}
             {...{contentStyle}}
         >
             <QuestionModalContext.Provider value={{setOpen}}>
