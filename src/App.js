@@ -1,5 +1,5 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {createContext, useEffect, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 
 //Views
@@ -10,7 +10,7 @@ import Profile from "./views/Profile/Profile";
 import ChatRoom from "./views/Chat/ChatRoom";
 import Loading from "./views/Loading/Loading";
 import NotFound from "./views/NotFound/NotFound";
-import MyComponent from "./views/Sleep/MyComponent";
+import Sleep from "./views/Sleep/Sleep";
 import ClusterQuestion from "./views/ClusterQuestions/ClusterQuestion";
 import UpdateQuestions from "./views/ClusterQuestions/UpdateQuestions";
 import RegisterAndForgotPassword from "./views/RegisterAndForgotPassword/RegisterAndForgotPassword";
@@ -22,6 +22,7 @@ import ResetFailed from "./views/ResetPasswordResults/ResetFailed";
 import TokenExpired from "./views/ResetPasswordResults/TokenExpired";
 import ToDo from "./views/ToDo/ToDo";
 import Popup from "reactjs-popup";
+import Meditation from "./views/Meditation/Meditation";
 
 export const UserContext = createContext(null);
 export const QuestionModalContext = createContext(null);
@@ -100,7 +101,8 @@ function App() {
                             <Route path="*" element={<NotFound/>}/>
                             <Route path="/clustering" element={<ClusterQuestion/>}/>
                             <Route path="/updateQuestions" element={<UpdateQuestions/>}/>
-                            <Route path="/sleep" element={<MyComponent/>}/>
+                            <Route path="/sleep" element={<Sleep/>}/>
+                            <Route path="/to-do" element={<ToDo/>}/>
                             <Route path="/meditation" element={<Meditation/>}/>
                         </Routes>
                     </BrowserRouter>

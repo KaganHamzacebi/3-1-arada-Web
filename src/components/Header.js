@@ -1,6 +1,6 @@
 import {NavLink, useNavigate} from "react-router-dom";
 import Logo from "../assets/images/logo_white.png";
-import {useState, useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import TextAnimation from "../common/TextAnimation";
 import {useCookies} from 'react-cookie';
 import {LogoutIcon, MenuIcon} from "@heroicons/react/solid";
@@ -8,7 +8,7 @@ import "./Header.css";
 import {UserContext} from "../App";
 
 
-export default function Header() {
+export default function Header(props) {
     const {user, setUser} = useContext(UserContext);
     const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
 
@@ -16,8 +16,11 @@ export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scroll, setScroll] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [currentComponent, setCurrentComponent] = useState(props.currentComponent);
 
     useEffect(() => {
+        setCurrentComponent(props.currentComponent);
+
         window.addEventListener("scroll", () => {
             setScroll(window.scrollY > 50);
         });
@@ -42,24 +45,19 @@ export default function Header() {
                     <TextAnimation componentId="appName" text="3 in 1" fontSize={40} fontWeight="bold"/>
                 </div>
                 <div className="flex-grow"></div>
-                <div className="flex">
-                    {
-                        user &&
-                        <div className="flex gap-x-8">
-                            <NavLink to="/sleep"
-                                     className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                                <TextAnimation componentId="sleeptext" text="Sleep" fontSize={20}/>
-                            </NavLink>
-                            <NavLink to="/chat"
-                                     className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                                <TextAnimation componentId="chattext" text="Chat" fontSize={20}/>
-                            </NavLink>
-                            <NavLink to="/meditation"
-                                     className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
-                                <TextAnimation componentId="meditationtext" text="Meditation" fontSize={20}/>
-                            </NavLink>
-                        </div>
-                    }
+                <div className="flex gap-x-8">
+                    <NavLink to="/sleep"
+                             className={"text-2xl hidden md:block m-auto  text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white"}>
+                        <TextAnimation componentId="sleeptext" text="Sleep" fontSize={(currentComponent == 1 ? 33 : 20)} />
+                    </NavLink>
+                    <NavLink to="/chat"
+                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
+                        <TextAnimation componentId="chattext" text="Chat" fontSize={(currentComponent == 2 ? 33 : 20)}/>
+                    </NavLink>
+                    <NavLink to="/meditation"
+                             className="text-2xl hidden md:block m-auto font-semibold text-white p-2 rounded-lg transition duration-300 hover:bg-theme-darkbrown hover:text-white">
+                        <TextAnimation componentId="meditationtext" text="Meditation" fontSize={(currentComponent == 3 ? 33 : 20)}/>
+                    </NavLink>
                 </div>
                 <div className="flex-grow"></div>
                 <div className="flex gap-x-8 my-auto">
