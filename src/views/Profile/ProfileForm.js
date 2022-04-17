@@ -41,7 +41,6 @@ export default function ProfileForm() {
 
     const onSubmit = data => {
         if (isProfileRequest) {
-            console.log("profile form")
             profileService.updateUser(data, userToken)
                 .then((res) => {
                     if (res.status === 200) {

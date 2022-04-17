@@ -67,15 +67,17 @@ function App() {
 
         fetchData();
 
-        profileService.isFormCompleted(userToken)
-            .then((res) => {
-                if (!res.data.formCompleted) {
-                    setOpen(true);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        if (userToken) {
+            profileService.isFormCompleted(userToken)
+                .then((res) => {
+                    if (!res.data.formCompleted) {
+                        setOpen(true);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
 
 
     }, [userToken])
@@ -101,7 +103,7 @@ function App() {
                             <Route path="/clustering" element={<ClusterQuestion/>}/>
                             <Route path="/updateQuestions" element={<UpdateQuestions/>}/>
                             <Route path="/sleep" element={<MyComponent/>}/>
-                            <Route path="/meditation" element={<Meditation/>}/>
+                            <Route path="/to-do" element={<ToDo/>}/>
                         </Routes>
                     </BrowserRouter>
                 </div>

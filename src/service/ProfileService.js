@@ -16,6 +16,7 @@ export default class ProfileService extends Service {
     }
 
     async updateUser(payload, userToken) {
+        console.log(payload);
         return axios.put('/profile', payload,  {
             baseURL: this.endpointBase,
             headers: {

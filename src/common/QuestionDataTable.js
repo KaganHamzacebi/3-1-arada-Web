@@ -58,8 +58,8 @@ function QuestionDataTable(props){
                 <option>Select</option>
                 {
 
-                    question.potentialAnswer.map((answer) => {
-                        return <option>{answer}</option>
+                    question.potentialAnswer.map((answer, index) => {
+                        return <option key={index}>{answer}</option>
                     })
                 }
             </select>);
@@ -84,8 +84,8 @@ function QuestionDataTable(props){
                                     {props.isEditable &&
                                     <button onClick={() => setIsPopUpActive(true)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                             viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round"
                                                   d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                         </svg>
                                     </button> }
@@ -117,8 +117,8 @@ function QuestionDataTable(props){
                                                 })
                                             }}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                     viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                    <path strokeLinecap="round" strokeLinejoin="round"
                                                           d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                 </svg>
                                             </button>
@@ -137,7 +137,7 @@ function QuestionDataTable(props){
                             <tfoot className="bg-gray-50">
                             <tr>
 
-                                <td align="left">
+                                <td className="" align="left">
                                     {page > 0 &&
                                     <button
                                         onClick={() => {
@@ -145,18 +145,18 @@ function QuestionDataTable(props){
                                             setPage(page-1)
                                         }}
                                     >
-                                        Previous Page
+
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                             viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4">
+                                            <path strokeLinecap="round" strokeLinejoin="round"
                                                   d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                                         </svg>
                                     </button>
                                     }
                                 </td>
 
-                                <td align="right">
-                                    { questions && page < (questions.length / 10)-1 &&
+                                <td className="" align="right">
+                                    { questions && page < (questions.length / 5)-1 &&
                                     <button
                                         onClick={() => {
                                             if (handleValidation()){
@@ -168,15 +168,15 @@ function QuestionDataTable(props){
                                             }
                                             }}
                                     >
-                                        Next Page
+
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                             viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4">
+                                            <path strokeLinecap="round" strokeLinejoin="round"
                                                   d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                         </svg>
                                     </button>
                                     }
-                                    {!props.isEditable && questions && page === (questions.length / 10)-1 &&
+                                    {!props.isEditable && questions && page === (questions.length / 5)-1 &&
                                     <button
                                         onClick={(e) => {
                                             let payload = [];
