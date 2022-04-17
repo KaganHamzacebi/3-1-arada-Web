@@ -33,4 +33,13 @@ export default class ProfileService extends Service {
         });
     }
 
+    async isFormCompleted(userToken) {
+        return axios.get('/profile/isFormComplete',  {
+            baseURL: this.endpointBase,
+            headers: {
+                Authorization: 'Bearer ' + userToken
+            }
+        });
+    }
+
 }

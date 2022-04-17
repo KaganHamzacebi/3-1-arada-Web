@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import AddQuestionPopUp from "../views/ClusterQuestions/AddQuestionPopUp";
 import "./QuestionDataTable.css"
 import {useCookies} from "react-cookie";
+import {QuestionModalContext} from "../App";
 function QuestionDataTable(props){
     let questions = props.questions && props.questions.questions;
     let [visibleQuestions,setVisibleQuestions] = useState(null);
     let [page,setPage] = useState(0);
+    const {setOpen} = useContext(QuestionModalContext);
     const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
     const [userToken, setUserToken] = useState(cookies["userToken"]);
     useEffect(() => {
         if (questions){
-            setVisibleQuestions(props.questions.questions.slice(page*10,(page*10+10)))
-            if (page * 10 >= props.questions.questions.length){
+            setVisibleQuestions(props.questions.questions.slice(page*5,(page*5+5)))
+            if (page * 5 >= props.questions.questions.length){
                 setPage(page-1);
             }
         }
@@ -182,8 +184,18 @@ function QuestionDataTable(props){
                                                 payload.push({questionBody:question.questionBody,answer:props.answers[question.questionBody]})
                                             })
                                             if (handleValidation()){
-                                                setError(false);
-                                                props.service.submitAnswers(userToken,payload);
+
+                                                props.service.submitAnswers(userToken,payload)
+                                                    .then((res) => {
+                                                        if (res.status === 200) {
+                                                            setError(false);
+                                                            setOpen(false);
+                                                        }
+                                                    })
+                                                    .catch((err) => {{
+                                                        console.log(err);
+                                                        setError("An error occurred!");
+                                                    }})
                                             }
                                             else {
                                                 setError("Please submit an answer for each question")

@@ -1,5 +1,5 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {createContext, useEffect, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 
 //Views
@@ -21,8 +21,10 @@ import ResetSuccess from "./views/ResetPasswordResults/ResetSuccess";
 import ResetFailed from "./views/ResetPasswordResults/ResetFailed";
 import TokenExpired from "./views/ResetPasswordResults/TokenExpired";
 import ToDo from "./views/ToDo/ToDo";
+import Popup from "reactjs-popup";
 
 export const UserContext = createContext(null);
+export const QuestionModalContext = createContext(null);
 
 function App() {
     const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
@@ -30,6 +32,21 @@ function App() {
     const [user, setUser] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const profileService = new ProfileService();
+
+    const [open, setOpen] = useState(false);
+    const closeModal = () => setOpen(false);
+    const contentStyle = {width: "fit-content", borderRadius: "16px"};
+
+    const QuestionsModal = () =>
+        <Popup
+            open={open}
+            onClose={closeModal}
+            {...{contentStyle}}
+        >
+            <QuestionModalContext.Provider value={{setOpen}}>
+                <ClusterQuestion/>
+            </QuestionModalContext.Provider>
+        </Popup>
 
     useEffect(() => {
         async function fetchData() {
@@ -49,10 +66,22 @@ function App() {
 
         fetchData();
 
+        profileService.isFormCompleted(userToken)
+            .then((res) => {
+                if (!res.data.formCompleted) {
+                    setOpen(true);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+
     }, [userToken])
 
     return (
         <UserContext.Provider value={{user, userToken, setUserToken}}>
+            <QuestionsModal/>
             {loaded ?
                 <div id="appWrapper" className="w-full h-full flex flex-col flex-grow">
                     <BrowserRouter>

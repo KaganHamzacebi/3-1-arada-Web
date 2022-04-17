@@ -4,14 +4,13 @@ import LogoWhite from "../../assets/images/logo_white.png";
 import {LocationMarkerIcon} from "@heroicons/react/outline";
 import LoginForm from "./LoginForm"
 import "./Login.css";
-import {createContext, useState} from "react";
+import React, {createContext, useState} from "react";
 import {ExclamationCircleIcon} from "@heroicons/react/solid";
 
 export const LoginErrorContext = createContext(null);
 
 export default function Login() {
     const navigate = useNavigate();
-
     const [showLoginError, setShowLoginError] = useState(false);
     const [loginErrorMessage, setLoginErrorMessage] = useState("An unexpected error occurred!");
 

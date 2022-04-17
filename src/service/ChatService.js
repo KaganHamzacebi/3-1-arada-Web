@@ -48,7 +48,7 @@ export default class ChatService extends Service {
     }
 
     reportChat(payload, userToken) {
-        return axios.get('/report', {
+        return axios.get('/chat-report', {
             baseURL: this.endpointBase,
             headers: {
                 Authorization: 'Bearer ' + userToken

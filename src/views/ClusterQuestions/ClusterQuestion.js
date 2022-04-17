@@ -18,18 +18,12 @@ function ClusterQuestion(){
         })
     },[])
     return(
-        <div id="clusterQuestionWrapper">
-            <Header/>
-            <div id="clusterDataTableWrapper" className="pt-14 pb-20 md:pt-36 px-8 md:px-24">
-
-                <QuestionDataTable
-                    answers={answers}
-                    service={service}
-                    setAnswers={setAnswers}
-                    questions={questions}
-                    fetchCompleted={fetchComplete}
-                />
-            </div>
-        </div>);
+        <QuestionDataTable
+            answers={answers}
+            service={service}
+            setAnswers={setAnswers}
+            questions={questions}
+            fetchCompleted={fetchComplete}
+        />);
 }
 export default ClusterQuestion;
