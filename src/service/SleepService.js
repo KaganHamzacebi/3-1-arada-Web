@@ -6,8 +6,8 @@ export default class SleepService extends Service {
         super('');
     }
 
-    async getSleepData(payload, userToken) {
-        return await axios.get("/sleep/web", {
+    async getSleepData(week, userToken) {
+        return await axios.get(`/sleep/web?week=${week}`, {
             baseURL: this.endpointBase,
             headers: {
                 Authorization: 'Bearer ' + userToken

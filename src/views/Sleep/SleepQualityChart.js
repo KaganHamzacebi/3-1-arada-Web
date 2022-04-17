@@ -9,7 +9,8 @@ import {
     Title,
     Tooltip,
 } from 'chart.js';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {SleepChartContext} from "./Sleep";
 
 ChartJS.register(
     CategoryScale,
@@ -21,18 +22,8 @@ ChartJS.register(
     Legend
 );
 
-export default function SleepQualityChart(props) {
-    const [data, setData] = useState(null);
-    const [labels, setLabels] = useState(null);
-
-    useEffect(() => {
-        console.log("chart");
-        console.log(props.data);
-        console.log(props.label);
-        setData(props.data);
-        setLabels(props.label);
-        //setLabels(['17:10', '17:11', '17:12', '17:13', '17:14', '17:15', '17:16', '17:17', '17:18', '17:19', '17:20', '17:21']);
-    }, [data])
+export default function SleepQualityChart() {
+    const {chartDayData, chartDayLabel} = useContext(SleepChartContext);
 
     const options = {
         options: {
@@ -82,11 +73,11 @@ export default function SleepQualityChart(props) {
 
 
     const dataForChart = {
-        labels: ['17:10', '17:11', '17:12', '17:13', '17:14', '17:15', '17:16', '17:17', '17:18', '17:19', '17:20', '17:21'],
+        labels: chartDayLabel,
         datasets: [
             {
                 label: 'Quality',
-                data: [10, 9, 8, 10, 10, 5, 10, 10, 10, 10, 10, 10],
+                data: chartDayData,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
