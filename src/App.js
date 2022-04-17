@@ -1,5 +1,5 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import React, {createContext, useEffect, useState} from 'react';
+import {createContext, useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 
 //Views
@@ -101,7 +101,7 @@ function App() {
                             <Route path="/clustering" element={<ClusterQuestion/>}/>
                             <Route path="/updateQuestions" element={<UpdateQuestions/>}/>
                             <Route path="/sleep" element={<MyComponent/>}/>
-                            <Route path="/to-do" element={<ToDo/>}/>
+                            <Route path="/meditation" element={<Meditation/>}/>
                         </Routes>
                     </BrowserRouter>
                 </div>
