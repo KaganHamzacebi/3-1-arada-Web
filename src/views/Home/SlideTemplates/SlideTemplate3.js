@@ -4,7 +4,7 @@ export default function SlideTemplate3(
 
     return (
         <div className="flex">
-            <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 opacity-95 py-6 rounded-xl">
+            <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 opacity-95 py-6 md:px-24 rounded-xl">
                 <div className="m-auto col-span-2 px-4 py-4 md:px-24 flex flex-col gap-y-4">
                     <span className="font-bold text-3xl text-white">{props.header}</span>
                     <span className="text-xl text-white">{props.body}</span>

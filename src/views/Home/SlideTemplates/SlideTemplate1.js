@@ -4,7 +4,7 @@ export default function SlideTemplate1(
 
     return (
         <div className="flex">
-            <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 opacity-95 py-6 rounded-xl">
+            <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 opacity-95 py-6 md:px-24 rounded-xl">
                 <div className="col-span-1">
                     <img src={props.img} alt={props.alt} className="ml-4 m-auto h-128"/>
                 </div>
